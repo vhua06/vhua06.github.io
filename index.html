@@ -5259,5 +5259,14 @@
         <a href="#modal-closed" role="button" class="link-2" title="關閉視窗">X</a>
       </div>
     </div>
+    <script>
+	function openURLm(title, url) {
+	  let msg = (title !== undefined) ? "另開新視窗，連結 「" + title + "」？" : "您即將離開本網站，繼續前往連結頁嗎?";
+	  let yesno = confirm(msg);
+	  if (yesno == true) {
+	      window.open(url, "_blank");
+	  }
+	}
+    </script>
   </body>
 </html>
