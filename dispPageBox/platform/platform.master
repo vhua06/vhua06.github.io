@@ -1,0 +1,96 @@
+﻿<%@ Master Language="c#" Src="platform.master.cs" Inherits="MasterPage" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-TW">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+<meta http-equiv="imagetoolbar" content="no"/> 
+<meta name="revisit-after" content="7 days"/>
+<meta name="author" content="信諾科技"/> 
+<meta name="copyright" content="本網頁著作權屬信諾科技所有"/> 
+<meta name="distribution" content="Taiwan"/> 
+<meta name="rating" content="general"/> 
+<meta name="distribution" content="global"/> 
+<meta name="title" content=""/>
+<meta name="description" content=""/>
+<meta name="keywords" content="">
+<title><asp:Literal ID="pageTitle" runat="server" /></title>
+<link rev="made" href="http://www.utrust.com.tw/"/> 
+<link rel="shortcut icon" href="images/favicon.ico"/> 
+<link rel="icon" type="image/gif" href="./favicon.ico"/> 
+<link rel="image_src" type="image/jpeg" href=""/>
+<link type="text/css" rel="stylesheet" href="<%=ResolveUrl("~/dispPageBox/platform/css/default.css") %>" media="screen" title="樣式設定"/>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> 
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+<script type="text/javascript" src="<%=ResolveUrl("~/dispPageBox/platform/js/jquery.cookie.js") %>"></script>
+<script type="text/javascript" src="<%=ResolveUrl("~/dispProject/js/ckeditor/ckeditor_basic.js") %>"></script>
+<script type="text/javascript" src="<%=ResolveUrl("~/dispPageBox/platform/js/maintain.js") %>"></script>
+<script type="text/javascript" src="<%=ResolveUrl("~/dispPageBox/platform/js/custom.js") %>"></script>
+</head>
+<body>
+<form runat="server">
+<!-- wrapper  Start-->
+<div id="wrapper">
+	<div id="header">
+    <div id="top">
+    <!-- Logo -->
+    <div class="logo"><a href="<%=ResolveUrl("~/dispCore/") %>" title="DISP WebSite 6.0" class="loading"><img src="<%=ResolveUrl("~/dispPageBox/platform/images/logo.png") %>" alt="UTRUST" /></a></div>
+    <!-- Login / Logout  Start-->
+    <div class="UserSet">
+	<div class="Management"><span><asp:Literal ID="ltrTopTitle" runat="server"/>:</span><asp:DropDownList ID="select_WebConfig" OnSelectedIndexChanged="Change_WebConfig" AutoPostBack="true" runat="server"/></div>
+		<ul>            
+            <li class="User">Welcome, <%=Session["MbrRecID"].ToString() %></li>
+            <li class="Logout"><a href="<%=ResolveUrl("~/dispLogin/Logout.aspx") %>" title="登出"><em>登出</em></a></li>
+            <li class="Account"><a href="<%=ResolveUrl("~/dispCore/dispSystem/MbrRec.aspx") %>" title="帳戶管理" class="loading"><em>帳戶管理</em></a></li>
+		</ul>
+    </div>
+    <!-- Login / Logout End-->
+    </div>
+	</div>
+<!-- mainbg Start-->
+	<div id="mainbg">
+    <!-- maincontent Start-->
+    <div id="maincontent">
+
+		<div id="content">
+        <!--內容訊息與資訊 Start-->
+        <div id="dispinfo" >
+			<asp:ContentPlaceHolder id="ContentPlaceHolder" runat="server"></asp:ContentPlaceHolder>
+         </div>
+       <!--內容訊息與資訊 End-->
+		<br clear="both">
+        
+		</div>
+        <!-- 左方主選單 Start-->
+		<div id="sidebar">
+        <asp:Literal ID="dispMenu" runat="server" />
+        </div>
+        <!-- 左方主選單 End-->
+     
+	</div>
+<!-- maincontent End-->    
+    </div>
+<!-- mainbg End-->
+
+</div>
+<!-- wrapper  End-->
+
+<!-- Footer Start-->
+	<div id="footer">
+    <div class="Info">最後更新：2012.2.16</div>
+    <div class="Icon"><em>DISP Website Icon</em></div>
+    <div class="CopyRight">
+	&copy; 2006-2012 UTRUST Technology Co., Ltd
+	</div>
+    </div>
+<!-- Footer End-->
+
+</form>
+<div id="loader">
+	<p>
+	<img src="<%=ResolveUrl("~/dispPageBox/platform/images/loader.gif") %>"/>
+	<span>Loading ...</span>
+	</p>
+</div>
+</body>
+</html>
+

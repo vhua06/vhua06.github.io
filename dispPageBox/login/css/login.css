@@ -1,0 +1,46 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*                登入頁樣式設定   
+=====================================================*/
+
+body {position:relative;height:100%;background:#ffffff ;font-family: "微軟正黑體",Tahoma, Arial, sans-serif; width:100%;}
+*{margin:0; padding:0;}
+img {border:0;}
+
+a{color: #4BA9BA; cursor: pointer; 
+outline: none; /* Firefox,Chrome */
+hlbr: expression(this.onFocus=this.blur()); /* IE */}
+a:link {text-decoration: none;}
+a:visited {text-decoration: none;color: #7b7c81;}
+a:hover {text-decoration: none; color: #999999;}
+a:active {text-decoration: none;color: #7b7c81;}
+/* remember to define focus styles! */
+:focus {outline: 0 !important; }
+
+#main {width:100%;margin:0 auto;}
+#main #mainbox {clear:both; float:none; position:relative; width:565px; height:290px;background: url(../images/bg_mainbox.png) no-repeat; margin:175px auto 0; }
+#main #mainbox .logo {width:200px; height:65px; background:url(../images/login_logo.png) no-repeat; position:absolute; float:left; top:5px; left:10px;}
+#main #mainbox .logo em { display:none;}
+#main #mainbox .info {width:200px; height:65px; background:url(../images/login_info.png) no-repeat; position:absolute; float:right; top:5px; right:15px;}
+#main #mainbox .info em { display:none;}
+#main #mainbox .loginbox { width:290px; position:relative; top:104px;margin:0 auto;_top:50px}
+#main #mainbox .loginbox p.img{ float:left; margin:0 0 0 160px; }
+#main #mainbox .copyright { position:absolute; font-size:11px; color: #999999; float:right; top:293px; right:8px;}
+#main #mainbox .copyright img{ vertical-align:bottom; padding:0 0 0 3px}
+#mainbox p {clear:both; float:none; height:40px;_padding:3px 0;}
+#mainbox p input { _text-align:right;}
+
+
+/* 登入表單設定 -  
+-------------------------------------*/
+p label { float:left; padding:5px ; display:inline;font-size:15px; font-weight:bold;color:#000; margin-right:10px; }
+p INPUT[type="text"],INPUT[type="password"] {color:#555555; text-align:center; padding:5px; float:right; margin-right:15px; font-family:"微軟正黑體";
+-moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; }
+p input[type="radio"] { margin:2px 2px 0 0px; padding: 0; /*for ie*/outline:none; border:none !important; background:none; float:left}
+p INPUT.InputTxt {background:url(../images/input.png) 0 0 repeat-x;border: #DBE6E6 1px solid !important; color: #999999; text-align:left;
+-moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; float:left; width:200px; font-family:"微軟正黑體";}
+
+/*************************************************************************************************
+ │DISP V6.0 All Rights Reserved. │ Polly Liu │ www.uTrust.com.tw │ contact@utrust.com.tw │
+*************************************************************************************************/

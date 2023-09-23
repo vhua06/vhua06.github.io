@@ -1,0 +1,86 @@
+@import url("base.css");/*版型與內容樣式設定*/
+@import url("design.css");/*樣版樣式設定*/
+@import url("table.css");/*表格樣式設定*/
+@import url("form.css");/*表單、按鈕樣式設定*/
+
+@charset "utf-8";
+/* CSS Document */
+/*************************************************************************************************
+ │DISP V6.0 All Rights Reserved. │ Polly Liu │ www.uTrust.com.tw │ contact@utrust.com.tw │
+*************************************************************************************************/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,b, u, i, 
+center, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,input, textarea, select,
+table, caption, tbody, tfoot, thead, tr, th, td {
+margin: 0;padding: 0; border: 0;outline: 0;	font-size: 100%;}
+
+* { margin:0;padding:0;list-style-type: none;text-decoration: none;}
+ol,ul {list-style: none; list-style-type:none;}
+blockquote, q {	quotes: none;}
+blockquote:before, blockquote:after,q:before, q:after {	content: ''; content: none;}
+
+html { font-size: 100%; margin: 0;padding: 0;}
+	
+body { font-family:"微軟正黑體",Arial, sans-serif; font-size:12px; position:relative;margin: 0; padding: 0;line-height:1.5em; color: #666666; height:100%;
+	/* ipod touch / iphone text resize */
+	-webkit-text-size-adjust:none;}
+
+a{color: #4BA9BA;cursor: pointer;}
+a:link {text-decoration: none;}
+a:hover {text-decoration: none; color: #7b7c81;}
+/* remember to define focus styles! */
+:focus {outline: 0 !important;}
+
+/* Text Highlight
+---------------------------------------------------*/
+::selection{ /* Safari and Opera */  
+    background: #6FD5D5;   
+    color: #ffffff;    
+}  
+::-moz-selection{ /* Firefox */  
+    background: #E4BF4E;   
+    color:#ffffff;  
+}
+
+/* remember to highlight inserts somehow
+---------------------------------------------------*/
+ins {text-decoration: none;}
+del {text-decoration: line-through;}
+
+table {	border-collapse: collapse; border-spacing: 0;}
+td.alignLeft{ text-align:left;}
+td.alignRight{ text-align:right;}
+td.alignCenter{ text-align: center;}
+
+.fl-right{float:right;}
+.fl-left {float:left;}
+.cl-right{clear:right;}
+.cl-left {clear:left;}
+.cl-both {clear:both;}
+
+.center{ text-align:center;}
+.left{ text-align:left;}
+.right{ text-align:right}
+
+/* Clearing floats
+--------------------------------------------------*/
+.clearfix:after { content: ".";  display: block; height: 0; clear: both; visibility: hidden;}
+.clearfix { display: inline-block }
+.clearfix { display:block }
+.clearfix {	clear:both;	height:0; font-size:1px; line-height:1px; width:100%; overflow:hidden;}
+
+/*body{ padding: 15px 0 0 0px;}
+#wrapper{ width:95%;}*/
+/*#main{ padding:15px 0; position: relative; }
+#content{ margin-left:250px; border: 1px solid #999; padding:15px;}*/
+/*#sidebar{ width:205px; border: 1px solid #999; position: absolute; left: 0px; top: 15px;padding:15px; }
+
+ul ul { margin-left:18px;}*/
+
+
+
