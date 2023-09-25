@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg version="1.1" id="img-vk-top" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="1005.674px" height="575.194px" viewBox="0 0 1005.674 575.194" enable-background="new 0 0 1005.674 575.194"
+	 xml:space="preserve">
+<g>
+	<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="-398.3105" y1="431.8096" x2="805.2899" y2="128.9344">
+		<stop  offset="0" style="stop-color:#FFFFFF"/>
+		<stop  offset="0.3455" style="stop-color:#39C3E9"/>
+		<stop  offset="0.9879" style="stop-color:#09A0C9"/>
+	</linearGradient>
+	<path fill="url(#SVGID_1_)" d="M0,0.078c0,0,87.743,4.521,130.23,15.794c36.91,9.794,84.896,38.479,67.821,83.466
+		c-15.792,41.603-59.414,67.266-88.797,98.169c-60.951,64.105-124.046,177.697-74.72,264.75
+		c38.712,68.32,104.603,97.411,177.604,108.156c71.314,10.496,140.797,2.739,210.724-13.831
+		c59.381-14.07,117.809-34.672,174.375-57.433c182.791-73.548,305.437-137.148,408.437-140.084V0.68L0,0.078z"/>
+</g>
+</svg>

@@ -1,0 +1,171 @@
+
+/* 輔助功能元件樣式設定 */
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+			常用輔助導覽列元件設定
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */	
+ 
+/*導覽列元件---次選單------------------------------*/
+#SubMenu{ width:100%;margin:0 0 15px 0; padding:0;}
+#SubMenu .MenuDiv{  margin:0;}
+#SubMenu .MenuDiv ul{ padding:0; margin:0; overflow:hidden; list-style-position:outside;}
+#SubMenu .MenuDiv ul li { width:172px; height:48px;padding:0; margin:0;  background: url(../images/bg_submenu.gif) no-repeat top;}
+#SubMenu .MenuDiv ul li:hover, #SubMenu .MenuDiv ul li:focus, #SubMenu .MenuDiv ul li:active{  background: url(../images/bg_submenu.gif) no-repeat bottom;}
+#SubMenu .MenuDiv ul li a:link,#SubMenu .MenuDiv ul li a:visited{ color:#666; font-size:12px;display:block; padding:15px 0 0 35px; line-height:18px;}
+#SubMenu .MenuDiv ul li a:hover,#SubMenu .MenuDiv ul li a:active{ color:#6699cc;}
+
+
+/*導覽列元件---分類選單 -------------*/
+#CateMenu{ clear:both;	padding: 3px 0 5px 3px; margin:0 0 3px 0;color: #333333; font-size:.8em;background-color: #F4F1FA;border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;	}
+#CateMenu a{color: #9E64D6;text-decoration: none;}
+#CateMenu a:hover{color: #333333;text-decoration: none;background-color: #D7BAF3;}
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+			常用輔助元件各別設定
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+/*---跳頁選單設定-----------------------------------------------------*/
+#JumpPage{ font-size:.7em; clear:both; white-space:nowrap; background:#f5f5f5; height:25px; padding:3px 5px; margin:15px 0; text-align:right; overflow:hidden; position:relative;}
+#JumpPage .nowpage{ padding:0; color:#777; float:left; }
+#JumpPage .selectPage{ text-align:right; width:135px; padding:0; color:#777; float:right; white-space:nowrap;}
+#JumpPage a{  white-space:nowrap; padding:0; margin:-1px 3px 0 3px; /*float:left;*/ text-align:center;}
+#JumpPage a.prevBtn{ width:10px; height:10px; display:block; background:url(../images/btn_Jumppage.gif) no-repeat 2px 0;}
+#JumpPage a.prevBtn:hover{background-position: 2px -16px;}
+#JumpPage a.nextBtn{ width:10px; height:10px; display:block; background:url(../images/btn_Jumppage.gif) no-repeat -14px 0;}
+#JumpPage a.nextBtn:hover{  background-position: -14px -16px;}
+
+
+/*輔助元件----麵包屑導覽路徑-----------------------------*/
+#PathArea{font-size:10px; color:#9da2a6; text-align:right; padding:0; overflow:visible;}
+#PathArea a:link,#PathArea a:visited{ padding:0 10px 0 0; margin:0 5px 0 0; color:#069;  background:url(../images/icon_pathArea.png) no-repeat right center; }
+#PathArea a:hover,#PathArea a:active{ color:#1391ae; } 
+ 
+/*輔助元件---全站搜尋-----------------------------------*/
+#SearchSet{	width:310px; height:25px; margin:0;padding:0; background:url(../images/bg_SearchSet.gif) no-repeat; position:absolute; left:525px; top:15px; z-index:899;}
+#SearchSet .Title{ float:left; width:66px; display:block; height:100%;}
+#SearchSet .Title em{ display:none;}
+#SearchSet ul{ margin:0; padding:0; float:left; list-style:none; display:block; }
+#SearchSet ul li { float:left; margin:0; padding:0;}
+#SearchSet ul li input.TXT{ width: 180px;font-size:.7em;color: #cccccc;border:none; padding:0;margin: 3px 0 0 0;}
+#SearchSet ul li input.BTN{	width: 25px; height:25px; display:block; margin: 0 0 0 5px; padding:0;border:none;background:url(../images/bg_SearchSet.gif) no-repeat -250px 0 ;cursor: pointer; }
+
+
+/*輔助元件---Banner列表--------------------*/
+#BannerSet{}
+#BannerSet ul{padding:0; margin:10px 0 15px 0; list-style:none; }
+#BannerSet ul li{padding:0; margin:0 0 5px 0; text-align:center;   /*解決li間空隙問題*/font-size:0; line-height:1em;}
+#BannerSet ul li img{ border:none; margin:0 auto; padding:0; width:auto; height:auto;}
+#BannerSet ul li a{ margin:0; padding:0;}
+
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+			常用輔助元件共用設定
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */	
+/*共用樣式-----標題樣式設定--------------------------*/
+.HeadTitle{ height:30px; display:block; background:url(../images/bg_HeadTitle.gif) no-repeat bottom left;}
+.HeadTitle em{ color:#333; font-size:.75em; line-height:1.7em; font-style:normal; font-weight:bold; margin:0 0 0 15px; padding:0;}
+.HeadTitle a.moreBtn{ float:right; width:34px; height:11px; background:url(../images/btn_more.gif) no-repeat; margin:6px 0 0 0; padding:0;}
+.HeadTitle a.moreBtn:hover{}
+.HeadTitle a.moreBtn em{ display:block;}
+
+
+/*輔助元件---頭條新聞---圖片標題日期引文------------------*/
+#News_msgHot{ margin:0; padding:0; background:none; height:210px;}
+#News_msgHot .HeadTitle{ margin:0 0 10px 0; padding:0;  }
+/*共用樣式---頭條圖文並茂+日期條列式訊息，僅一則主訊息--------------------------*/
+ul.msgHot{line-height:1.2em; padding:0; margin:0 0 15px 0; }
+ul.msgHot li{ display:block; overflow:visible;font-size:.75em;padding:0;}
+ul.msgHot li.right{ padding:0;}
+ul.msgHot li .Pic{ color:#99cc00; width:240px;  font-size:.85em; float:left; margin:0; padding:0;}
+ul.msgHot li .Pic img{ border:#ccc solid 1px; width:225px;}
+ul.msgHot li .Date{ color:#ccc; display:block; font-size:.85em;}
+ul.msgHot li .Title{ white-space:normal; margin:0; padding:0;}
+ul.msgHot li .Title a{ color:#cc6633;font-weight:bold;}
+ul.msgHot li .Title a:hover{ color:#6699cc;}
+ul.msgHot li .Quote{ white-space:normal; line-height:1.5em;}
+ul.msgHot li .Quote a{ font-size:.85em; white-space:normal;}
+
+
+/*輔助元件--瀏覽人數-----------------------*/
+#BrowserSet{ margin:0; padding:0; }
+/*輔助元件--最新消息-----------------------*/
+#News_msgList{ margin:0; padding:0; }
+/*共用樣式-----條列式訊息，無日期顯示--------------------------*/
+ul.msgList{line-height:1em; padding:0; margin:10px 0 15px 0; }
+ul.msgList li{ display:block; overflow:visible;font-size:.75em;padding:0 0 0 15px; background:url(../images/icon_msgList.jpg) no-repeat left 6px; clear:both;}
+ul.msgList li a{ color:#767676;}
+ul.msgList li a:hover{ color:#6699cc;}
+
+
+
+#News_msgList_Date{ margin:0; padding:0; width:310px; }
+/*共用樣式-----條列式訊息，有日期顯示--------------------------*/
+ul.msgList_Date{line-height:1.2em; padding:0; margin:10px 0 15px 0; }
+ul.msgList_Date li{ display:block; overflow:visible;font-size:.75em;padding:0 0 0 15px; background:url(../images/icon_msgList.jpg) no-repeat left 6px; clear:both; height:15px;}
+ul.msgList_Date li .Date{ color:#99cc00; float:left; width:55px; display:block; font-size:.85em;}
+ul.msgList_Date li .Title{ white-space:normal; float:left;}
+ul.msgList_Date li .Title a{ color:#767676;}
+ul.msgList_Date li .Title a:hover{ color:#6699cc;}
+
+
+
+/*標題日期引文*/
+#News_msgList_DateQuote{ width:auto; margin:0; padding:0; background:url(../images/News_msgList_ImgDateQuote_bg.gif) repeat-x; clear:both;}
+/*共用樣式-----圖文並茂+日期條列式訊息--------------------------*/
+ul.DateQuote{line-height:1.2em; padding:0; margin:0 0 15px 0; }
+ul.DateQuote li{ display:block; overflow:visible;font-size:.75em;padding:0 14px 5px 10px; background:url(../images/icon_down.gif) no-repeat left 8px;}
+ul.DateQuote li .Date{ color:#336699; width:55px; display:block; font-size:.85em; float:left;}
+ul.DateQuote li .Title{ white-space:nowrap; overflow:hidden; float:left;}
+ul.DateQuote li .Title a{ color:#cc6633; font-weight:bold;}
+ul.DateQuote li .Title a:hover{ color:#6699cc;}
+ul.DateQuote li .Quote{ white-space:normal; line-height:1em; clear:both;}
+ul.DateQuote li .Quote a{ font-size:.85em; white-space:normal;}
+
+
+#News_msgList_ImgDateQuote{ margin:0; padding:0; width:218px; }
+/*共用樣式-----圖文並茂+日期條列式訊息--------------------------*/
+ul.ImgDateQuote{line-height:1.2em; padding:0; margin:10px 0 15px 0; }
+ul.ImgDateQuote li{ display:block; overflow:visible;font-size:.75em;padding:0 0 15px 5px; float:left; width:100px;}
+ul.ImgDateQuote li.right{ padding:0;}
+ul.ImgDateQuote li .Pic{ color:#99cc00; width:55px; display:block; font-size:.85em;}
+ul.ImgDateQuote li .Pic img{ border:#ccc solid 1px; height:65px;}
+ul.ImgDateQuote li .Date{ color:#ccc; width:55px; display:block; font-size:.85em;}
+ul.ImgDateQuote li .Title{ white-space:normal; line-height:1em;}
+ul.ImgDateQuote li .Title a{ color:#00afce;}
+ul.ImgDateQuote li .Title a:hover{ color:#6699cc;}
+ul.ImgDateQuote li .Quote{ white-space:normal; line-height:1.2em; font-size:.85em; color:#999;}
+ul.ImgDateQuote li .Quote a{ font-size:.85em; white-space:normal;}
+
+
+#News_FirstMain{ margin:0; padding:0; width:310px; }
+/*共用樣式-----首則訊息強調圖文並茂，其他為日期標題條列式訊息--------------------------*/
+ul.FirstMain{line-height:1.2em; padding:0; margin:10px 0 15px 0; overflow:hidden; }
+ul.FirstMain li.First{ background:none !important; margin:0; padding:0; width:310px;}
+ul.FirstMain li.First .Pic{ margin:0; width:120px; float:left;}
+ul.FirstMain li.First .Pic img{ border:#ccc solid 1px; padding:2px; float:none; height:65px;}
+ul.FirstMain li.First .Info{ width:190px; float:right; text-align:left;}
+ul.FirstMain li.First .Title{ white-space:normal;background:none; float:none;}
+ul.FirstMain li.First .Title a{ font-size:1.2em; color:#00afce;white-space:normal; font-weight:bold; float:none;}
+ul.FirstMain li.First .Title a:hover{ color:#6699cc;}
+ul.FirstMain li.First .Date{ color:#ccc; font-size:.85em;white-space:normal; float:none;}
+ul.FirstMain li.First .Quote{ font-size:.85em;white-space:normal;line-height:1.2em; color:#999;}
+ul.FirstMain li.First .Quote a{ font-size:.85em; white-space:normal;}
+ul.FirstMain li{ display:block; overflow:visible;font-size:.75em;padding:0 0 0 15px; background:url(../images/icon_msgList.jpg) no-repeat left 6px; clear:both; height:15px;}
+ul.FirstMain li .Date{ color:#99cc00; float:left; width:55px; display:block; font-size:.85em;}
+ul.FirstMain li .Title{ white-space:normal; float:left;}
+ul.FirstMain li .Title a{ color:#767676;}
+ul.FirstMain li .Title a:hover{ color:#6699cc;}
+
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	DISP Web Demo  2010 - All Rights Reserved.	
+	
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+ /* 
+CSS Document 
+CSS-P Style writed by zoe / 2010-08-11
+www.uTrust.com.tw / contact@utrust.com.tw*/

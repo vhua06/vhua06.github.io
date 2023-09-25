@@ -1,0 +1,320 @@
+
+/* 主要內容樣式設定 */
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+			常用訊息列表共用設定
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */	
+
+/*訊息項目 - 文字列表*/
+ul.ListMsg{ padding:0; margin:0; font-size:13px;}
+ul.ListMsg li{ clear:both; border-bottom:#ccc dotted 1px; padding:10px 0;}
+ul.ListMsg li .Item{ float:left; width:20px; text-align:center;}
+ul.ListMsg li .Pic{ width:180px; float:left;}
+ul.ListMsg li .Title{ float:left; width:450px; overflow:hidden;}
+ul.ListMsg li .Date{  color:#CCC;}
+ul.ListMsg li .Note{ padding:0 0 0 20px; line-height:22px; clear:both;}
+ul.ListMsg li a:link{  border-bottom:#179dbc dotted 1px;}
+ul.ListMsg li a:hover{ border-bottom:#179dbc solid 1px;}
+
+/*訊息項目 - 圖文列表*/
+ul.ListImgMsg{ padding:0; margin:0; font-size:13px;}
+ul.ListImgMsg li{ clear:both; border-bottom:#ccc dotted 1px; padding:10px 0;}
+ul.ListImgMsg li .Item{ float:left; width:20px; text-align:center;}
+ul.ListImgMsg li .Pic{ width:180px; float:left;}
+ul.ListImgMsg li .Pic a:link{ border:none;}
+ul.ListImgMsg li .Pic img{ width:166px;}
+ul.ListImgMsg li .Title{}
+ul.ListImgMsg li .Date{ font-size:11px; color:#CCC; line-height:20px; clear:none; float:none !important;}
+ul.ListImgMsg li .Note{ height:60px; overflow:hidden; padding:5px 0 0 0; line-height:22px;}
+ul.ListImgMsg li a:link{  border-bottom:#179dbc dotted 1px;}
+ul.ListImgMsg li a:hover{ border-bottom:#179dbc solid 1px;}
+
+/*訊息項目 - 圖片為主排列列表*/
+ul.ListImgBlock{ font-size:13px; display:block; }
+ul.ListImgBlock li{float:left; width:170px; height:220px; overflow:hidden; display:block; padding:0 5px; clear:none; margin:0 0 10px 0; }
+ul.ListImgBlock li .Item{ float:none; width:auto; text-align:center; background:#FFC;}
+ul.ListImgBlock li .Pic{ float:none; margin:0 0 10px 0; padding:0; width:auto; text-align:center;}
+ul.ListImgBlock li .Pic a{ border:none; padding:0; margin:0; text-decoration:none;}
+ul.ListImgBlock li .Pic a:link{ border:none; padding:0; margin:0; text-decoration:none;}
+ul.ListImgBlock li .Pic img{ border:none;}
+ul.ListImgBlock li .Title{ line-height:1.5em; padding: 0 0 3px 0;}
+ul.ListImgBlock li .Date{ font-size:11px; color:#CCC; line-height:1em; float:none !important;}
+ul.ListImgBlock li .Note{ height:auto; overflow:hidden; padding:5px 0 0 0; line-height:22px;}
+ul.ListImgBlock li a:link{  border-bottom:#179dbc dotted 1px;}
+ul.ListImgBlock li a:hover{ border-bottom:#179dbc solid 1px;}
+
+
+
+/*訊息表格 - 圖文列表*/
+table.TabMsg{ background:#fff; font-size:12px; width:100%;border:#dedede solid 1px; border-top:#0b5f84 solid 3px;}
+table.TabMsg caption{ display:none;}
+table.TabMsg tr{}
+table.TabMsg th{ border-collpase:collpase;  text-align:center; color:#004c64; background:#f4f5f7; border-bottom:#dedede double 3px; height:25px; }
+table.TabMsg th em{ display:none; font-style:normal;}
+table.TabMsg th.Item{width:30px; background:#f4f5f7 url(../images/bg_TabMsgTitle.jpg) no-repeat -15px 5px;}
+table.TabMsg th.Pic{}
+table.TabMsg th.Pic em{ display:block;}
+table.TabMsg th.Title{width:200px; background:#f4f5f7 url(../images/bg_TabMsgTitle.jpg) no-repeat -200px 5px;}
+table.TabMsg th.Date{background:#f4f5f7 url(../images/bg_TabMsgTitle.jpg) no-repeat -585px 5px;}
+table.TabMsg th.Note{}
+table.TabMsg th.Note em{ display:block;}
+table.TabMsg td{ border-collpase:collpase; border-bottom: #e7e7e7 solid 1px; padding:3px 10px; }
+table.TabMsg td.Item{text-align:center;font-size:11px;}
+table.TabMsg td.Pic{}
+table.TabMsg td.Pic img{ width:166px;}
+table.TabMsg td.Title{ line-height:1.5em;}
+table.TabMsg td.Date{ text-align:center; font-size:11px;}
+table.TabMsg td.Note{}
+
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+			訊息列表頁各別樣式設定
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */	
+
+/*---公告訊息設定----------------------------------------*/
+#News_Table{ }
+#News_Table_Img{}
+#News_List{}
+#News_List_Img{}
+
+
+/*---成果專案設定----------------------------------------*/
+#Prj_Table table.TabMsg{}
+#Prj_Table table.TabMsg th{ background:#f4f5f7 none;}
+#Prj_Table table.TabMsg th.Title{ width:auto;}
+#Prj_Table table.TabMsg th.Date{ width:auto;}
+#Prj_Table table.TabMsg th em{ display:block;}
+
+
+/*工作實績列表*/
+#workListLayout{ height:450px; margin:50px 0 0 0;}
+ul.workList{padding:0; font-size:13px; margin:10px 0 0 0; clear:both; list-style:none;}
+ul.workList li{ float:left; margin:0 0 20px 0;list-style:none; padding:0; width:230px; height:130px;}
+ul.workList li img{ border:#dedede solid 1px; padding:3px; background:#fff; width:200px; height:75px;}
+ul.workList li img:hover{ border:#7fd7e6 solid 1px;}
+ul.workList li div{ line-height:16px;color:#000; width:200px; overflow:hidden; text-align:left; padding:0; margin:3px 0; white-space:normal;letter-spacing:0px;}
+ul.workList li p{font-size:11px; color:#777; line-height:14px; display:none; }
+ul.workList li a:link,ul.workList li a:visited{ color:#00afce; }
+ul.workList li a:hover,ul.workList li a:active{ color:#00afce; }
+
+
+/*---相關下載設定----------------------------------------*/
+#Dwn_List{}
+#Dwn_List ul.ListMsg{}
+#Dwn_List ul.ListMsg li .Title{ width:auto; float:none; padding:3px 0;}
+#Dwn_List ul.ListMsg li .Title a{ border:none;}
+
+/*單檔案下載*/
+#Dwn_Table{}
+#Dwn_Table table.TabMsg{}
+#Dwn_Table table.TabMsg th{ width:auto; float:none; padding:3px 0; background:#f4f5f7 none;}
+#Dwn_Table table.TabMsg th em{ display:block;}
+#Dwn_Table table.TabMsg th.Item{ width:30px;}
+#Dwn_Table table.TabMsg th.Title a{ border:none;}
+#Dwn_Table table.TabMsg th.Date{ width:70px;}
+#Dwn_Table table.TabMsg th.URL{}
+#Dwn_Table table.TabMsg th.Note{ width:100px;}
+
+/*多檔案下載*/
+#Dwns_Table{}
+#Dwns_Table table.TabMsg{}
+#Dwns_Table table.TabMsg th{ width:auto; float:none; padding:3px 0; background:#f4f5f7 none;}
+#Dwns_Table table.TabMsg th em{ display:block;}
+#Dwns_Table table.TabMsg th.Item{ width:30px;}
+#Dwns_Table table.TabMsg th.Title{ width:auto;}
+#Dwns_Table table.TabMsg th.Title a{ border:none;}
+#Dwns_Table table.TabMsg th.Date{ width:70px;}
+#Dwns_Table table.TabMsg th.URL{}
+#Dwns_Table table.TabMsg th.Note{ width:auto;}
+
+
+/*---相關連結設定----------------------------------------*/
+#Link_List{}
+#Link_List ul.ListMsg li .Title{ width:auto; float:none; padding:3px 0;}
+#Link_List ul.ListMsg li .Title a{ border:none;}
+
+
+/*訊息表格 - 標題+URL列表*/
+#Link_Table{}
+#Link_Table table.TabMsg th em{ display:block}
+#Link_Table table.TabMsg th.Item{width:30px; background:#f4f5f7 none;}
+#Link_Table table.TabMsg th.Title{width:auto; background:#f4f5f7 none;}
+#Link_Table table.TabMsg th.Note{width:auto; }
+
+
+
+/*---常見問答設定----------------------------------------*/
+#QNA_Table{}
+#QNA_Table th.Title{width:430px; background-position:-70px 5px;}
+#QNA_Table th.Date{background-position:-580px 5px;}
+
+#QNA_List{}
+#QNA_List li .Item{ background:url(../images/icon_Q.jpg) no-repeat left 5px; padding:0 0 0 5px;}
+#QNA_List li .Title{ float:none;}
+#QNA_List li .Date{}
+
+
+/*---常見問答QA並存列表設定----------------------------------------*/
+#QNA_ListAll{}
+#QNA_ListAll ul{ padding:0; margin:0; font-size:13px;}
+#QNA_ListAll ul li{ clear:both; border-bottom:#ccc dotted 1px; padding:5px 0;}
+#QNA_ListAll ul li .Item{ float:left; width:20px; padding:0 0 0 10px; text-align:center;background:url(../images/icon_Q.jpg) no-repeat left 5px; }
+#QNA_ListAll ul li .Title{ width:auto;}
+#QNA_ListAll ul li .Date{  color:#CCC; }
+#QNA_ListAll ul li .AnswerDiv{ padding:3px 0 10px 30px; margin:10px 0; line-height:1.1em;clear:both;background:url(../images/Icon_Answer.jpg) no-repeat left 0;}
+#QNA_ListAll ul li a:link{  border-bottom:#179dbc dotted 1px;}
+#QNA_ListAll ul li a:hover{ border-bottom:#179dbc solid 1px;}
+
+
+/*---常見問答QA並存全部展開列表設定----------------------------------------*/
+#QNA_ListAllOpen{}
+#QNA_ListAllOpen ul{ padding:0; margin:0; font-size:13px;}
+#QNA_ListAllOpen ul.QList{ margin:0 0 30px 0;}
+#QNA_ListAllOpen ul.QAList{ border-top:#FF9 solid 3px;}
+#QNA_ListAllOpen ul.QAList li{ padding:5px 0 30px 0;}
+#QNA_ListAllOpen ul li{ clear:both; border-bottom:#ccc dotted 1px; padding:5px 0;}
+#QNA_ListAllOpen ul li .Item{ float:left; width:20px; padding:0 0 0 10px; text-align:center;background:url(../images/icon_Q.jpg) no-repeat left 5px; }
+#QNA_ListAllOpen ul li .Title{ width:auto;}
+#QNA_ListAllOpen ul li .Date{  color:#CCC; }
+#QNA_ListAllOpen ul li .AnswerDiv{ color:#333; padding:3px 0 10px 30px; margin:10px 0;clear:both;background:url(../images/Icon_Answer.jpg) no-repeat left 0;}
+#QNA_ListAllOpen ul li a:link{  border-bottom:#179dbc dotted 1px;}
+#QNA_ListAllOpen ul li a:hover{ border-bottom:#179dbc solid 1px;}
+
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+			常用內頁共用設定
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */	
+#Content{ clear:both;}
+#Content ul{ margin:0 0 0 15px; padding:0;font-size:13px;  }
+#Content ul li{ list-style: decimal; line-height:22px }
+/*內容文字樣式設定*/
+h2{/*主標題*/ margin:0; padding:0;}
+h3{/*次節點標題*/color:#3ca219; font-size:17px !important; line-height:0; background:url(../images/icon_h2.jpg) no-repeat left top; padding:10px 0 10px 10px !important; margin:0 0 5px 0 !important; float:left;}
+h4{/*文章標題*/ color:#000; font-size:15px; font-weight:bold;padding:5px 0 15px 15px !important;background:#f3f4f3 url(../images/bg_h4.gif) repeat-x bottom left; border-top:#d6d6d6 solid 1px !important; }
+h6{ font-size:.8em !important; color:#000;}
+#Content div.Date{ color:#ccc; font-size:.6em; float:right;}
+#Content div.BtnGroup{ white-space:nowrap; height:40px;}
+#Content a.BtnBack{ width:46px; height:30px; background:url(../images/btn_Back.gif) no-repeat; display:block; float:left;}
+#Content a.BtnPrint{width:46px; height:30px; background:url(../images/btn_print.gif) no-repeat; display:block; float:left;}
+#Content a.BtnTop{width:48px; height:28px; background:url(../images/btn_gotop.gif) no-repeat; display:block; float:right; clear:both;}
+#Content a.BtnLink{width:90px; height:30px; background:url(../images/btn_link.gif) no-repeat; display:block; float:left;}
+
+#Content hr{ border-bottom:#dedede dotted 1px; border-top:#fff dotted 1px;}
+
+/*一般表格*/
+table{ background:#ffffff; font-size:13px; width:100%;border:#dedede solid 1px; margin:10px 0;}
+table tr{}
+table td{ border-collpase:collpase; border:#dedede solid 1px; padding:3px 10px; }
+table th{ border-collpase:collpase; text-align:center; color: #3E5064; background: #DCE7E7; border-bottom: #C0D0D1 solid 2px; border-right:#dedede solid 1px; padding:4px }
+
+/*內容資料表格*/
+table.TabData{ background:#fff; font-size:13px; width:100%;border:#dedede solid 1px; margin:15px 0;}
+table.TabData tr{}
+table.TabData td{ border-collpase:collpase; border:#dedede solid 1px; padding:0 10px; }
+table.TabData th{ border-collpase:collpase;  text-align:center; color:#004c64; background:#f4f5f7; border-bottom:#dedede double 3px; border-right:#dedede solid 1px;}
+
+/*資料項目清單*/
+ul.ListData{ list-style: url(../images/icon_listData.gif); padding:0 0 0 30px; font-size:13px;}
+ul.ListData li a:link{  border-bottom:#179dbc dotted 1px;}
+ul.ListData li a:hover{ border-bottom:#179dbc solid 1px;}
+
+/*相關連結區塊*/
+.RelatedArea{ border-top:#169ab8 dotted 1px; margin:15px 0 0 0;padding:0 0 15px 0; }
+.RelatedArea .HeadTitle{color:#1a2c31; padding:0 !important;  margin:0 !important; height:auto; background:none;}
+.RelatedArea .HeadTitle em{ margin:0; padding:0;}
+.RelatedArea ul{ margin:0; padding:0; font-size:13px;}
+.RelatedArea ul li{background:url(../images/icon_Related.gif) no-repeat left 0; padding:0 0 0 23px;}
+
+/*備註區塊*/
+.NoteArea{border-top:#169ab8 dotted 1px; margin:15px 0 0 0; padding:0 0 15px 0;}
+.NoteArea .HeadTitle{color:#1a2c31; background:none; padding:0;  margin:0;height:auto;}
+.NoteArea .HeadTitle em{ margin:0; padding:0;}
+.NoteArea ul{ margin:0; padding:0;font-size:13px; }
+.NoteArea ul li{background:url(../images/icon_note.gif) no-repeat left 2px; padding:0 0 0 23px;}
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+			內頁各別樣式設定
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */	
+/*公告訊息模組*/
+#NewsCp{ text-align:left; padding:0 ; margin:0; }
+
+/*常見問答模組*/
+#QNACp{ text-align:left; padding:0 ; margin:0; clear:both;}
+#QNACp h4{ background:url(../images/icon_Q.jpg) no-repeat left 20px; color:#666; font-size:.75em; height:auto !important; padding:15px 0 0 15px !important; margin:0; border-top:#dedede dotted 1px !important;}
+#QNACp .BtnGroup{ margin:0; padding:0;}
+#QNACp .AnswerDiv{background:url(../images/icon_Answer.jpg) no-repeat left 0; padding:30px 0 0 0; clear:both;}
+
+/*成果展示模組*/
+#PrjCp{ text-align:left; padding:0 ; margin:0; }
+#PrjCp .FileGroup { float:right; background:#f7f7f7; margin:0 0 0 10px; padding:0 10px; border:1px dotted #dedede; /*IE6、IE7需要指定寬度，如_width:50px;*width:50px;*/}
+#PrjCp .FileGroup .HeadTitle,#PrjCp .FileGroup .HeadTitle em{ background:none; text-align:center; margin:0; padding:0;}
+#PrjCp .FileGroup ul{ display:block; line-height:1em;}
+#PrjCp .FileGroup ul li{ text-align:center; margin:0 0 15px 0; font-size:.8em;}
+#PrjCp .FileGroup ul li img{ width:100px; border:#f7f7f7; padding:2px;}
+
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+			特殊內頁樣式設定
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */	
+/*-- SearchListSet 搜尋結果列表------------------------------------------------------*/
+#SearchListSet{ margin:0 0 30px 0; padding:0; font-size:.8em;}
+#SearchListSet div.HeadTitle{color:#000; border:#dedede solid 5px; margin:15px 0; padding:3px 0 0 25px; letter-spacing:1px; background:url(../images/icon_search.jpg) no-repeat 10px center;}
+/*被查詢關鍵字標示樣式*/
+#SearchListSet .KeyStyle{ background:#b5db7c; padding:3px 5px; margin:0 3px;}
+/*搜尋列表*/
+#SearchListSet ul{ list-style-image: none;list-style-type: none;margin: 0px; padding: 0px;}
+#SearchListSet ul li{ border-bottom:#999 dotted 1px; overflow:hidden; padding:10px 0; list-style-image: none;	list-style-type: none;	margin: 0;}
+#SearchListSet ul li div.Title{ font-size:15px; color:#555;}
+#SearchListSet ul li div.pic{ overflow:hidden; width:140px; margin:0; padding:5px 0 0 0; text-align:center;}
+#SearchListSet ul li .Class{ width:130px; height:42px; text-align:center; padding:5px 0 0 0; margin:0 auto; overflow:hidden;}
+#SearchListSet ul li .Class a:link,#SearchListSet ul li .Class a:visited{ color:#000; text-decoration:none;  text-align:left;margin:0; padding:0; }
+#SearchListSet ul li .Class a:hover,#SearchListSet ul li .Class a:active{ color:#000; text-decoration:none;margin:0; padding:0;}
+#SearchListSet ul li .price{ color:#ff6735; font-size:0.85em; text-align:center; margin:0; padding:0;}
+#utcNoMatch{ /*border:#dedede double 3px;*/ text-align:center; padding:10% 0;}
+#utcNoMatch em{ text-align:center; font-style:normal;}
+
+
+
+/*-----------網站地圖-----------------*/
+#SitemapSet{ font-size:.95em; line-height:1.5em;}
+#SitemapSet ul{font-weight:bold; }
+#SitemapSet ul li{ margin:15px 0; padding:10px 3px 0 15px; background:url(../images/bg_sitemap.jpg) no-repeat left top;}
+#SitemapSet ul li a em{ visibility:visible; position:static; font-style:normal;}
+#SitemapSet ul li a:link,#SitemapSet ul li a:visited{ letter-spacing:1px; padding:0 0 0 5px;}
+#SitemapSet ul li a:hover,#SitemapSet ul li a:acitve{ color:#000 !important; text-decoration:underline;}
+#SitemapSet ul li ul{background:none !important; padding:10px 0 0 20px; margin:0; font-size:.85em;list-style-image: url(../images/icon_list.jpg); }
+#SitemapSet ul li ul li{ color:#999; font-weight:normal; margin:10px 0; padding:0;background:none !important;border-bottom:#ccc dotted 1px;}
+#SitemapSet ul li ul li a:link, #SitemapSet ul li ul li a:visited{ }
+#SitemapSet ul li ul li a:hover, #SitemapSet ul li ul li a:acitve{ color:#000; text-decoration:underline;}
+/*第三層*/
+#SitemapSet ul li ul li ul{ list-style:url(../images/icon_sitemap.jpg); margin:0 0 0 30px; padding:0; line-height:1.2em;}
+#SitemapSet ul li ul li ul li{ border-bottom:#fff dotted 1px;}
+#SitemapSet ul li ul li ul li a{ color:#666;}
+#SitemapSet ul li ul li ul li a:hover{ color:#666; text-decoration:underline;}
+
+
+/*---聯絡我們樣式--------*/
+#ContactUsSet{ text-align:center; padding:0; margin:0;}
+#ContactUsSet p{ font-size:.75em; padding:10px; margin:10px 0; border:#CCC dotted 1px; background:#f7f7f7; line-height:1.4em; text-align:left;}
+#ContactUsSet table,#ContactUsSet table td,#ContactUsSet table th{ border:none; background:none;}
+#ContactUsSet table { background:url(../images/contactusbg.jpg) no-repeat left top;margin:0 auto; padding:0; width:475px; text-align:left;}
+#ContactUsSet table th{ width:90px; padding:5px 0;}
+#ContactUsSet table th em{ visibility:hidden;}
+#ContactUsSet table td{ padding:5px 0;}
+#ContactUsSet table input{width:300px; margin:6px 0 0 0;}
+#ContactUsSet table textarea{ margin:20px 0 0 0; width:360px; height:120px;}
+#ContactUsSet table input.btnSubmit{ background:url(../images/btnSubmit.jpg) no-repeat; width:93px; height:27px; margin:20px 15px 0 0;}
+
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	DISP Web Demo  2010 - All Rights Reserved.	
+	
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+ /* 
+CSS Document 
+CSS-P Style writed by polly / 2012-08-06
+www.uTrust.com.tw / contact@utrust.com.tw*/

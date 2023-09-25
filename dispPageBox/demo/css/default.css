@@ -1,0 +1,115 @@
+@import url("base.css");/* 版型設定 導覽列設定 */
+@import url("AST.css");/* 輔助功能元件樣式設定 */
+@import url("CntPage.css");/* 主要內容樣式設定 */
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	DISP Web Demo  2010 - All Rights Reserved.	
+	
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+ /* 
+CSS Document 
+CSS-P Style writed by zoe / 2010-08-11
+www.uTrust.com.tw / contact@utrust.com.tw*/
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+		Main containers
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+* html body{ behavior:url("csshover3.htc");/* 加載csshover3.htc，解決IE6沒有li:hover擬類的問題*/ }
+* {padding: 0px;margin: 0px;list-style-type: none;text-decoration: none;}
+html { font-size: 100%; margin: 0;padding: 0;overflow-x: hidden;}
+body{
+	/*捲軸樣式設定*/
+	scrollbar-face-color:#f1f1f1;
+	scrollbar-highlight-color:#fefefe;
+	scrollbar-shadow-color:#f0f0f0;
+	scrollbar-3dlight-color:#d9d9d9;
+	scrollbar-arrow-color:#888888;
+	scrollbar-track-color: #f8f8f8;
+	scrollbar-darkshadow-color:#b8b8b8;
+	scrollbar-base-color: #ffffff;
+	margin: 0;
+	padding: 0;
+	font:normal 12px;
+	font-family: "微軟正黑體",Tahoma, Geneva, Helvetica, Arial, sans-serif;
+	line-height: 1.5em;
+	color: #7b7c81;
+	text-align: center;
+	/* ipod touch / iphone text resize */
+	-webkit-text-size-adjust:none;
+	overflow-x: hidden;
+	background:url(../images/Bg_body.gif) repeat-x top;
+}
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+		default setting
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,input, textarea, select,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;	padding: 0;	border: 0;	outline: 0;	font-size: 100%;
+	/*vertical-align: baseline;*/
+	/*background: transparent;*/
+}
+ol,ul {list-style: none;}
+blockquote, q {	quotes: none;}
+blockquote:before, blockquote:after,q:before, q:after {	content: ''; content: none;}
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+		default a link Style
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+a {color: #1391ae; cursor: pointer; }
+/*a:visited {color: #7b7c81; }*/
+a:hover {color: #179dbc;}
+/*a:active {color: #7b7c81; }*/
+
+/* remember to define focus styles! */
+:focus {outline: 0;}
+
+/* remember to highlight inserts somehow! */
+ins {text-decoration: none;}
+del {text-decoration: line-through;}
+
+/* tables still need 'cellspacing="0"'  */
+table {	border-collapse: collapse;	border-spacing: 0;}
+td.alignLeft{ text-align:left;}
+td.alignRight{ text-align:right;}
+td.alignCenter{ text-align: center;}
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+		Clearing floats
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+.clearfix:after { content: ".";  display: block; height: 0; clear: both; visibility: hidden;}
+.clearfix { display: inline-block }
+.clearfix { display:block }
+.clearfix {	clear:both;	height:0; font-size:1px; line-height:1px; width:100%; overflow:hidden;}
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+		Accessibility & SEO
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+.accessibility { position: absolute; top: -999em; left: -999em;	display:none;}
+p.accessibility { position: absolute; top: -999em; left: -999em;}
+ol.accessibility { position: absolute; top: -999em;	left: -999em;}
+a em, .hide { position:absolute; left:-9999em;}
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+		Content排版常用設定
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+.fl-right{float:right;}
+.fl-left {float:left;}
+.cl-right{clear:right;}
+.cl-left {clear:left;}
+.cl-both {clear:both;}
+
