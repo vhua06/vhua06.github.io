@@ -475,6 +475,6 @@
 	}
 
 	function reOpen(url) {
-		let myurl = window.open(url, "redirect");
-		myurl.open(url, "redirect");
+		let myurl = window.open(url, "reURL");
+		myurl.open(url, "reURL");
 	}
