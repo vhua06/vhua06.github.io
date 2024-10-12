@@ -266,6 +266,15 @@
                 advsearchfire(e, keyword, 'us');
             }
         });
+        $('#search_e').keypress(function(e) {
+            var key = e.which;
+            var keyword = $('.search').val();
+            if(key == 13)  // the enter key code
+            {
+                // $('.search').val(''); //清空欄位
+                return false;
+            }
+        });
     
         $('#search-left').keypress(function(e) {
             var key = e.which;
@@ -447,6 +456,25 @@
         if (yesno == true) {
             window.open(url, "_blank");
         }
-    }
+    }    
     
-    
+	/*----- 社群分享 -----*/
+	function myshare(key,subkey = "") {
+		let _loc = location;
+		let link = encodeURIComponent(_loc.href);
+		let url = "";
+        let urls = link.split("%2F");
+
+        subkey = (subkey === "") ? "" : "%23".concat(subkey);
+        let reURL = (link.includes("ENG")) ? "https%3A%2F%2Faqmc.moenv.gov.tw%2FENG%2F".concat(urls.at(-1)).concat(subkey) : "https%3A%2F%2Faqmc.moenv.gov.tw%2F".concat(urls.at(-1)).concat(subkey);
+		switch (key) {
+			case "fb": url = 'https://www.facebook.com/sharer/sharer.php?u='.concat(reURL).concat("&amp;src=sdkpreparse"); break;
+			case "line": url = 'https://lineit.line.me/share?url='.concat(reURL); break;
+		}
+		reOpen(url);
+	}
+
+	function reOpen(url) {
+		let myurl = window.open(url, "redirect");
+		myurl.open(url, "redirect");
+	}

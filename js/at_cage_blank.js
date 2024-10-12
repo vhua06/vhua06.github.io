@@ -306,6 +306,16 @@ $(document).ready(function() {
             advsearchfire(event, keyword, 'us');
         }
     });
+    
+    $('#search_e').keypress(function(e) {
+        var key = e.which;
+        var keyword = $('.search').val();
+        if(key == 13)  // the enter key code
+        {
+            // $('.search').val(''); //清空欄位
+            return false;
+        }
+    });
 });
 
 $(window).resize(function() {

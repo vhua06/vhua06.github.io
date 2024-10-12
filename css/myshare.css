@@ -1,0 +1,40 @@
+	.h2_icon a {
+      text-align: center;
+      margin: 5px;
+      vertical-align: bottom;
+      height: 35px;
+      width: 35px;
+      line-height: 0;
+      background-size: 35px auto;
+      text-indent: -999999px;
+      -webkit-transition: none;
+      transition: none;
+  }
+
+  .lineicon {
+      background: url(../images/line_48.svg) no-repeat;
+  }	
+  
+  .facebook {
+    background: url(../images/facebook_48.svg) no-repeat;
+  }
+
+  .lineicon:hover {
+      background: url(../images/line_48_hover.svg) no-repeat;
+      background-size: contain;
+  }	
+
+  .facebook:hover {
+    background: url(../images/facebook_48_hover.svg) no-repeat;
+    background-size: contain;
+  }
+
+  a.lineicon, a.facebook {
+      color: #1264A3;
+      text-decoration: none;
+      -webkit-transition: all 0.15s linear;
+      transition: all 0.15s linear;
+      display: inline-block;
+      position: relative;
+      word-break: break-word;
+  }
