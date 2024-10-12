@@ -468,8 +468,11 @@
         subkey = (subkey === "") ? "" : "%23".concat(subkey);
         let reURL = (link.includes("ENG")) ? "https%3A%2F%2Faqmc.moenv.gov.tw%2FENG%2F".concat(urls.at(-1)).concat(subkey) : "https%3A%2F%2Faqmc.moenv.gov.tw%2F".concat(urls.at(-1)).concat(subkey);
 		switch (key) {
-			case "fb": url = 'https://www.facebook.com/sharer/sharer.php?u='.concat(reURL).concat("&amp;src=sdkpreparse"); break;
-			case "line": url = 'https://lineit.line.me/share?url='.concat(reURL); break;
+			case "fb": url = 'https://www.facebook.com/sharer/sharer.php?u='.concat(reURL).concat("&amp;src=sdkpreparse"); 
+            break;
+            
+            case "line": url = 'https://social-plugins.line.me/lineit/share?url='.concat(reURL).concat("&text=環境部大氣環境司"); 
+            break;
 		}
 		reOpen(url);
 	}
