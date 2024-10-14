@@ -12,11 +12,13 @@
   }
 
   .lineicon {
+    float: right;
     background: url(../images/line_48.svg) no-repeat; 
     background-size: 24px 24px !important;
   }	
   
   .facebook {
+    float: right;
     background: url(../images/facebook_48.svg) no-repeat;
     background-size: 24px 24px !important;
   }
