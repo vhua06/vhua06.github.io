@@ -377,8 +377,8 @@ select {}
 
 .subMenu>dl>dt .titleName {
     width: auto;
-    /* height: 40px; */
-    height: 45px;
+    height: 40px;
+    /* height: 45px; */
 }
 
 .subMenu>dl>dd {
@@ -1783,7 +1783,7 @@ a:focus span.circle2 img {
 
 .c_fb:hover {
     border: 2px dashed rgb(247, 230, 3);
-    background-color: #af07f2;
+    background-color: #f18280;
 } 
 
 .c_line:hover {
