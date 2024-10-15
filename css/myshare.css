@@ -23,12 +23,16 @@
     background-size: 32px 32px !important;
   }
 
-  .lineicon:hover {
+  .lineicon:hover,
+  .lineicon:active,
+  .lineicon:focus {
       background: url(../images/line_48_hover.svg) no-repeat;
       background-size: contain;
   }	
 
-  .facebook:hover {
+  .facebook:hover,
+  .facebook:active,
+  .facebook:focus {
     background: url(../images/facebook_48_hover.svg) no-repeat;
     background-size: contain;
   }
