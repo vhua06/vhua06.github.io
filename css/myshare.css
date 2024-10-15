@@ -2,10 +2,10 @@
       text-align: center;
       margin: 3px;
       vertical-align: bottom;
-      height: 24px;
-      width: 24px;
+      height: 32px;
+      width: 32px;
       line-height: 0;
-      background-size: 24px auto;
+      background-size: 32px auto;
       text-indent: -999999px;
       -webkit-transition: none;
       transition: none;
@@ -14,13 +14,13 @@
   .lineicon {
     float: right;
     background: url(../images/line_48.svg) no-repeat; 
-    background-size: 24px 24px !important;
+    background-size: 32px 32px !important;
   }	
   
   .facebook {
     float: right;
     background: url(../images/facebook_48.svg) no-repeat;
-    background-size: 24px 24px !important;
+    background-size: 32px 32px !important;
   }
 
   .lineicon:hover {
