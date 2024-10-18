@@ -473,6 +473,9 @@
             
             case "line": url = 'https://social-plugins.line.me/lineit/share?url='.concat(reURL).concat("&text=環境部大氣環境司"); 
             break;
+
+            case "twitter": url = 'https://twitter.com/share?url='.concat(reURL);
+            break;
 		}
 		reOpen(url);
 	}

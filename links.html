@@ -25,16 +25,30 @@
 	<meta property="og:type" content="website"/>
     <meta property="og:title" content="空氣品質模式支援中心- 相關連結：環境部, 中央氣象局, 環境資料, 開放平臺, 監測網, 即時指標, 美國環境部, US EPA Office of Air and Radiation, US EPA Office of Air Quality Planning and Standards, US EPA Technology Transfer Network, Support Center for Regulatory Atmospheric"/>
     
-    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+    <![endif]-->
+    <script type="application/ld+json">
+		{
+				"@context" : "https://schema.org",
+				"@type" : "WebSite",
+				"name" : "空氣品質模式支援中心",
+				"alternateName" : "環境部大氣環境司",
+				"url" : "https://aqmc.moenv.gov.tw"
+		}
+		</script>
      
     <meta property="og:description" content="空氣品質模式支援中心-相關連結：環境部, 中央氣象局, 環境資料, 開放平臺, 監測網, 即時指標, 美國環境部, US EPA Office of Air and Radiation, US EPA Office of Air Quality Planning and Standards, US EPA Technology Transfer Network, Support Center for Regulatory Atmospheric"/>
-     <meta property="og:image" content="https://aqmc.moenv.gov.tw/images/MOENV-Logo_1_300-2.png" />
-	<meta property="og:image:secure_url" content="https://aqmc.moenv.gov.tw/images/MOENV-Logo_1_300-2.png" />
-		<meta property="og:image:width" content="300">
-		<meta property="og:image:height" content="75">   
-		<link href="https://aqmc.moenv.gov.tw/images/MOENV-Logo_1_300-2.png" rel="apple-touch-icon" /><!-- (google font)connect to domain of font files -->    
+     <meta property="og:image" content="https://aqmc.moenv.gov.tw/images/icon_share-moenv.jpg" />
+	<meta property="og:image:secure_url" content="https://aqmc.moenv.gov.tw/images/icon_share-moenv.jpg" />
+		<meta property="og:image:width" content="1200">
+		<meta property="og:image:height" content="628">   
+		<link href="https://aqmc.moenv.gov.tw/images/icon_share-moenv.jpg" rel="apple-touch-icon" /><!-- (google font)connect to domain of font files -->    
     <!-- CSS -->    
     <link href="css/myshare.css" rel="stylesheet" type="text/css" />  
+	<link href="css/mydropdown.css" rel="stylesheet" type="text/css" />  
 	<link href="css/at_cage.css" rel="stylesheet" type="text/css" />
 	<link href="css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
     <link href="css/basic_aqmc.css" rel="stylesheet" type="text/css" />
@@ -278,7 +292,16 @@
 						</dl>
 					</div>
 					<div class="pageCont pg_links">
-						<h1><i class="fa fa-link"></i>相關連結&nbsp;<span class="h2_icon "><a id="lnkFacebook" class="facebook" title="Facebook分享(另開視窗)" onclick="myshare('fb')" href="javascript:;">Facebook分享</a><a id="lnkLine" class="lineicon" title="Line分享(另開視窗)" onclick="myshare('line')" href="javascript:;">Line分享</a></span></h1>
+						<h1><i class="fa fa-link"></i>相關連結&nbsp;
+							<span class="mydropdown h2_icon topnav-right">
+								<span><a class="socialsharing" title="社群分享" href="#">社群分享</a></span>
+								<div class="mydropdown-content">									
+									<p><a id="lnkFacebook" class="facebook" title="Facebook分享(另開視窗)" onclick="myshare('fb')" href="javascript:;">Facebook分享</a></p>
+									<p><a id="lnkLine" class="lineicon" title="Line分享(另開視窗)" onclick="myshare('line')" href="javascript:;">Line分享</a></p>
+									<p><a id="lnkTwitter" class="twitter" title="Twitter分享(另開視窗)" onclick="myshare('twitter')" href="javascript:;">Twitter分享</a></p>
+								</div>
+							</span>
+						</h1>
 						<br />
 						<div class="cssTable tableList" role="table">
 							<dl>

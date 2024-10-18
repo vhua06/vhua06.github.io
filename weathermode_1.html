@@ -25,16 +25,30 @@
 	<meta property="og:type" content="website"/>
     <meta property="og:title" content="空氣品質模式支援中心- 模式介紹｜MM5：四維資料融入, 追隨地勢坐標, 交錯網格方式, Arakawa B, Fifth-Generation Penn State, NCAR Mesoscale Model, Mesosclae Model System version V, FDDA, Four Dimensional Data Assimilations"/>
     
-    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+    <![endif]-->
+    <script type="application/ld+json">
+		{
+				"@context" : "https://schema.org",
+				"@type" : "WebSite",
+				"name" : "空氣品質模式支援中心",
+				"alternateName" : "環境部大氣環境司",
+				"url" : "https://aqmc.moenv.gov.tw"
+		}
+		</script>
      
     <meta property="og:description" content="空氣品質模式支援中心-模式介紹｜MM5：四維資料融入, 追隨地勢坐標, 交錯網格方式, Arakawa B, Fifth-Generation Penn State, NCAR Mesoscale Model, Mesosclae Model System version V, FDDA, Four Dimensional Data Assimilations"/>
-     <meta property="og:image" content="https://aqmc.moenv.gov.tw/images/MOENV-Logo_1_300-2.png" />
-	<meta property="og:image:secure_url" content="https://aqmc.moenv.gov.tw/images/MOENV-Logo_1_300-2.png" />
-		<meta property="og:image:width" content="300">
-		<meta property="og:image:height" content="75">   
-		<link href="https://aqmc.moenv.gov.tw/images/MOENV-Logo_1_300-2.png" rel="apple-touch-icon" /><!-- (google font)connect to domain of font files -->    
+     <meta property="og:image" content="https://aqmc.moenv.gov.tw/images/icon_share-moenv.jpg" />
+	<meta property="og:image:secure_url" content="https://aqmc.moenv.gov.tw/images/icon_share-moenv.jpg" />
+		<meta property="og:image:width" content="1200">
+		<meta property="og:image:height" content="628">   
+		<link href="https://aqmc.moenv.gov.tw/images/icon_share-moenv.jpg" rel="apple-touch-icon" /><!-- (google font)connect to domain of font files -->    
     <!-- CSS -->    
     <link href="css/myshare.css" rel="stylesheet" type="text/css" />  
+	<link href="css/mydropdown.css" rel="stylesheet" type="text/css" />  
 	<link href="css/at_cage.css" rel="stylesheet" type="text/css" />
 	<link href="css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
     <link href="css/basic_aqmc.css" rel="stylesheet" type="text/css" />
@@ -279,7 +293,16 @@
 						</dl>
 					</div>
 					<div class="pageCont pg_weathermode">
-						<h1><i class="fa fa-ravelry" aria-hidden="true" style="font-size: 13px;"></i>Fifth-Generation Penn State/NCAR Mesoscale Model(MM5)簡介&nbsp;<span class="h2_icon "><a id="lnkFacebook" class="facebook" title="Facebook分享(另開視窗)" onclick="myshare('fb')" href="javascript:;">Facebook分享</a><a id="lnkLine" class="lineicon" title="Line分享(另開視窗)" onclick="myshare('line')" href="javascript:;">Line分享</a></span></h1>
+						<h1><i class="fa fa-ravelry" aria-hidden="true" style="font-size: 13px;"></i>Fifth-Generation Penn State/NCAR Mesoscale Model(MM5)簡介&nbsp;
+							<span class="mydropdown h2_icon topnav-right">
+								<span><a class="socialsharing" title="社群分享" href="#">社群分享</a></span>
+								<div class="mydropdown-content">									
+									<p><a id="lnkFacebook" class="facebook" title="Facebook分享(另開視窗)" onclick="myshare('fb')" href="javascript:;">Facebook分享</a></p>
+									<p><a id="lnkLine" class="lineicon" title="Line分享(另開視窗)" onclick="myshare('line')" href="javascript:;">Line分享</a></p>
+									<p><a id="lnkTwitter" class="twitter" title="Twitter分享(另開視窗)" onclick="myshare('twitter')" href="javascript:;">Twitter分享</a></p>
+								</div>
+							</span>
+						</h1>
 						<div class="htmlEditor">
 							<blockquote>
 								MM5 (Mesosclae Model System version V, MM5)網格氣象之模式為美國國家大氣研究中心所發展之區域網格模式。此模式最初是由Anthes and Warner (1978)根據原始方程中依中尺度運動特性簡化後所建立起來的數值模式，屬於三維空間的靜力/非靜力的中尺度模式(圖1為模式架構流程)。此模式使用追隨地勢坐標(σ座標模式)，容許多重的巢狀網格系統(multiple-nest capability)模擬，並具有四維資料融入 (FDDA, Four Dimensional Data Assimilations) 的功能、多種邊界層參數化，積雲對流參數化等物理參數供以測試，地圖投影包含極正射投影、蘭伯特正形投影、麥卡托投影，各適用於不同緯度。運用在不同尺度間的交互作用可以得到較好的解析。對於複雜的中尺度系統而言，MM5的模擬可彌補觀測資料上時、空解析度的不足，對於區域的預報有相當好的能力。MM5的網格設計在水平面上是採用 Arakawa B 交錯網格方式(圖2)，此種網格設計將質量場與速度場交錯分佈，除可節省定差法在計算上的時間外，並可減少因計算所產生的誤差；而垂直速度的計算則不論是水平面上或垂直方向上，均與水準速度場錯開來計算。垂直方向採追隨地勢坐標sigma(σ)，並可採用不一致的網隔間距，將非線性的變數場依適當的權重帶入計算。

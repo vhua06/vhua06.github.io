@@ -23,21 +23,48 @@
     background-size: 32px 32px !important;
   }
 
+  .twitter {
+    float: right;
+    background: url(../images/twitter_48.svg) no-repeat;
+    background-size: 32px 32px !important;
+  }
+  
+  .socialsharing {
+    background: url(../images/share_48.svg) no-repeat;
+    background-size: 25px 25px !important;
+    color: currentColor;
+    cursor: default;
+  }
+
   .lineicon:hover,
   .lineicon:active,
   .lineicon:focus {
       background: url(../images/line_48_hover.svg) no-repeat;
-      background-size: contain;
+      background-size: 30px 30px !important;
   }	
 
   .facebook:hover,
   .facebook:active,
   .facebook:focus {
     background: url(../images/facebook_48_hover.svg) no-repeat;
-    background-size: contain;
+    background-size: 30px 30px !important;
+  }	
+
+  .twitter:hover,
+  .twitter:active,
+  .twitter:focus {
+    background: url(../images/twitter_48_hover.svg) no-repeat;
+    background-size: 30px 30px !important;
+  }	
+
+  .socialsharing:hover,
+  .socialsharing:active,
+  .socialsharing:focus {
+    background: url(../images/share_48_hover.svg) no-repeat;
+    background-size: 25px 25px !important;
   }
 
-  a.lineicon, a.facebook {
+  a.lineicon, a.facebook, a.socialsharing {
       color: #1264A3;
       text-decoration: none;
       -webkit-transition: all 0.15s linear;

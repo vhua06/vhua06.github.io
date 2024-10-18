@@ -25,16 +25,30 @@
 	<meta property="og:type" content="website"/>
     <meta property="og:title" content="空氣品質模式支援中心- 模式介紹｜網格類模式的簡要描述：統御方程式, 座標系統, 有限差分法, 有限元素法, 量化評估, 涵容能力, 預警系統, 排放推估, 尤拉, Eulerian, governing equation"/>
     
-    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+    <![endif]-->
+    <script type="application/ld+json">
+		{
+				"@context" : "https://schema.org",
+				"@type" : "WebSite",
+				"name" : "空氣品質模式支援中心",
+				"alternateName" : "環境部大氣環境司",
+				"url" : "https://aqmc.moenv.gov.tw"
+		}
+		</script>
      
     <meta property="og:description" content="空氣品質模式支援中心-模式介紹｜網格類模式的簡要描述：統御方程式, 座標系統, 有限差分法, 有限元素法, 量化評估, 涵容能力, 預警系統, 排放推估, 尤拉, Eulerian, governing equation"/>
-     <meta property="og:image" content="https://aqmc.moenv.gov.tw/images/MOENV-Logo_1_300-2.png" />
-	<meta property="og:image:secure_url" content="https://aqmc.moenv.gov.tw/images/MOENV-Logo_1_300-2.png" />
-		<meta property="og:image:width" content="300">
-		<meta property="og:image:height" content="75">   
-		<link href="https://aqmc.moenv.gov.tw/images/MOENV-Logo_1_300-2.png" rel="apple-touch-icon" /><!-- (google font)connect to domain of font files -->    
+     <meta property="og:image" content="https://aqmc.moenv.gov.tw/images/icon_share-moenv.jpg" />
+	<meta property="og:image:secure_url" content="https://aqmc.moenv.gov.tw/images/icon_share-moenv.jpg" />
+		<meta property="og:image:width" content="1200">
+		<meta property="og:image:height" content="628">   
+		<link href="https://aqmc.moenv.gov.tw/images/icon_share-moenv.jpg" rel="apple-touch-icon" /><!-- (google font)connect to domain of font files -->    
     <!-- CSS -->    
     <link href="css/myshare.css" rel="stylesheet" type="text/css" />  
+	<link href="css/mydropdown.css" rel="stylesheet" type="text/css" />  
 	<link href="css/at_cage.css" rel="stylesheet" type="text/css" />
 	<link href="css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
     <link href="css/basic_aqmc.css" rel="stylesheet" type="text/css" />
@@ -280,7 +294,16 @@
 						</dl>
 					</div>
 					<div class="pageCont pg_news">
-						<h1><i class="fa fa-ravelry" aria-hidden="true"></i>網格類模式的簡要描述&nbsp;<span class="h2_icon "><a id="lnkFacebook" class="facebook" title="Facebook分享(另開視窗)" onclick="myshare('fb')" href="javascript:;">Facebook分享</a><a id="lnkLine" class="lineicon" title="Line分享(另開視窗)" onclick="myshare('line')" href="javascript:;">Line分享</a></span></h1>
+						<h1><i class="fa fa-ravelry" aria-hidden="true"></i>網格類模式的簡要描述&nbsp;
+							<span class="mydropdown h2_icon topnav-right">
+								<span><a class="socialsharing" title="社群分享" href="#">社群分享</a></span>
+								<div class="mydropdown-content">									
+									<p><a id="lnkFacebook" class="facebook" title="Facebook分享(另開視窗)" onclick="myshare('fb')" href="javascript:;">Facebook分享</a></p>
+									<p><a id="lnkLine" class="lineicon" title="Line分享(另開視窗)" onclick="myshare('line')" href="javascript:;">Line分享</a></p>
+									<p><a id="lnkTwitter" class="twitter" title="Twitter分享(另開視窗)" onclick="myshare('twitter')" href="javascript:;">Twitter分享</a></p>
+								</div>
+							</span>
+						</h1>
 						<div class="htmlEditor">
 							<blockquote>
 								空氣品質模式的概念即為建立並求解一組能描述污染物在真實大氣中的形成、傳輸以及命運(包括排放量、氣象、地形以及化學反應之處理)等過程之數學方程式，或稱統御方程式(governing equation)。網格模式是將真實大氣以網格劃分(包括水平網格與垂直網格)，並假設每個網格內的物理、化學特性均一致，最後針對每網格求解其統御方程式的數值解，由此即可獲得污染物濃度在空間上的分布及其隨時間的變化情形。網格模式採用的參考座標系統通常是尤拉(Eulerian)座標系統，因此又稱為尤拉網格模式，其參考座標不隨時間而改變。網格模式常用的數值解法為有限差分法(finite difference method)或有限元素法(finite element method)。此類模式考量詳細的污染物在大氣中的物理與化學過程(包括傳輸、化學反應、乾沈降、雲與濕沈降、氣膠等程序)，且需要大量輸入資料(包括污染物排放量、氣象、地形等)，因此網格模式是含有最少假設、功能最強大的空氣品質模式，但對於電腦資源之需求也較其他類型模式大。
