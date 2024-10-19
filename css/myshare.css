@@ -14,19 +14,19 @@
   .lineicon {
     float: right;
     background: url(../images/line_48.svg) no-repeat; 
-    background-size: 32px 32px !important;
+    background-size: 30px 30px !important;
   }	
   
   .facebook {
     float: right;
     background: url(../images/facebook_48.svg) no-repeat;
-    background-size: 32px 32px !important;
+    background-size: 30px 30px !important;
   }
 
   .twitter {
     float: right;
     background: url(../images/twitter_48.svg) no-repeat;
-    background-size: 32px 32px !important;
+    background-size: 30px 30px !important;
   }
   
   .socialsharing {
