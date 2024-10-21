@@ -30,6 +30,7 @@
   }
   
   .socialsharing {
+    pointer-events: none;
     background: url(../images/share_48.svg) no-repeat;
     background-size: 25px 25px !important;
     color: currentColor;
