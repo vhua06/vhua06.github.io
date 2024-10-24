@@ -49,7 +49,7 @@
 					</div>
 				</div>
         <div class="pic">
-          <img src="/images/pic5.svg" alt="">
+          <img src="/images/pic7.svg" alt="">
         </div>
 			</div>
 		</div>
