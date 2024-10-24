@@ -44,8 +44,8 @@
 			<div class="announceCon">
 				<div class="txt">
 					<div class="para1">
-						<p>您所查詢的網址無法顯示，可能是因為您所查詢的網頁或檔案不存在或已被移除，<br>請至 <a href="/">網站首頁</a> 或 <a href="/sitemap.html">網站導覽</a> 查詢您所需要的資訊。<br><br>
-						The webpage you are trying to access either does not exist or has been removed.<br> Please visit the <a href="/ENG/index.html">home page</a> or <a href="/ENG/sitemap.html">site map</a> to find the information you need.</p>
+						<p>您所查詢的網址無法顯示，可能是因為您所查詢的網頁或檔案不存在或已被移除，請至 <a href="/">網站首頁</a> 或 <a href="/sitemap.html">網站導覽</a> 查詢您所需要的資訊。<br><br>
+						The webpage you are trying to access either does not exist or has been removed. Please visit the <a href="/ENG/index.html">home page</a> or <a href="/ENG/sitemap.html">site map</a> to find the information you need.</p>
 					</div>
 				</div>
         <div class="pic">

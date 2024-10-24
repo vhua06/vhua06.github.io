@@ -34,7 +34,6 @@
   }
     
   .socialsharing {
-      pointer-events: none;
     background: url(../images/share_48.svg) no-repeat;
     background-size: 25px 25px !important;
     color: currentColor;
@@ -70,7 +69,7 @@
     background-size: 25px 25px !important;
   } */
 
-  a.lineicon, a.facebook, a.socialsharing {
+  a.lineicon, a.facebook, a .twitter, a.socialsharing {
       color: #1264A3;
       text-decoration: none;
       -webkit-transition: all 0.15s linear;
