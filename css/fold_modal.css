@@ -56,7 +56,7 @@
 
 .modal-content {
   position: relative;
-  font-size: 13px;
+  font-size: small;
   top: 0;
   left: 3px;
   padding: 0 3px;
@@ -67,7 +67,7 @@
 
 @media only screen and (max-width: 740px) {
   .modal-content {
-    font-size: 10px;
+    font-size: x-small;
     padding: 0 10px;
   }
 
@@ -78,7 +78,7 @@
 
 @media only screen and (max-width: 600px) {
   .modal-content {
-    font-size: 7px;
+    font-size: xx-small;
   }
 
   #timer {

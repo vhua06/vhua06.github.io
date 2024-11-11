@@ -38,7 +38,7 @@
 		<div class="wrap1">
 
 			<h1 class="logo1">
-				<a href="#"><img src="/images/logo2.svg" alt="空氣模式支援中心" title="空氣模式支援中心">&nbsp;&nbsp;空氣品質模式支援中心</a>
+				<a href="#"><img src="/images/logo2.svg" alt="空氣模式支援中心" title="網站首頁">&nbsp;&nbsp;空氣品質模式支援中心</a>
 			</h1>
 
 			<div class="announceCon">

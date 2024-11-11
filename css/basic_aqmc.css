@@ -19,27 +19,27 @@ h3 {
 }
 
 h1 {
-    font-size: 1.8em;
+    font-size: x-large;
     font-weight: 700;
     letter-spacing: 1px;
 }
 
 h2 {
-    font-size: 1.4em;
+    font-size: large;
     font-weight: 400;
 }
 
 h3 {
-    font-size: 1.1em;
+    font-size: large;
     font-weight: 400;
 }
 
 sub {
-    font-size: 0.8rem;
+    font-size: small;
 }
 
 sup {
-    font-size: 0.8rem;
+    font-size: small;
     vertical-align: super;
 }
 
@@ -139,7 +139,7 @@ input[type='submit'] {
     padding: 5px 20px;
     background: #333;
     color: #fefefe;
-    font-size: 14px;
+    font-size: small;
     line-height: 160%;
 }
 
@@ -241,7 +241,7 @@ select {}
 .htmlEditor h5 {
     padding-bottom: 5px;
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: medium;
 }
 
 .htmlEditor p,
@@ -438,7 +438,7 @@ dd>a:focus {
     display: none;
     padding-top: 5px;
     padding-left: 10px;
-    font-size: 0.9em;
+    font-size: medium !important;
 }
 
 .subMenu>dl>dd.secCtrl.action .secMenu {
@@ -488,7 +488,7 @@ dd>a:focus {
 }
 
 .mainLeft>div.counterPad {
-    font-size: 0.8em;
+    font-size: small;
     text-align: center;
     color: #aaa;
     padding-bottom: 20px;
@@ -551,19 +551,19 @@ dd>a:focus {
 } */
 
 .breadcrumbs>dl>dt {
-    font-size: 0.85em;
+    font-size: small;
 }
 
 .breadcrumbs>dl>dd {
-    font-size: 0.9em;
+    font-size: small;
 }
 
 breadcrumbs2>dl>dd {
-    font-size: 0.55em;
+    font-size: small;
 }
 
 breadcrumbs2>dl>dd {
-    font-size: 0.5em;
+    font-size: small;
 }
 
 .pageContPad .pageCont {
@@ -573,7 +573,7 @@ breadcrumbs2>dl>dd {
 
 .pageCont>h1,
 .pageCont>h2 {
-    font-size: 1.2rem;
+    font-size: large;
     color: rgb(126, 9, 73);
     font-weight: 700;
     border-bottom: 1px solid #cecece;
@@ -590,7 +590,7 @@ breadcrumbs2>dl>dd {
 .pageCont>h1 i,
 .pageCont>h2 i {
     margin-right: 5px;
-    font-size: 0.8em;
+    font-size: small;
     color: rgb(126, 9, 73);
 }
 
@@ -628,7 +628,7 @@ breadcrumbs2>dl>dd {
 }
 
 .contFt a {
-    font-size: 0.8rem;
+    font-size: small;
     color: #999;
     display: inline-block;
     margin-right: 15px;
@@ -646,7 +646,7 @@ breadcrumbs2>dl>dd {
 .contFt_date {
     width: 100%;
     text-align: left;
-    font-size: 0.8rem;
+    font-size: small;
     color: #999;
     padding-top: 10px;
     padding-right: 15px;
@@ -662,7 +662,7 @@ breadcrumbs2>dl>dd {
 
 .cssTable.dateList {
     width: 100%;
-    font-size: 1rem;
+    font-size: medium;
 }
 
 .cssTable.dateList>ul>li,
@@ -681,7 +681,7 @@ breadcrumbs2>dl>dd {
 .cssTable.dateList>ul>li:first-child::before,
 .cssTable.dateList>dl>dd:first-child::before {
     content: '。';
-    font-size: 0.8em;
+    font-size: large;
     margin-right: 5px;
 }
 
@@ -706,7 +706,7 @@ breadcrumbs2>dl>dd {
 /* Colspan Table */
 
 .cssTable.dataTable {
-    font-size: 1rem;
+    font-size: large;
     line-height: 140%;
 }
 
@@ -741,7 +741,7 @@ breadcrumbs2>dl>dd {
 table,
 .cssTable.tableList {
     width: 100%;
-    font-size: 0.9rem;
+    font-size: medium;
     border-bottom: 1px solid #ececec;
 }
 
@@ -750,7 +750,7 @@ table td,
 .cssTable.tableList>dl>dt,
 .cssTable.tableList>dl>dd {
     padding: 5px;
-    font-size: 1rem;
+    font-size: medium;
 }
 
 table th,
@@ -876,7 +876,7 @@ a.btn_more {
 a.btn_more::before {
     /* content: 'more'; */
     margin-right: 5px;
-    font-size: 0.8em;
+    font-size: small;
 }
 
 a.btn_more i {
@@ -908,7 +908,7 @@ a.btn_more:hover {
 .qaPad>dl>dt,
 .qaPad>dl>dd {
     padding: 5px;
-    font-size: 0.9em;
+    font-size: small;
 }
 
 .qaPad>dl>dt {
@@ -923,7 +923,7 @@ a.btn_more:hover {
 .qaPad>dl>dt>i,
 .qaPad>dl>dd>i {
     margin-right: 10px;
-    font-size: 1.1em;
+    font-size: medium;
 }
 
 .qaPad>dl>dt>i {
@@ -946,7 +946,7 @@ a.btn_more:hover {
 .sitemapPad>dl {
     padding-bottom: 10px;
     border-bottom: 1px dashed #ccc;
-    font-size: 1.1rem;
+    font-size: medium;
 }
 
 .sitemapPad>dl>dt,
@@ -1127,7 +1127,7 @@ a.btn_more:hover {
 }
 
 .pg_video .videoListPad>ul>li {
-    font-size: 1rem;
+    font-size: medium;
     color: #666;
 }
 
@@ -1143,13 +1143,13 @@ a.btn_more:hover {
 
 .pg_video .videoListPad>ul>li:nth-child(4) {
     text-align: right;
-    font-size: 0.9em;
+    font-size: small;
     background: #ececec;
     padding: 5px;
 }
 
 .pg_video .videoListPad>ul>li>span {
-    font-size: 0.8em;
+    font-size: small;
     color: #999;
     margin-right: 8px;
 }
@@ -1189,7 +1189,7 @@ a.btn_more:hover {
 .pg_events .tableList>dl>dd:nth-child(5) {
     text-align: center;
     vertical-align: middle;
-    font-size: 1.2em;
+    font-size: large;
 }
 
 /* Links */
@@ -1202,7 +1202,7 @@ a.btn_more:hover {
 .pg_links>.cssTable>dl>dd {}
 
 .pg_links>.cssTable>dl>dd a {
-    font-size: 0.8em;
+    font-size: small;
 }
 
 /* Contact */
@@ -1244,7 +1244,7 @@ a.btn_more:hover {
 .pg_contact .cssTable>dl>dd input,
 .pg_contact .cssTable>dl>dd textarea {
     width: 100%;
-    font-size: 0.9rem;
+    font-size: small;
     color: #333;
     border: none;
     background: none;
@@ -1363,7 +1363,7 @@ a.btn_more:hover {
 
 .headerMenu>ul>li {
     display: inline-block;
-    font-size: 0.9em;
+    font-size: small;
     line-height: 120%;
     padding: 2px 10px;
     border-right: 1px solid #aaa;
@@ -1392,7 +1392,7 @@ a.btn_more:hover {
 
 .optionalstuff>ul>li {
     display: inline-block;
-    font-size: 0.9em;
+    font-size: small;
     line-height: 120%;
     padding: 2px 10px;
     border-right: 1px solid #aaa;
@@ -1523,13 +1523,13 @@ dd.leftMenu {
     line-height: 140%;
     margin: 0px auto;
     text-align: center;
-    font-size: 1rem;
+    font-size: medium;
     font-weight: 300;
     border: none;
 }
 
 .footerCont .address {
-    font-size: 0.9rem;
+    font-size: medium;
     padding-bottom: 10px;
     padding-top: 10px;
 }
@@ -1558,14 +1558,14 @@ dd.leftMenu {
     display: inline-block;
     padding: 10px 15px;
     margin: 0px 5px;
-    font-size: 0.9em;
+    font-size: medium;
     color: #cecece;
 }
 
 .footLinks a i {
     margin-bottom: 2px;
     display: block;
-    font-size: 1.4em;
+    font-size: large;
     color: #cecece;
 }
 
@@ -1596,7 +1596,7 @@ dd.leftMenu {
 .copyright {
     width: 100%;
     text-align: center;
-    font-size: 0.8em;
+    font-size: small;
     margin-bottom: 10px;
     padding-top: 10px;
     border-top: 1px solid #666;
@@ -1611,14 +1611,14 @@ dd.leftMenu {
 }
 
 .osusumeBrowser {
-    font-size: 0.8rem;
+    font-size: small;
     text-align: center;
     margin-bottom: 20px;
 }
 
 /* search-Start */
 .search-form-wrapper {
-    font-size: 0.9rem;
+    font-size: small;
     z-index: 999;
     display: block;
     position: absolute;
@@ -1729,7 +1729,7 @@ a:hover .a1,
 a:active .a1,
 a:focus .a1 {
     /* border: 3px solid rgb(245, 145, 4); */
-    background-color: #05bada;
+    background-color: #05cef2;
 }
 .leftbanner .circle2 img{
     display: block;
@@ -1750,13 +1750,13 @@ a:focus span.circle2 img {
 }
 
 .circle>div.f_lang {
-    font-size: .8em;
+    font-size: small;
     font-weight: bold;
     color: white;
 }
 
 .circle>div.f_fb {
-    font-size: 1.2em;
+    font-size: large;
     font-weight: bold;
     color: white;
 }
@@ -1801,13 +1801,13 @@ a:focus span.circle2 img {
 }
 
 .circle>div.f_line {
-    font-size: .8em;
+    font-size: small;
     font-weight: bold;
     color: white;
 }
 
 .circle>div.f_search {
-    font-size: .8em;
+    font-size: small;
     color: white;
 }
 
@@ -1816,7 +1816,7 @@ a:focus span.circle2 img {
     position: absolute;
     top: 50%;
     left: 50%;
-    font-size: .8em;
+    font-size: small;
     color: white;
     transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%);
@@ -1836,7 +1836,7 @@ a:focus span.circle2 img {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
-    font-size: 1.1em;
+    font-size: medium;
     min-width: 175px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     padding: 7px 10px;
@@ -1875,7 +1875,7 @@ p strong a:hover {
         margin: 20px 0; */
     text-align: center;
     overflow: hidden;
-    font-size: 4.5em;
+    font-size: large;
     font: bold 1.5vw/1.6 'Signika', sans-serif;
     user-select: none;
     padding: 3px;
@@ -2028,7 +2028,7 @@ div .cloud-bk {
     background-size: auto;
     background-attachment: unset;
     background-position: 0%;
-    font-size: 7em;
+    font-size: large;
     font: bold 2.3vw/1.6 "LiHei Pro Medium", "Apple LiGothic Medium", "Noto Sans TC", "Microsoft JhengHei", "SimHei";
     user-select: none;
     padding: 5px;
@@ -2056,7 +2056,7 @@ div .cloud-bk {
 
 .attribute {
     position: relative;
-    font-size: 28px;
+    font-size: large;
     text-align: center;
 }
 
@@ -2197,7 +2197,7 @@ div .cloud-bk {
 
     .footLinks a {
         width: calc(49% - 12px);
-        font-size: 0.8rem;
+        font-size: small;
         color: #cecece;
     }
 
@@ -2235,7 +2235,7 @@ div .cloud-bk {
             margin: 20px 0; */
         text-align: center;
         overflow: hidden;
-        font-size: 5em;
+        font-size: large;
         font: bold 4.2vw/1.6 'Signika', sans-serif;
         user-select: none;
         padding: 5px;
