@@ -315,6 +315,40 @@
                 advsearchfire(event, keyword, 'us');
             }
         });
+    
+        $('.socialsharing').click(function(e) {
+            $(".mydropdown-content").css("display","block");
+            $(".mydropdown").css("display","block");
+        });
+    
+        $('.socialsharing').keypress(function(e) {
+            $(".mydropdown-content").css("display","block");
+            $(".mydropdown").css("display","block");
+        }); 
+    
+        $('.facebook').click(function(e) {
+            myshare('fb');
+        });       
+    
+        $('.facebook').keypress(function(e) {
+            myshare('fb');
+        });        
+    
+        $('.lineicon').click(function(e) {
+            myshare('line');
+        });       
+    
+        $('.lineicon').keypress(function(e) {
+            myshare('line');
+        });        
+    
+        $('.twitter').click(function(e) {
+            myshare('twitter');
+        });       
+    
+        $('.twitter').keypress(function(e) {
+            myshare('twitter');
+        });
     });
     
     $(window).resize(function() {
@@ -367,8 +401,9 @@
             // location.href = sUTL;
         } else {
             $('form').find("input[type=text]").each(function(ev) {
-                if (!$(this).val()) {
-                    $(this).attr("placeholder", "＊ KEYWORD ＊");
+                if (!$(this).val()) {                    
+                    alert("＊ 此處不能為空白 ( This cannot be blank ) ＊");
+                    $(this).attr("placeholder", "＊ This cannot be blank ＊");
                 }
             });
         }
@@ -399,7 +434,8 @@
         } else {
             $('form').find("input[type=text]").each(function(ev) {
                 if (!$(this).val()) {
-                    $(this).attr("placeholder", "＊ KEYWORD ＊");
+                    alert("＊ 此處不能為空白 ( This cannot be blank ) ＊");
+                    $(this).attr("placeholder", "＊ 此處不能為空白 ＊");
                 }
             });
             $("#search_e").effect( "shake" );
@@ -459,7 +495,7 @@
     }    
     
 	/*----- 社群分享 -----*/
-	function myshare(key,subkey = "") {
+	function myshare(key, subkey = "") {
 		let _loc = location;
 		let link = encodeURIComponent(_loc.href);
 		let url = "";

@@ -36,7 +36,7 @@
 		</dd>			
 		<dd class="secCtrl"><a href="modeldataquery.html" title="國網帳號申請方法、下載模式資料的方法以及下載資料路徑說明" tabindex="1"><i class="fa fa-angle-right"></i>模式資料查詢</a></dd>
 		<dd class="secCtrl">
-			<a title="歷年成果" href="#" onclick="linkCtrl(6);" tabindex="1"><i class="fa fa-angle-double-right"></i>歷年成果</a>
+			<a title="歷年專案計畫、重要專題成果" href="#" onclick="linkCtrl(6);" tabindex="1"><i class="fa fa-angle-double-right"></i>歷年成果</a>
 			<div class="secMenu">
 				<a href="past_results_1.html" title="專案計畫報告資訊" tabindex="1"><i class="fa fa-angle-right"></i>專案計畫報告</a>
 				<a href="past_results_2.html" title="重要專題分析、評估、建議、研究" tabindex="1"><i class="fa fa-angle-right"></i>重要專題分析</a>
@@ -76,7 +76,7 @@
 <div class="optionalstuff">
 	<ul>	
 		<li style="border-right: none;float: right;">
-			<a href="./ENG/index.html" title="English" tabindex="1" role="button"><img src="images/EN-US.png" class="imgicon" alt="English" /></a>&nbsp;
+			<a href="./ENG/index.html" title="English" tabindex="1" role="button"><img src="images/EN-US.png" class="imgicon" alt="ENG" /></a>&nbsp;
 			<a href="#" onclick="openURL('Facebook','https://www.epa.gov.tw/Page/5BE8739FFBB880CB'); return false;" tabindex="1" title="Facebook" role="button"><img src="images/fb.svg" class="imgicon" alt="Facebook" /></a>&nbsp;
 			<a href="#" onclick="openURL('Line','https://line.me/R/ti/p/KjOox0U09B'); return false;" tabindex="1" title="Line" role="button"><img src="images/line.svg" class="imgicon" alt="Line" /></a>&nbsp;
 			<a href="sitemap.html" tabindex="1" title="檢視網站地圖" style="border: 1px dashed green;padding:5px;" role="button"><i class="fa fa-sitemap"></i>&nbsp;網站導覽</a>

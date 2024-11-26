@@ -1,8 +1,8 @@
 ﻿
 <div class="footLinks">
-	<a tabindex="1" href="#" onclick="openURL_e('Privacy Protection Policy', 'https://www.moenv.gov.tw/en/49AACA21659166DB');return false;" title="Privacy Protection Policy" role="button"><i class="fa"></i>Privacy Protection Policy</a>
-	<a tabindex="1" href="#" onclick="openURL_e('Website Security Policy', 'https://www.moenv.gov.tw/en/93AB5809EC92B90D');return false;" title="Website Security Policy" role="button"><i class="fa"></i>Website Security Policy</a>
-	<a tabindex="1" href="#" onclick="openURL_e('Open Data Statement', 'https://www.moenv.gov.tw/en/6CA206960EF0DAEF');return false;" title="Open Data Statement" role="button"><i class="fa"></i>Open Data Statement</a>
+	<a tabindex="1" href="#" onclick="openURL_e('Privacy Protection Policy', 'https://www.moenv.gov.tw/en/49AACA21659166DB');return false;" title="To open a link (Privacy Protection Policy) on a web page" role="button"><i class="fa"></i>Privacy Protection Policy</a>
+	<a tabindex="1" href="#" onclick="openURL_e('Website Security Policy', 'https://www.moenv.gov.tw/en/93AB5809EC92B90D');return false;" title="To open a link (Website Security Policy) on a web page" role="button"><i class="fa"></i>Website Security Policy</a>
+	<a tabindex="1" href="#" onclick="openURL_e('Open Data Statement', 'https://www.moenv.gov.tw/en/6CA206960EF0DAEF');return false;" title="To open a link (Open Data Statement) on a web page" role="button"><i class="fa"></i>Open Data Statement</a>
 </div>
 <div id="footer" role="footer">
 	<div class="footerCont">
