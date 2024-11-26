@@ -325,7 +325,13 @@
             $(".mydropdown-content").css("display","block");
             $(".mydropdown").css("display","block");
         }); 
-    
+
+        // $(".mydropdown").hover(function(){
+        //     $(".mydropdown-content").css("display","block");
+        // },function(){
+        //     $(".mydropdown-content").css("display","none");
+        // }); 
+
         $('.facebook').click(function(e) {
             myshare('fb');
         });       
