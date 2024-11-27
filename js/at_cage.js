@@ -317,8 +317,9 @@
         });
     
         $('.socialsharing').click(function(e) {
-            $(".mydropdown-content").css("display","block");
-            $(".mydropdown").css("display","block");
+            // $(".mydropdown-content").css("display","block");
+            // $(".mydropdown").css("display","block");
+            $(".mydropdown-content").toggle();
         });
     
         $('.socialsharing').keypress(function(e) {
@@ -326,11 +327,18 @@
             $(".mydropdown").css("display","block");
         }); 
 
-        // $(".mydropdown").hover(function(){
-        //     $(".mydropdown-content").css("display","block");
-        // },function(){
-        //     $(".mydropdown-content").css("display","none");
-        // }); 
+        $('.socialsharing').on( 'keyup', function( e ) {
+            if( e.which == 9 ) { // Tab keypress
+                $(".mydropdown-content").css("display","block");
+                $(".mydropdown").css("display","block");
+            }
+        });
+        
+        $(".mydropdown").hover(function(){
+            $(".mydropdown-content").css("display","block");
+        },function(){
+            $(".mydropdown-content").css("display","none");
+        }); 
 
         $('.facebook').click(function(e) {
             myshare('fb');

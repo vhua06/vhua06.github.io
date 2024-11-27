@@ -10,12 +10,6 @@
       -webkit-transition: none;
       transition: none;
   }
-
-  .lineicon {
-    float: right;
-    background: url(../images/line_48.svg) no-repeat; 
-    background-size: 30px 30px !important;
-  }	
   
   .facebook {
     float: right;
@@ -23,10 +17,16 @@
     background-size: 30px 30px !important;
   }
 
+  .lineicon {
+    float: right;
+    background: url(../images/line_48.svg) no-repeat; 
+    background-size: 33px 33px !important;
+  }	
+
   .twitter {
     float: right;
     background: url(../images/twitter_48.svg) no-repeat;
-    background-size: 30px 30px !important;
+    background-size: 29px 29px !important;
   }
   
   a.socialsharing {
@@ -40,34 +40,32 @@
     cursor: default;
   }
 
-  /*
-  .lineicon:hover,
-  .lineicon:active,
-  .lineicon:focus {
-      background: url(../images/line_48_hover.svg) no-repeat;
-      background-size: 30px 30px !important;
-  }	
-
-  .facebook:hover,
-  .facebook:active,
-  .facebook:focus {
-    background: url(../images/facebook_48_hover.svg) no-repeat;
+  
+a.socialsharing:hover,
+a.socialsharing:active,
+a.socialsharing:focus {  
+    background: url(../images/share_48_hover.svg) no-repeat; 
     background-size: 30px 30px !important;
-  }	
-
-  .twitter:hover,
-  .twitter:active,
-  .twitter:focus {
-    background: url(../images/twitter_48_hover.svg) no-repeat;
+}
+a.facebook:hover,
+a.facebook:active,
+a.facebook:focus  {  
+    background: url(../images/facebook_48_hover.svg) no-repeat; 
     background-size: 30px 30px !important;
-  }	
+}
+a.lineicon:hover,
+a.lineicon:active,
+a.lineicon:focus  {     
+    background: url(../images/line_48_hover.svg) no-repeat; 
+    background-size: 31px 31px !important;
+}
 
-  .socialsharing:hover,
-  .socialsharing:active,
-  .socialsharing:focus {
-    background: url(../images/share_48_hover.svg) no-repeat;
-    background-size: 25px 25px !important;
-  } */
+a.twitter:hover,
+a.twitter:active,
+a.twitter:focus  {    
+    background: url(../images/twitter_48_hover.svg) no-repeat; 
+    background-size: 29px 29px !important;
+}
 
   a.lineicon, a.facebook, a .twitter, a.socialsharing {
       color: #1264A3;

@@ -69,7 +69,17 @@ input[type="button"] {
 }
 
 /* ============= Basic ============= */
-
+.visually-hidden,.visually-hidden-focusable:not(:focus):not(:focus-within) {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important
+}
 .loadPad {
     width: 100%;
     height: 100%;
@@ -231,6 +241,7 @@ select {}
 .htmlEditor {
     width: 96%;
     margin: 10px auto;
+    padding-top: 50px;
     line-height: 180%;
     vertical-align: baseline;
 }
@@ -514,6 +525,7 @@ dd>a:focus {
 .breadcrumbs2 a {
     color: #999;
     display: inline-block;
+    z-index: 100;
 }
 
 .breadcrumbs a:hover,
@@ -536,6 +548,7 @@ dd>a:focus {
     line-height: 100%;
     color: #999;
     margin-right: 0px;
+    z-index: 100;
 }
 
 .breadcrumbs>dl>dd::before {
@@ -989,9 +1002,9 @@ a.btn_more:hover {
     margin-top: 15px;
 }
 
-/* Datasheet*/
+/* Datasheet
 
-.pageCont.pg_datasheetlist {}
+.pageCont.pg_datasheetlist {} */
 
 .pg_datasheetlist .dateList {
     width: 96%;
