@@ -324,13 +324,13 @@
     
         $('.socialsharing').keypress(function(e) {
             $(".mydropdown-content").css("display","block");
-            $(".mydropdown").css("display","block");
+            // $(".mydropdown").css("display","block");
         }); 
 
         $('.socialsharing').on( 'keyup', function( e ) {
             if( e.which == 9 ) { // Tab keypress
                 $(".mydropdown-content").css("display","block");
-                $(".mydropdown").css("display","block");
+                // $(".mydropdown").css("display","block");
             }
         });
         
