@@ -317,9 +317,9 @@
         });
     
         $('.socialsharing').click(function(e) {
-            // $(".mydropdown-content").css("display","block");
+            $(".mydropdown-content").css("display","block");
             // $(".mydropdown").css("display","block");
-            $(".mydropdown-content").toggle();
+            // $(".mydropdown-content").toggle();
         });
     
         $('.socialsharing').keypress(function(e) {
