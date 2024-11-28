@@ -75,7 +75,7 @@
 				border: 1px solid black;
 			}
 
-			/* 基本樣式
+			/* 基本樣式 */
 			#m1, #m2, #m3 {
 				max-width: 100%;
 				height: auto;
@@ -83,20 +83,35 @@
 
 			blockquote {
 				max-width: 100%;
-			} */
+			} 
 
 			/* On TABLET screens < 800  */
 			@media screen and (max-width: 800px) { 
 				
+				#m1, #m2, #m3 {
+					max-width:85% !important; 
+				}
+				
+				.styled-table {
+					max-width:85%;
+					display: block; 
+					overflow-x: auto;  		
+				}
+				th, td { padding: 8px; text-align: left; border: 1px solid #dddddd; }
+
+				blockquote {
+					max-width: 70%;
+				}
+
 				.pg_modeldataquery {
 					width: 75%;
-					border: 2px solid blue;
+					/* border: 2px solid blue; */
 				} 
 			}
 
 			/* On TABLET screens < 650px  */
 			@media screen and (max-width: 650px) {
-				/*
+				
 				#m1, #m2, #m3 {
 					max-width:75% !important; 
 				}
@@ -111,7 +126,6 @@
 				blockquote {
 					max-width: 60%;
 				}
-				*/
 				
 				.pg_modeldataquery {
 					width: 70%;
