@@ -334,11 +334,11 @@
             }
         });
         
-        $(".mydropdown").hover(function(){
-            $(".mydropdown-content").css("display","block");
-        },function(){
-            $(".mydropdown-content").css("display","none");
-        }); 
+        // $(".mydropdown").hover(function(){
+        //     $(".mydropdown-content").css("display","block");
+        // },function(){
+        //     $(".mydropdown-content").css("display","none");
+        // }); 
 
         $('.facebook').click(function(e) {
             myshare('fb');
