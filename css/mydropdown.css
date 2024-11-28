@@ -13,9 +13,9 @@
   z-index: 999;
 }
 
-/* .mydropdown:hover .mydropdown-content {
+.mydropdown:hover .mydropdown-content {
   display: block;
-} */
+}
 
 .topnav-right {
   float: right;
