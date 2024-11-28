@@ -75,7 +75,7 @@
 				border: 1px solid black;
 			}
 
-			/* 基本樣式 */
+			/* 基本樣式
 			#m1, #m2, #m3 {
 				max-width: 100%;
 				height: auto;
@@ -83,21 +83,19 @@
 
 			blockquote {
 				max-width: 100%;
-			}
+			} */
 
 			/* On TABLET screens < 800  */
-			@media screen and (max-width: 800px) {  
-				#m1, #m2, #m3 {
-					max-width:85% !important; 
-				}
-
-				blockquote {
-					max-width: 85%;
-				}
+			@media screen and (max-width: 800px) { 
+				
+				.pg_modeldataquery {
+					width: 85%;
+				} 
 			}
 
 			/* On TABLET screens < 650px  */
 			@media screen and (max-width: 650px) {
+				/*
 				#m1, #m2, #m3 {
 					max-width:75% !important; 
 				}
@@ -107,10 +105,15 @@
 					display: block; 
 					overflow-x: auto;  		
 				}
-				th, td { padding: 8px; text-align: left; border: 1px solid #ddd; }
+				th, td { padding: 8px; text-align: left; border: 1px solid #dddddd; }
 
 				blockquote {
 					max-width: 60%;
+				}
+				*/
+				
+				.pg_modeldataquery {
+					width: 80%;
 				}
 			}
 		</style>
@@ -333,7 +336,7 @@
 							<dd>模式資料查詢</dd>
 						</dl>
 					</div>
-					<div class="pageCont pg_about">
+					<div class="pageCont pg_modeldataquery">
 						<h1><i class="fa fa-life-ring" aria-hidden="true"></i>模式資料查詢</h1>	
 						<span class="mydropdown h2_icon topnav-right">
 							<span role="button"><a class="socialsharing" title="點選下列社群媒體，分享網頁內容" href="#" tabindex="1" >社群分享</a></span>
