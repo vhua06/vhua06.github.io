@@ -59,15 +59,16 @@ input[type="submit"],
 input[type="button"] {
     cursor: pointer;
 }
-
+/*
 .height_F {
-    /*Full Height @ at_cage.js*/
+    Full Height @ at_cage.js
 }
-
+*/
+/*
 .height_F2 {
-    /*Full Height - header @ at_cage.js*/
+    Full Height - header @ at_cage.js
 }
-
+*/
 /* ============= Basic ============= */
 .visually-hidden,.visually-hidden-focusable:not(:focus):not(:focus-within) {
     position: absolute !important;
