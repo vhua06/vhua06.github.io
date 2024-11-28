@@ -62,8 +62,11 @@
 					margin: 25px 0;
 					font-size: small;
 					font-family: sans-serif;
-					min-width: 400px;
-					box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);		
+					/* min-width: 400px; */
+					box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);	
+					max-width: 100%; 
+					height: auto; 
+					border-collapse: collapse;	
 			}
 			table, tr {
 				border: 2px solid black;
@@ -78,24 +81,25 @@
 				height: auto;
 			}
 
-			@media only screen and (max-width: 640px) {
+			/* On TABLET screens < 800  */
+			@media screen and (max-width: 800px) {  
 				img {
 					max-width:75%; 
 				}
-				
-				.styled-table {
-					max-width:75%; 		
-				}
 			}
 
-			@media only screen and (max-width: 540px) {
+			/* On TABLET screens < 650px  */
+			@media screen and (max-width: 650px) {
 				img {
-					max-width:55%; 
+					max-width:65%; 
 				}
 				
 				.styled-table {
-					max-width:55%; 		
+					max-width:75%;
+					display: block; 
+					overflow-x: auto;  		
 				}
+				th, td { padding: 8px; text-align: left; border: 1px solid #ddd; }
 			}
 		</style>
 		<!--Google Analytics Script碼(start) 要放在</head>之前-->
@@ -334,117 +338,117 @@
 							</blockquote>
 							<br>					
 							<h2>國網帳號申請方法說明</h2>
+							<blockquote>
+							欲上傳或下載資料者，皆需在國網申請帳號使用，國網帳號申請不需要費用，請依照下面條列的步驟申請：
+							</blockquote>
+							<blockquote>
+								1. 進入<a tabindex="1" href="#" onclick="openURL('iService計算資源服務網','https://iservice.nchc.org.tw/nchc_service/index.php?lang_type='); return false;" title="iService計算資源服務網">iService計算資源服務網&nbsp;<span style="font-size: small;color:#C53B86;">[另開新視窗]</span></a>
 								<blockquote>
-								欲上傳或下載資料者，皆需在國網申請帳號使用，國網帳號申請不需要費用，請依照下面條列的步驟申請：
-								</blockquote>
-								<blockquote>
-									1. 進入<a tabindex="1" href="#" onclick="openURL('iService計算資源服務網','https://iservice.nchc.org.tw/nchc_service/index.php?lang_type='); return false;" title="iService計算資源服務網">iService計算資源服務網&nbsp;<span style="font-size: small;color:#C53B86;">[另開新視窗]</span></a>
-									<blockquote>
-								</blockquote>
-								<blockquote>
-									2. 選取下圖紅框框起之右上角註冊按鈕<br>
-								</blockquote>
-										<img src="images/register_btn.png" alt="註冊按鈕位置圖示" title="註冊按鈕位置圖示" />
-								<blockquote>
-									3. 輸入電子信箱並閱讀個資和權利義務聲明
-								</blockquote>
-								<blockquote>
-									4. 填寫會員基本資料
-								</blockquote>
-								<blockquote>
-									5. 收取認證信和驗證簡訊
-								</blockquote>
-								<blockquote>
-									6. 驗證成功即帳號申請完畢
-								</blockquote>
+							</blockquote>
+							<blockquote>
+								2. 選取下圖紅框框起之右上角註冊按鈕<br>
+							</blockquote>
+									<img src="images/register_btn.png" alt="註冊按鈕位置圖示" title="註冊按鈕位置圖示" />
+							<blockquote>
+								3. 輸入電子信箱並閱讀個資和權利義務聲明
+							</blockquote>
+							<blockquote>
+								4. 填寫會員基本資料
+							</blockquote>
+							<blockquote>
+								5. 收取認證信和驗證簡訊
+							</blockquote>
+							<blockquote>
+								6. 驗證成功即帳號申請完畢
+							</blockquote>
 							<br>
 
 							<h2>國網下載資料方法</h2>
+							<blockquote>
+							從國網下載資料可分為以下兩種主要的方法，以下分別說明這兩種下載方法：
+							</blockquote>
+							<!-- <blockquote> -->
+								<h3>
+								一、	使用linux指令下載
+								</h3>
+								<br>
 								<blockquote>
-								從國網下載資料可分為以下兩種主要的方法，以下分別說明這兩種下載方法：
-								</blockquote>
-								<!-- <blockquote> -->
-									<h3>
-									一、	使用linux指令下載
-									</h3>
+								於自己的linux主機執行以下任一種指令：
+								</blockquote>								
+								<div>
+									<h4>1. scp 指令</h4>
+									<ul>
+										<li class="libox" style="list-style-type: none;">
+											<spen>
+												<p style="padding: 0 3px;">
+													$ <b>scp</b> [<span style="color:lightseagreen">option:</span>] &lt;<span style="color:mediumvioletred">source host</span>&gt;<b>:</b>&lt;<span style="color:darkviolet">remote patd of directory or file</span>&gt; &lt;<span style="color:dodgerblue">destination host</span>&gt;<b>:</b>&lt;<span style="color:coral">local patd of directory or file</span>&gt;
+												</p>
+											</spen>
+										</li>
+									</ul>
+									<h4>2. rsync 指令</h4>
+									<ul>
+										<li class="libox" style="list-style-type: none;">
+											<spen>
+												<p style="padding: 0 3px;">
+													$ <b>rsync</b> [<span style="color:lightseagreen">option:</span>] &lt;<span style="color:mediumvioletred">source host</span>&gt;<b>:</b>&lt;<span style="color:darkviolet">remote patd of directory or file</span>&gt; &lt;<span style="color:dodgerblue">destination host</span>&gt;<b>:</b>&lt;<span style="color:coral">local patd of directory or file</span>&gt;
+												</p>
+											</spen>
+										</li>
+									</ul>
+									<h4><span style="color:lightseagreen">option:</span> 指令使用選項</h4>
+									<ul>
+										<li class="libox" style="list-style-type: none;">
+											<div>
+												<ul>
+													<li><span style="color:mediumvioletred">source host</span> : 國網帳號@<span style="color:red;">台灣杉三號</span>資料傳輸節點 (<span style="color:red;">t3-x1.nchc.org.tw 或<br> t3-x2.nchc.org.tw</span>)</li>
+													<li><span style="color:darkviolet">remote patd of directory or file</span> : 欲下載資料的國網路徑</li>
+													<li><span style="color:dodgerblue">destination host</span> : 下載目標主機(如為下載至本機可不輸入)</li>
+													<li><span style="color:coral">local patd of directory or file</span> : 檔案下載目標路徑</li>
+												</ul>
+											</div>
+										</li>
+									</ul>
 									<br>
-									<blockquote>
-									於自己的linux主機執行以下任一種指令：
-									</blockquote>								
-									<div>
-										<h4>1. scp 指令</h4>
-										<ul>
-											<li class="libox" style="list-style-type: none;">
-												<spen>
-													<p style="padding: 0 3px;">
-														$ <b>scp</b> [<span style="color:lightseagreen">option:</span>] &lt;<span style="color:mediumvioletred">source host</span>&gt;<b>:</b>&lt;<span style="color:darkviolet">remote patd of directory or file</span>&gt; &lt;<span style="color:dodgerblue">destination host</span>&gt;<b>:</b>&lt;<span style="color:coral">local patd of directory or file</span>&gt;
-													</p>
-												</spen>
-											</li>
-										</ul>
-										<h4>2. rsync 指令</h4>
-										<ul>
-											<li class="libox" style="list-style-type: none;">
-												<spen>
-													<p style="padding: 0 3px;">
-														$ <b>rsync</b> [<span style="color:lightseagreen">option:</span>] &lt;<span style="color:mediumvioletred">source host</span>&gt;<b>:</b>&lt;<span style="color:darkviolet">remote patd of directory or file</span>&gt; &lt;<span style="color:dodgerblue">destination host</span>&gt;<b>:</b>&lt;<span style="color:coral">local patd of directory or file</span>&gt;
-													</p>
-												</spen>
-											</li>
-										</ul>
-										<h4><span style="color:lightseagreen">option:</span> 指令使用選項</h4>
-										<ul>
-											<li class="libox" style="list-style-type: none;">
-												<div>
-													<ul>
-														<li><span style="color:mediumvioletred">source host</span> : 國網帳號@<span style="color:red;">台灣杉三號</span>資料傳輸節點 (<span style="color:red;">t3-x1.nchc.org.tw 或<br> t3-x2.nchc.org.tw</span>)</li>
-														<li><span style="color:darkviolet">remote patd of directory or file</span> : 欲下載資料的國網路徑</li>
-														<li><span style="color:dodgerblue">destination host</span> : 下載目標主機(如為下載至本機可不輸入)</li>
-														<li><span style="color:coral">local patd of directory or file</span> : 檔案下載目標路徑</li>
-													</ul>
-												</div>
-											</li>
-										</ul>
-										<br>
-										<h3>
-										二、	使用第三方軟體下載（以winSCP為例）
-										</h3>
-										<p>
-											<blockquote>
-											開啟winSCP程式後在登入介面依下圖輸入內容：
-											</blockquote>
-											<img src="images/modeldataquery_1.png" alt="winSCP程式操作" title="使用第三方軟體下載" />
-										</p>
-										<p>
-											<blockquote>
-											登入後頁面如下，雙擊右半視窗路徑列，輸入欲下載檔案路徑，或至<span style="color:red;">/work/simenvipub01/ 資料夾</span>中自行搜尋目標檔案，右鍵點選欲下載檔案即開始下載。
-											</blockquote>
-											<img src="images/modeldataquery_2.png" alt="winSCP程式操作" title="使用第三方軟體下載" />
-										</p>																		
-									</div>	
-								<!-- </blockquote>		 -->
+									<h3>
+									二、	使用第三方軟體下載（以winSCP為例）
+									</h3>
+									<p>
+										<blockquote>
+										開啟winSCP程式後在登入介面依下圖輸入內容：
+										</blockquote>
+										<img src="images/modeldataquery_1.png" alt="winSCP程式操作" title="使用第三方軟體下載" />
+									</p>
+									<p>
+										<blockquote>
+										登入後頁面如下，雙擊右半視窗路徑列，輸入欲下載檔案路徑，或至<span style="color:red;">/work/simenvipub01/ 資料夾</span>中自行搜尋目標檔案，右鍵點選欲下載檔案即開始下載。
+										</blockquote>
+										<img src="images/modeldataquery_2.png" alt="winSCP程式操作" title="使用第三方軟體下載" />
+									</p>																		
+								</div>	
+							<!-- </blockquote>		 -->
 							<br>					
 							<h2>下載資料路徑說明</h2>
-								<blockquote>
-								資料公開之模擬結果檔案儲存於國網<span style="color:red;">台灣杉三號</span>主機中，<span style="color:red;">台灣杉三號</span>主機檔案傳輸ip為 <span style="color:red;">t3-x1.nchc.org.tw 或 t3-x2.nchc.org.tw</span>，檔案路徑包含「共通路徑/縣市/案件類型/模式分類/案號」等五個部分：
-								</blockquote>
-								<blockquote>
-									1. 共通路徑，為公開資料的共通檔案儲存路徑 <br>
-									<blockquote>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red;">/work/simenvipub01/upload/</span></blockquote>
-								</blockquote>
-								<blockquote>
-									2. 縣市資料夾選項，依照不同縣市的案件輸入資料夾名稱，如下表
-								</blockquote>
-								<blockquote>
-									3.	案件類型選項，選項包含環境影響評估（assess/）、減量或控制策略評估（control/）、<br>
-									<blockquote>&nbsp;&nbsp;&nbsp;&nbsp;許可申請（permit/）和其他類型（other/）</blockquote>
-								</blockquote>
-								<blockquote>
-									4.	模式分類，分為公告模式（recommend/）、非公告模式（alternative/）和其他（other/）
-								</blockquote>
-								<blockquote>
-									5.	案號則依縣市環保局命名
-								</blockquote>								
+							<blockquote>
+							資料公開之模擬結果檔案儲存於國網<span style="color:red;">台灣杉三號</span>主機中，<span style="color:red;">台灣杉三號</span>主機檔案傳輸ip為 <span style="color:red;">t3-x1.nchc.org.tw 或 t3-x2.nchc.org.tw</span>，檔案路徑包含「共通路徑/縣市/案件類型/模式分類/案號」等五個部分：
+							</blockquote>
+							<blockquote>
+								1. 共通路徑，為公開資料的共通檔案儲存路徑 <br>
+								<blockquote>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red;">/work/simenvipub01/upload/</span></blockquote>
+							</blockquote>
+							<blockquote>
+								2. 縣市資料夾選項，依照不同縣市的案件輸入資料夾名稱，如下表
+							</blockquote>
+							<blockquote>
+								3.	案件類型選項，選項包含環境影響評估（assess/）、減量或控制策略評估（control/）、<br>
+								<blockquote>&nbsp;&nbsp;&nbsp;&nbsp;許可申請（permit/）和其他類型（other/）</blockquote>
+							</blockquote>
+							<blockquote>
+								4.	模式分類，分為公告模式（recommend/）、非公告模式（alternative/）和其他（other/）
+							</blockquote>
+							<blockquote>
+								5.	案號則依縣市環保局命名
+							</blockquote>								
 							<div>
 								<table role="table" class="styled-table">
 									<thead>
