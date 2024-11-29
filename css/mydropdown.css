@@ -10,7 +10,7 @@
   min-width: 32px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   padding: 1px 0px;
-  z-index: 999;
+  /* z-index: 999; */
 }
 
 .mydropdown:hover .mydropdown-content {
