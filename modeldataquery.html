@@ -1,16 +1,10 @@
 
+
 <!doctype html>
 <html xml:lang="zh-tw" lang="zh-tw"><head>
 	<noscript><b style="text-align:center; padding:1em 0; display:block; background:#e00; color:#fff;">您的瀏覽器不支援JavaScript功能，請開啟瀏覽器JavaScript狀態，或更換瀏覽器</b></noscript>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="apple-mobile-web-app-capable" content="no" />
-  <meta name="apple-mobile-web-app-status-batr-style" content="black-translucent" />
-  <meta name="format-detection" content="telephone=no" />
-  <meta name="apple-touch-fullscreen" content="yes" />
-  <meta name="format-detection" content="no" />
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"/>
 
     <!-- Fold Modal CSS -->
     <!-- <link href="css/fold_modal.css" rel="stylesheet" type="text/css" />  -->	
@@ -71,9 +65,9 @@
 					font-family: sans-serif;
 					/* min-width: 400px; */
 					box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);	
-					max-width: 100%;
-					
+					max-width: 100%; 
 					height: auto; 
+					border-collapse: collapse;	
 			}
 			table, tr {
 				border: 2px solid black;
@@ -82,17 +76,27 @@
 				border: 1px solid black;
 			}
 
-			/* On TABLET screens < 640px  */
-			@media screen and (max-width: 640px) {
-				.mainRight {
-					width: 280px;
+			/* 基本樣式
+			#m1, #m2, #m3 {
+				max-width: 100%;
+				height: auto;
+			}			
+
+			blockquote {
+				max-width: 100%;
+			}  */
+
+			/* On TABLET screens < 800 
+			@media screen and (max-width: 800px) { 
+				
+				#m1, #m2, #m3 {
+					max-width:95% !important; 
 				}
-				.pageContPad {
-					width: 67%;
-				}	
-				/* #m1, #m2, #m3 {					
-					max-width:70%;
-				}		*/	
+
+				blockquote {
+					max-width: 95%;
+				}
+				
 				.styled-table {
 					max-width:95%;
 					display: block; 
@@ -100,8 +104,41 @@
 				}
 				th, td { padding: 8px; text-align: left; border: 1px solid #ddd; }
 
-				.exfont { font-size:xx-small;} 
-			} 
+				.pageContPad {
+					width: 75%;
+				} 
+			}  */
+
+			/* On TABLET screens < 650px  */
+			@media screen and (max-width: 650px) {
+				/*
+				#m1, #m2, #m3 {
+					max-width:95% !important; 
+				}
+
+				blockquote {
+					max-width: 85%;
+				}
+				*/
+				.mainRight {
+					width: 280px;
+					/* border: 2px solid blue; */
+				}
+
+				.pageContPad {
+					width: 67%;
+					/* border: 2px solid red; */
+				}
+				
+				.styled-table {
+					max-width:95%;
+					display: block; 
+					overflow-x: auto;  		
+				}
+				th, td { padding: 8px; text-align: left; border: 1px solid #ddd; }
+
+				.exfont { font-size:xx-small;}
+			}
 		</style>
 		<!--Google Analytics Script碼(start) 要放在</head>之前-->
 		<!-- Global site tag (gtag.js) - Google Analytics -->
@@ -170,7 +207,7 @@
 </div>
  
 
-<!-- <script type="text/javascript" src="js/TweenMax.1.20.3.min.js"></script> -->
+<script type="text/javascript" src="js/TweenMax.1.20.3.min.js"></script>
 <!-- <script type="text/javascript" src="js/fold_modal.js"></script> -->
 	
 <div class="mainCont cssTable height_F2">
@@ -277,7 +314,42 @@
 			<div style="color: #222;font-size: medium;font-weight: 700;letter-spacing: 1px;text-align: center;">環境部<br>環境資料開放平臺</div>
 		</a>
 	</div> 	
-	<!-- 模式資料查詢 -->			
+	<!-- div class="counterPad">
+	<br /><a href="#" tabindex="-1" style="" onclick="openURL_e('Logo for Website Accessibility Specification', 'https://accessibility.ncc.gov.tw/Applications/Detail?category=20200504161137');return false;">
+	<img class="leftMenu" alt="Logo for Website Accessibility Specification" title="Logo for Website Accessibility Specification" src="data:image/png;base64,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" style="border-width: 0px; border-style: solid; height: 40px; width: 113px;"> 
+	</a>
+	</!-- -->
+	<script>
+		function linkCtrl(n) {	
+				// $('.subMenu').find('.secCtrl').eq(0).removeClass('action');
+				// $('.subMenu').find('.secCtrl').eq(1).removeClass('action');
+				$('.subMenu').find('.secCtrl').eq(n).hover(function () {
+					$(this).addClass('action');
+				} , function () {
+					$(this).removeClass('action');
+				} );
+				/*
+				$('.subMenu').find('.secCtrl').eq(3).hover(function () {
+					$(this).addClass('action');
+				} , function () {
+					$(this).removeClass('action');
+				});
+				$('.subMenu').find('.secCtrl').eq(4).hover(function () {
+					$(this).addClass('action');
+				} , function () {
+					$(this).removeClass('action');
+				});
+				// $('.subMenu').find('.secCtrl').eq(5).removeClass('action');
+				$('.subMenu').find('.secCtrl').eq(6).hover(function () {
+					$(this).addClass('action');
+				} , function () {
+					$(this).removeClass('action');
+				});
+				*/
+				// $('.subMenu').find('.secCtrl').eq(7).removeClass('action');
+				// $('.subMenu').find('.secCtrl').eq(8).removeClass('action'); 
+		}
+	</script>			
 			</dt>
 			<dd class="mainRight">
 				<div id="cont" class="pageContPad">
@@ -309,11 +381,12 @@
 							</blockquote>
 							<blockquote>
 								1. 進入<a tabindex="1" href="#" onclick="openURL('iService計算資源服務網','https://iservice.nchc.org.tw/nchc_service/index.php?lang_type='); return false;" title="iService計算資源服務網">iService計算資源服務網&nbsp;<span style="font-size: small;color:#C53B86;">[另開新視窗]</span></a>
+								<blockquote>
 							</blockquote>
 							<blockquote>
 								2. 選取下圖紅框框起之右上角註冊按鈕<br>
 							</blockquote>
-							<img id="m1" src="images/register_btn.png" alt="註冊按鈕位置圖示" title="註冊按鈕位置圖示" />
+									<img id="m1" src="images/register_btn.png" alt="註冊按鈕位置圖示" title="註冊按鈕位置圖示" />
 							<blockquote>
 								3. 輸入電子信箱並閱讀個資和權利義務聲明
 							</blockquote>
@@ -333,7 +406,9 @@
 							從國網下載資料可分為以下兩種主要的方法，以下分別說明這兩種下載方法：
 							</blockquote>
 							<!-- <blockquote> -->
-								<h3>一、	使用linux指令下載</h3>
+								<h3>
+								一、	使用linux指令下載
+								</h3>
 								<br>
 								<blockquote>
 								於自己的linux主機執行以下任一種指令：
@@ -373,7 +448,9 @@
 										</li>
 									</ul>
 									<br>
-									<h3>二、	使用第三方軟體下載（以winSCP為例）</h3>
+									<h3>
+									二、	使用第三方軟體下載（以winSCP為例）
+									</h3>
 									<p>
 										<blockquote>
 										開啟winSCP程式後在登入介面依下圖輸入內容：
@@ -394,22 +471,22 @@
 							資料公開之模擬結果檔案儲存於國網<span style="color:red;">台灣杉三號</span>主機中，<span style="color:red;">台灣杉三號</span>主機檔案傳輸ip為 <span style="color:red;">t3-x1.nchc.org.tw 或 t3-x2.nchc.org.tw</span>，檔案路徑包含「共通路徑/縣市/案件類型/模式分類/案號」等五個部分：
 							</blockquote>
 							<blockquote>
-								1. 共通路徑，為公開資料的共通檔案儲存路徑：<br>
-								<blockquote style="text-indent: 7%;"><span style="color:red;">/work/simenvipub01/upload/</span></blockquote>
+								1. 共通路徑，為公開資料的共通檔案儲存路徑 <br>
+								<blockquote>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red;">/work/simenvipub01/upload/</span></blockquote>
 							</blockquote>
 							<blockquote>
-								2. 縣市資料夾選項，依照不同縣市的案件輸入資料夾名稱，如下表。
+								2. 縣市資料夾選項，依照不同縣市的案件輸入資料夾名稱，如下表
 							</blockquote>
 							<blockquote>
 								3.	案件類型選項，選項包含環境影響評估（assess/）、減量或控制策略評估（control/）、<br>
-								<blockquote style="text-indent: 7%;">許可申請（permit/）和其他類型（other/）。</blockquote>
+								<blockquote>&nbsp;&nbsp;&nbsp;&nbsp;許可申請（permit/）和其他類型（other/）</blockquote>
 							</blockquote>
 							<blockquote>
-								4.	模式分類，分為公告模式（recommend/）、非公告模式（alternative/）和其他（other/）。
+								4.	模式分類，分為公告模式（recommend/）、非公告模式（alternative/）和其他（other/）
 							</blockquote>
 							<blockquote>
-								5.	案號則依縣市環保局命名。<br>
-							</blockquote>
+								5.	案號則依縣市環保局命名
+							</blockquote>								
 							<div>
 								<table role="table" class="styled-table">
 									<thead>
@@ -551,17 +628,17 @@
 							<br>					
 							<h2>範例路徑及說明：</h2>
 								<blockquote class="exfont">
-									<span style="color: #FF0000;">/work/simenvipub01/upload/</span><span style="color: #0070C0;">21/</span><span style="color: #FFB000;">permit/</span><span style="color: #00B010;">recommend/</span>R0900017-M01-1091117
-									<br>
-									<blockquote>
-									為<span style="color: #0070C0;">臺南市</span>的<span style="color: #FFB000;">許可申請</span>，使用<span style="color: #00B010;">公告模式</span>的案件R0900017-M01-1091117
-									</blockquote>
+								<span style="color: #FF0000;">/work/simenvipub01/upload/</span><span style="color: #0070C0;">21/</span><span style="color: #FFB000;">permit/</span><span style="color: #00B010;">recommend/</span>R0900017-M01-1091117
+								<br>
+								<blockquote>
+								為<span style="color: #0070C0;">臺南市</span>的<span style="color: #FFB000;">許可申請</span>，使用<span style="color: #00B010;">公告模式</span>的案件R0900017-M01-1091117
+								</blockquote>
 								</blockquote>
 						</div>
 						<hr />	
 						<div class="contFt">
 							<!-- Tab 鍵的順序 你們可以說清楚要怎麼走嗎?? 要能先到網頁導覽又要由左至右由上到下，能不能白話一點?? -->
-							<a tabindex="1" href="" class="btn_print" onClick="javascript:print();" accesskey="p" title="列印 / Alt + p" role="button"><i class="fa fa-print" aria-hidden="true"></i>列印</a>
+							<a tabindex="1" href="" class="btn_print" onClick="javascript:print();" accesskey="p" title="列印 / Ctrl + p" role="button"><i class="fa fa-print" aria-hidden="true"></i>列印</a>
 							<a tabindex="1" href="#main" class="btn_print" accesskey="t" title="回到最上層 / Alt + t" role="button"><i class="fa fa-arrow-up" aria-hidden="true"></i>回到最上層</a>
 								<!-- a href="" class="btn_back" onClick="history.back()" accesskey="b" title="Backspace / Alt + b"><i class="fa fa-undo" aria-hidden="true"></i>回上一頁</a> -->
 							<!-- <a href="#search" class="search-form-tigger btn btn-success" data-toggle="search-form" accesskey="s" title="搜尋 / Alt + s"><i class='fa fa-search' aria-hidden="true"></i>搜尋</a>
@@ -600,17 +677,6 @@
 <script type="text/javascript" src="js/at_cage.js"></script>
 <!-- <script type="text/javascript" src="js/foldModelTrigger.js"></script> -->  
 <script src="/dispPageBox/newtccip/js/script.js?1"></script> 
-<script>
-	function linkCtrl(n) {	
-			// $('.subMenu').find('.secCtrl').eq(0).removeClass('action');
-			// $('.subMenu').find('.secCtrl').eq(1).removeClass('action');
-			$('.subMenu').find('.secCtrl').eq(n).hover(function () {
-				$(this).addClass('action');
-			} , function () {
-				$(this).removeClass('action');
-			} );
-	}
-</script>
 <script>
 	// 避免不支援 X-Frame-Options 標頭的舊瀏覽器的使用者也免受點擊劫持攻擊	
 	(function() {
