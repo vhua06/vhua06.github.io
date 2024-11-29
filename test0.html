@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>無障礙定位點</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      /* 基本樣式 */
+        body {
+          font-family: Arial, sans-serif;
+          line-height: 1.6;
+        }
+
+        nav ul {
+          list-style: none;
+          padding: 0;
+        }
+
+        nav ul li {
+          display: inline;
+          margin-right: 10px;
+        }
+
+        .skip-link {
+          position: absolute;
+          top: -40px;
+          left: 0;
+          background: #000;
+          color: #fff;
+          padding: 8px;
+          z-index: 100;
+        }
+
+        .skip-link:focus {
+          top: 0;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#main-content" class="skip-link">跳到主要內容</a></li>
+            <li><a href="#navigation" class="skip-link">跳到導航</a></li>
+            <li><a href="#footer" class="skip-link">跳到頁尾</a></li>
+        </ul>
+    </nav>
+    <header>
+        <h1>網站標題</h1>
+    </header>
+    <main id="main-content">
+        <h2>主要內容</h2>
+        <p>這是主要內容區域。</p>
+    </main>
+    <nav id="navigation">
+        <h2>網站導航</h2>
+        <ul>
+            <li><a href="#">首頁</a></li>
+            <li><a href="#">關於我們</a></li>
+            <li><a href="#">服務</a></li>
+            <li><a href="#">聯絡我們</a></li>
+        </ul>
+    </nav>
+    <footer id="footer">
+        <p>網站頁尾內容。</p>
+    </footer>
+    <script src="scripts.js">
+      document.addEventListener('DOMContentLoaded', function() {
+          const skipLinks = document.querySelectorAll('.skip-link');
+          skipLinks.forEach(link => {
+              link.addEventListener('click', function(event) {
+                  const targetId = this.getAttribute('href').substring(1);
+                  const targetElement = document.getElementById(targetId);
+                  if (targetElement) {
+                      targetElement.setAttribute('tabindex', '-1');
+                      targetElement.focus();
+                      targetElement.removeAttribute('tabindex');
+                  }
+              });
+          });
+      });    
+    </script>
+</body>
+</html>
