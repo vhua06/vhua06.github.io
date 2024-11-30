@@ -2080,6 +2080,10 @@ div .cloud-bk {
         position: fixed;
     }
 
+    #footer {
+        position: fixed;
+    }
+
     .headerConts {
         width: 100%;
         margin: 0px auto;
