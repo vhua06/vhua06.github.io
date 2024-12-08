@@ -1,4 +1,0 @@
-Sitemap: https://aqmc.moenv.gov.tw/sitemap.xml
-
-User-agent: *
-Disallow:
