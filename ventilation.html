@@ -1,0 +1,486 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <title>台中園區空氣品質監測計畫</title>
+    <link rel="stylesheet" href="./stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" href="./jquery-ui/jquery-ui.css">
+    <link rel="stylesheet" href="./stylesheets/none-reponsive.css">
+    <link rel="stylesheet" href="./javascripts/valid/bootstrapValidator.css" />
+    <link rel="stylesheet" href="./javascripts/clockpicker-gh-pages/clockpicker.css" />
+    <script src="./javascripts/jquery.min.js"></script>
+    <script src="./javascripts/bootstrap.min.js"></script>
+    <script src="./javascripts/highcharts/highcharts.js"></script>
+    <script src="./javascripts/highcharts/highcharts-more.js"></script>
+    <script src="./javascripts/highcharts/exporting.js"></script>
+    <script src="./javascripts/highcharts/offline-exporting.js"></script>
+    <script src="./javascripts/highcharts/data.js"></script>
+    <script src="./jquery-ui/jquery-ui.min.js"></script>
+    <script src="./javascripts/chart.js"></script>
+    <script src="./javascripts/utils.js"></script>
+    <script src="./javascripts/valid/bootstrapValidator.js"></script>
+    <script src="./javascripts/clockpicker-gh-pages/clockpicker.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js" integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg==" crossorigin="anonymous"></script>
+    <script src="./javascripts/moment-timezone.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js" integrity="sha256-ur/YlHMU96MxHEsy3fHGszZHas7NzH4RQlD4tDVvFhw=" crossorigin="anonymous"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="./javascripts/html5shiv.min.js"></script>
+    <script src="./javascripts/respond.min.js"></script>
+    <style>
+      .col-md-offset-2 {
+        margin-left: 0;
+      }
+    </style>
+    <![endif]-->
+    <style>
+        .navbar-brand>img {
+        		display: inline;
+          }
+        body {
+        font-family: '微軟正黑體';
+        }
+    </style>
+  </head>
+<body>
+
+
+<nav class="navbar navbar-inverse ">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/index"><!--<img width="30px" src="./images/logo.png" />&nbsp;--><span>台中園區空氣品質監測計畫</span></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+        <li ><a data-toggle="dropdown" role="button">測站資料<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/station">測站資訊/即時數據</a></li>
+            <li><a href="/mutiStation">多測站即時數據</a></li>
+            <!--<li><a href="/webcam">即時影像</a></li>-->
+          </ul>
+        </li>
+        
+        
+        <li ><a data-toggle="dropdown" role="button">數據查詢<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/realtimeMonitor">自動監測數據</a></li>
+            <li><a href="/artificialMonitor">手動採樣數據</a></li>
+            <li><a href="/epaMonitor">環境部測站數據查詢</a></li>
+            <!-- <li><a href="/checkData">資料查核</a></li> -->
+          </ul>
+        </li>
+        
+        
+        <li class="active" ><a data-toggle="dropdown" role="button">數據分析<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/complexAnalysis">資料綜合解析</a></li>
+            <li><a href="/artificialComplexAnalysis">手動採樣資料綜合解析</a></li>
+            <li><a href="/backtrak">污染源逆軌跡模擬</a></li>
+            <li><a href="/emission">空氣污染排放模擬</a></li>
+            <li><a href="/ventilation">擴散通風指數</a></li>
+            <li><a href="/cloudComputeModule">雲端運算模組</a></li>
+            <li><a href="/airQualityAlarm">大數據AI空品預警</a></li>
+          </ul>
+        </li>
+        
+        
+        <li ><a data-toggle="dropdown" role="button">園區資訊<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/substancesQuery">原物料查詢</a></li>
+            <li><a href="/pollutantsDatabase">污染排放資料庫</a></li>
+            <li><a href="/pollutantsMap">污染源排放位置</a></li>
+          </ul>
+        </li>
+        
+        
+        <li ><a data-toggle="dropdown" role="button">報表輸出<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/dayChartExport">日報表</a></li>
+            <li><a href="/monthChartExport">月報表</a></li>
+            <li><a href="/abnormal">異常事件報表</a></li>
+          </ul>
+        </li>
+        
+        
+        <li ><a data-toggle="dropdown" role="button">相關連結<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/governmentLinks">政府相關網站</a></li>
+            <li><a href="/ctspLinks">中科相關網站</a></li>
+          </ul>
+        </li>
+        
+        
+        <li ><a data-toggle="dropdown" role="button">管理者平台<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/admin_ctsp">權限管理</a></li>
+            <li><a href="/artificialDataUpdate">人工資料上傳</a></li>
+            <!-- <li><a href="/limitControl">閥值設定</a></li> -->
+            <li><a href="/QALink">QA網站連結</a></li>
+            <li><a href="/autoUpdateLog">環保局數據上傳結果</a></li>
+            <li><a href="/backtraj">污染源逆回推模擬</a></li>
+          </ul>
+        </li>
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="active"><a>Hello, SIMENVI</a></li>
+        <li><a href="/logout">登出</a></li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>
+
+<style>
+.container {
+  width: 100%;
+  min-width: 1440px;
+}
+.sub-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+.navbar-fixed-top {
+  border: 0;
+}
+.option {
+	margin-top: 17px;
+}
+.result img {
+	width: 50px;
+	height: 50px;
+	margin: 3% 0 0 47%;
+  display: none;
+}
+/*
+ * Sidebar
+ */
+
+/* Hide for mobile, show later */
+.sidebar {
+  display: none;
+}
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
+  }
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+  margin-right: -21px; /* 20px padding + 1px border */
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+
+/*
+ * Main content
+ */
+
+.main {
+  padding: 20px;
+}
+/*@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}*/
+.main .page-header {
+  margin-top: 0;
+}
+
+
+/*
+ * Placeholder dashboard ideas
+ */
+
+.placeholders {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.placeholders h4 {
+  margin-bottom: 0;
+}
+.placeholder {
+  margin-bottom: 20px;
+}
+.placeholder img {
+  display: inline-block;
+  border-radius: 50%;
+}
+.sidebar div p {
+  margin: 0 0 3px;
+}
+.sidebar hr {
+  margin-bottom: 3px;
+  border-color: #ADA7A7;
+}
+.option h2 {
+	margin-top: 0;
+	color: #545252;
+}
+.navOption {
+	background-color: #eeeeee;
+	font-size: 20px;
+}
+.navOption a {
+	margin-left: 21px;
+}
+.navMap {
+	color: #207721;
+	margin-bottom: 10px;
+  width: 100%;
+  min-width: 1440px;
+}
+.navbar {
+	margin-bottom: 0px;
+  width: 100%;
+  min-width: 1440px;
+}
+.chart {
+  background-image: url('./images/chartWind.jpg');
+  background-repeat:no-repeat;
+  /*background-size: cover;*/
+  background-position: center;
+  width: 100%;
+}
+.block {
+  margin-top: 70px;
+  margin-bottom: 80px;
+}
+.result .timeOrder {
+  display: none;
+}
+</style>
+<div class="navOption">
+  <a href="/complexAnalysis">資料綜合解析</a>
+  <a href="/artificialComplexAnalysis">手動採樣資料綜合解析</a>
+  <a href="/backtrak">污染源逆軌跡模擬</a>
+  <a href="/emission">空氣污染排放模擬</a>
+  <a href="/ventilation">擴散通風指數</a>
+  <a href="/cloudComputeModule">雲端運算模組</a>
+  <a href="/airQualityAlarm">大數據AI空品預警</a>
+</div>
+<div class="navMap">台中空氣品質監測計畫>數據分析>擴散通風指數</div>
+<div class="container option">
+  <div class="row">
+    <form id="option" class="form-inline">
+      <div class="col-md-6">
+        <div class="form-group">
+          <div class="col-md-12">
+            <h4>起始日期＆起始時間</h4>
+            <div class="col-md-5"><input type="text" name="startAt" autocomplete="off" class="form-control" />&nbsp;&nbsp;</div>
+            <div class="col-md-4"><input type="time" name="startAtMinutes" autocomplete="off" class="form-control timeSelect" value="00:00" /></div>
+          </div>
+          <div class="col-md-12">
+            <h4>截止日期＆截止時間</h4>
+            <div class="col-md-5"><input type="text" name="endAt" autocomplete="off" class="form-control" />&nbsp;&nbsp;</div>
+            <div class="col-md-4"><input type="time" name="endAtMinutes" autocomplete="off" class="form-control timeSelect" value="00:00" /></div>
+          </div>
+        </div>
+
+        <button type="button" id="search" class="btn btn-default btn-success col-md-offset-10">查詢</button>
+      </div>
+    </form>
+  </div>
+</div>
+<hr />
+<div class="container result">
+  <img src="./images/loading3.gif" id="loading" class="row" />
+  <div class="timeOrder row"></div>
+</div>
+<div class="dialog" title="錯誤"></div>
+<script>
+$(function () {
+  $( "input[name='startAt']" )
+  .add( "input[name='endAt']" )
+  .datepicker({
+  		dateFormat: "yy/mm/dd", 
+  		minDate: new Date(2016, 0, 8),
+  		maxDate: new Date(2019, 11, 31)
+	});
+	$('.timeSelect').clockpicker({
+		autoclose: true
+  });
+
+  $('#option').bootstrapValidator({
+    framework: 'bootstrap',
+    excluded: [],
+    icon: {
+      valid: 'glyphicon glyphicon-ok',
+      invalid: 'glyphicon glyphicon-remove',
+      validating: 'glyphicon glyphicon-refresh'
+    },
+    fields: {
+      date1: {
+        validators: {
+          notEmpty: {
+            message: '請選擇時間區間！'
+          }
+        },
+        trigger: 'change',
+      },
+      date2: {
+        validators: {
+          notEmpty: {
+            message: '請選擇時間區間！'
+          }
+        },
+        trigger: 'change',
+      },
+    }
+  });
+
+  $('#search').click(function () {
+    $('.timeOrder').css('display', 'none');
+
+    const startAt = `${$('input[name="startAt"').val()} ${$('input[name="startAtMinutes"').val()}`;
+    alert(startAt);
+    const endAt = `${$('input[name="endAt"').val()} ${$('input[name="endAtMinutes"').val()}`;
+    alert(endAt);
+
+    getIndexes({
+      startAt,
+      endAt,
+    }, data => {
+      const target = $('.timeOrder');
+      printChart(target, data, startAt);
+      target.css('display', 'block');
+    });
+  });
+
+  function getIndexes({ startAt, endAt }, cb) {
+    $.ajax({
+      method: 'POST',
+      dataType: 'json',
+      url: '/ventilation',
+      data: {
+        startAt,
+        endAt,
+      },
+      success: cb,
+      error: function (result) {
+        $('.container #loading').css('display', 'none')
+        $('.dialog').html('<h2>資料庫伺服器發生錯誤！</h2>').dialog('open');
+      },
+    });
+  }
+
+  function printChart(target, data, start) {
+    target.highcharts({
+      exporting: {
+        enabled: true,
+        buttons: {
+          contextButton: {
+            menuItems: ['downloadPNG', 'downloadJPEG', 'downloadSVG'],
+          },
+        },
+      },
+      credits: {
+        enabled: false,
+      },
+      title: {
+        text: '擴散通風指數',
+      },
+      xAxis: {
+        type: 'datetime',
+      },
+      time: {
+        timezone: 'Asia/Taipei',
+      },
+      plotOptions: {
+        series: {
+          turboThreshold: 0,
+        },
+      },
+      tooltip: {
+        formatter: function () {
+          return `${moment(this.x).format('YYYY/MM/DD HH:mm')}<br/>擴散通風指數: ${this.y}<br/>混合層高度: ${this.point.height} m`;
+        }
+      },
+      series: [{
+        name: '擴散通風指數',
+        pointStart: +new Date(start),
+        pointInterval: 60 * 60 * 1000,
+        data: data.map(({ value, height }) => ({
+          color: (() => {
+            let color;
+            const rank = parseFloat(value, 10);
+            switch(true) {
+              case (0 <= rank && rank <= 20):
+                color = '#FF0000';
+                break;
+              case (20 < rank && rank <= 40):
+                color = '#f6ff6f';
+                break;
+              case (40 < rank && rank <= 100):
+                color = '#3bee04';
+                break;
+              default:
+                console.log(`rank not found: ${rank}`);
+                break;
+            }
+
+            return color;
+          })(),
+          y: value,
+          height,
+        })),
+      }],
+    });
+  }
+});
+</script>
+		<hr class="footerHr"/>
+		<footer>
+			<p class="">執行單位 ： <img class="" width="100px" src="./images/AECOM_LOGO.png" /></p>
+			<p class="">技術支援 ： 景丰科技股份有限公司</p>
+		</footer>
+		<style>
+			.footerHr {
+				clear: both;
+				margin-top: 5px;
+			}
+			footer {
+				clear: both;
+				position: relative;
+				bottom: 0;
+				text-align: center;
+			}
+			footer p {
+				display: inline-block;
+				margin-left: 10px;
+			}
+			footer img {
+				top: -5px;
+				position: relative;
+			}
+		</style>
+	</body>
+</html>
+

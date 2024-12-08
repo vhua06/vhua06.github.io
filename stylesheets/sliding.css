@@ -1,0 +1,78 @@
+.slider1, .slider2 {
+  width: 100%;
+  position: relative;
+}
+.slider1 ul, .slider2 ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.slider1 li {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+.slider2 li {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+.row {  
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.row .slider1 img {
+  width: 400px;
+  height: 70vh;
+  margin-left: 25vw;
+  margin-right: 5vw;
+}
+.row .slider2 img {
+  width: 400px;
+  height: 70vh;
+  margin-left: 5vw;
+}
+.slider1 li.active,  .slider2 li.active {
+    opacity: 1;
+}
+.slider1 .caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    font-size: 18px;
+    padding: 10px;
+    text-align: center;
+}  
+.slider2 .caption {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    font-size: 18px;
+    padding: 10px;
+    text-align: center;
+}
+.column1 {
+  float: left;
+  width: 50%;
+}
+.column2 {
+  float: right;
+  width: 50%;
+}
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}

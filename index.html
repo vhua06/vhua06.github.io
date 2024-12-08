@@ -1,0 +1,379 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <title>台中園區空氣品質監測計畫</title>
+    <link rel="stylesheet" href="./stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" href="./jquery-ui/jquery-ui.css">
+    <link rel="stylesheet" href="./stylesheets/none-reponsive.css">
+    <link rel="stylesheet" href="./javascripts/valid/bootstrapValidator.css" />
+    <link rel="stylesheet" href="./javascripts/clockpicker-gh-pages/clockpicker.css" />
+    <link rel="stylesheet" href="./stylesheets/sliding.css">
+    <script src="./javascripts/jquery.min.js"></script>
+    <script src="./javascripts/bootstrap.min.js"></script>
+    <script src="./javascripts/highcharts/highcharts.js"></script>
+    <script src="./javascripts/highcharts/highcharts-more.js"></script>
+    <script src="./javascripts/highcharts/exporting.js"></script>
+    <script src="./javascripts/highcharts/offline-exporting.js"></script>
+    <script src="./javascripts/highcharts/data.js"></script>
+    <script src="./jquery-ui/jquery-ui.min.js"></script>
+    <script src="./javascripts/chart.js"></script>
+    <script src="./javascripts/utils.js"></script>
+    <script src="./javascripts/valid/bootstrapValidator.js"></script>
+    <script src="./javascripts/clockpicker-gh-pages/clockpicker.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js" integrity="sha512-rmZcZsyhe0/MAjquhTgiUcb4d9knaFc7b5xAfju483gbEXTkeJRUMIPk6s3ySZMYUHEcjKbjLjyddGWMrNEvZg==" crossorigin="anonymous"></script>
+    <script src="./javascripts/moment-timezone.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js" integrity="sha256-ur/YlHMU96MxHEsy3fHGszZHas7NzH4RQlD4tDVvFhw=" crossorigin="anonymous"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="./javascripts/html5shiv.min.js"></script>
+    <script src="./javascripts/respond.min.js"></script>
+    <style>
+      .col-md-offset-2 {
+        margin-left: 0;
+      }
+    </style>
+    <![endif]-->
+    <style>
+        .navbar-brand>img {
+        		display: inline;
+          }
+        body {
+        font-family: '微軟正黑體';
+        }
+    </style>
+  </head>
+<body>
+
+
+<nav class="navbar navbar-inverse ">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/index"><!--<img width="30px" src="./images/logo.png" />&nbsp;--><span>台中園區空氣品質監測計畫</span></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+        <li ><a data-toggle="dropdown" role="button">測站資料<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/station">測站資訊/即時數據</a></li>
+            <li><a href="/mutiStation">多測站即時數據</a></li>
+            <!--<li><a href="/webcam">即時影像</a></li>-->
+          </ul>
+        </li>
+        
+        
+        <li ><a data-toggle="dropdown" role="button">數據查詢<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/realtimeMonitor">自動監測數據</a></li>
+            <li><a href="/artificialMonitor">手動採樣數據</a></li>
+            <li><a href="/epaMonitor">環境部測站數據查詢</a></li>
+            <!-- <li><a href="/checkData">資料查核</a></li> -->
+          </ul>
+        </li>
+        
+        
+        <li class="active" ><a data-toggle="dropdown" role="button">數據分析<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/complexAnalysis">資料綜合解析</a></li>
+            <li><a href="/artificialComplexAnalysis">手動採樣資料綜合解析</a></li>
+            <li><a href="/backtrak">污染源逆軌跡模擬</a></li>
+            <li><a href="/emission">空氣污染排放模擬</a></li>
+            <li><a href="/ventilation">擴散通風指數</a></li>
+            <li><a href="/cloudComputeModule">雲端運算模組</a></li>
+            <li><a href="/airQualityAlarm">大數據AI空品預警</a></li>
+          </ul>
+        </li>
+        
+        
+        <li ><a data-toggle="dropdown" role="button">園區資訊<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/substancesQuery">原物料查詢</a></li>
+            <li><a href="/pollutantsDatabase">污染排放資料庫</a></li>
+            <li><a href="/pollutantsMap">污染源排放位置</a></li>
+          </ul>
+        </li>
+        
+        
+        <li ><a data-toggle="dropdown" role="button">報表輸出<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/dayChartExport">日報表</a></li>
+            <li><a href="/monthChartExport">月報表</a></li>
+            <li><a href="/abnormal">異常事件報表</a></li>
+          </ul>
+        </li>
+        
+        
+        <li ><a data-toggle="dropdown" role="button">相關連結<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/governmentLinks">政府相關網站</a></li>
+            <li><a href="/ctspLinks">中科相關網站</a></li>
+          </ul>
+        </li>
+        
+        
+        <li ><a data-toggle="dropdown" role="button">管理者平台<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/admin_ctsp">權限管理</a></li>
+            <li><a href="/artificialDataUpdate">人工資料上傳</a></li>
+            <!-- <li><a href="/limitControl">閥值設定</a></li> -->
+            <li><a href="/QALink">QA網站連結</a></li>
+            <li><a href="/autoUpdateLog">環保局數據上傳結果</a></li>
+            <li><a href="/backtraj">污染源逆回推模擬</a></li>
+          </ul>
+        </li>
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="active"><a>Hello, SIMENVI</a></li>
+        <li><a href="/logout">登出</a></li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>
+
+<style>
+form .button {
+	margin-top: 30px;
+}
+.navOption {
+	background-color: #eeeeee;
+	font-size: 20px;
+}
+.navOption a {
+	margin-left: 21px;
+}
+.navMap {
+	color: #207721;
+	margin-bottom: 10px;
+}
+.navbar {
+	margin-bottom: 0px;
+}
+.result {
+	display: none;
+}
+.loading {
+	display: none;
+}
+</style>
+<div class="navOption">
+  <a href="/complexAnalysis">資料綜合解析</a>
+  <a href="/artificialComplexAnalysis">手動採樣資料綜合解析</a>
+  <a href="/backtrak">污染源逆軌跡模擬</a>
+  <a href="/emission">空氣污染排放模擬</a>
+  <a href="/ventilation">擴散通風指數</a>
+  <a href="/cloudComputeModule">雲端運算模組</a>
+  <a href="/airQualityAlarm">大數據AI空品預警</a>
+</div>
+<div class="navMap">台中空氣品質監測計畫>數據分析>雲端運算模組(WIP)</div>
+<div class="container option">
+	<form class="form-inline" id="option">
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+				  <div class="col-md-12">
+				    <h4>起始日期</h4>
+				    <div class="col-md-5"><input type="text" name="date1" class="form-control" autocomplete="off" placeholder="2024/12/06"/>&nbsp;&nbsp;</div>
+				  </div>
+          <p class="col-md-1 button">
+            <button type="button" id="search" class="btn btn-default btn-success col-sm-offset-2">送出</button>
+          </p>
+				</div>
+			</div>
+			<div class="col-md-2">
+        <h3>模擬濃度圖</h3>
+            <h4 class="radio">
+              <label>
+                <input type="radio" name="timeType" value="hour" checked/>&nbsp;逐小時濃度&nbsp;&nbsp;
+              </label>
+              <input type="time" name="time" autocomplete="off" class="form-control timeSelect" value="00:00" />
+            </h4>
+            <br/>
+            <br/>
+            <h4 class="radio"><label><input type="radio" name="timeType" value="day" />&nbsp;日平均濃度&nbsp;&nbsp;</label></h4>
+			</div>
+			<div class="col-md-2">
+        <h3>模擬事件<br/>資料下載</h3>
+			</div>
+		</div>
+	</form>
+	<div class="row loading"><div class="col-md-offset-4"><img src="./images/gears.gif" /></div></div>
+	<div class="row result">
+		<img src="#" />
+	</div>
+	<hr class="result"/>
+	<div class="row result">
+		<div class="col-md-8">
+			<p>註:</p>
+		</div>
+		<div class="col-md-4">
+			<button type="button" id="download" class="btn btn-default btn-success col-md-offset-10">圖片下載</button>
+		</div>
+	</div>
+</div><!--container end -->
+
+<div class="row">
+  <div class="slider1 column1">
+      <ul>
+          <li>
+            <img src="./images/MET/2020_M01_D04_0000(UTC+0800)_L01_1HR_Wind.JPG"/>
+          </li>
+          <li>
+            <img src="./images/MET/2020_M01_D04_0100(UTC+0800)_L01_1HR_Wind.JPG"/>
+          </li>
+          <li>
+            <img src="./images/MET/2020_M01_D04_0200(UTC+0800)_L01_1HR_Wind.JPG"/>
+          </li>
+          <li>
+            <img src="./images/MET/2020_M01_D04_0300(UTC+0800)_L01_1HR_Wind.JPG"/>
+          </li>
+          <li>
+            <img src="./images/MET/2020_M01_D04_0400(UTC+0800)_L01_1HR_Wind.JPG"/>
+          </li>
+          <li>
+            <img src="./images/MET/2020_M01_D04_0500(UTC+0800)_L01_1HR_Wind.JPG"/>
+          </li>
+          <li>
+            <img src="./images/MET/2020_M01_D04_0600(UTC+0800)_L01_1HR_Wind.JPG"/>
+          </li>
+          <li>
+            <img src="./images/MET/2020_M01_D04_0700(UTC+0800)_L01_1HR_Wind.JPG"/>
+          </li>
+          <li>
+            <img src="./images/MET/2020_M01_D04_0800(UTC+0800)_L01_1HR_Wind.JPG"/>
+          </li>
+          <li>
+            <img src="./images/MET/2020_M01_D04_0900(UTC+0800)_L01_1HR_Wind.JPG"/>
+          </li>
+          <li>
+            <img src="./images/MET/2020_M01_D04_1000(UTC+0800)_L01_1HR_Wind.JPG"/>
+          </li>
+          <li>
+            <img src="./images/MET/2020_M01_D04_1100(UTC+0800)_L01_1HR_Wind.JPG"/>
+          </li>
+          <li>
+            <img src="./images/MET/2020_M01_D04_1200(UTC+0800)_L01_1HR_Wind.JPG"/>
+          </li>
+          <li>
+            <img src="./images/MET/2020_M01_D04_1300(UTC+0800)_L01_1HR_Wind.JPG"/>
+          </li>
+          <li>
+            <img src="./images/MET/2020_M01_D04_1400(UTC+0800)_L01_1HR_Wind.JPG"/>
+          </li>
+          <li>
+            <img src="./images/MET/2020_M01_D04_1500(UTC+0800)_L01_1HR_Wind.JPG"/>
+          </li>
+          <li>
+            <img src="./images/MET/2020_M01_D04_1700(UTC+0800)_L01_1HR_Wind.JPG"/>
+          </li>
+          <li>
+            <img src="./images/MET/2020_M01_D04_1800(UTC+0800)_L01_1HR_Wind.JPG"/>
+          </li>
+          <li>
+            <img src="./images/MET/2020_M01_D04_1900(UTC+0800)_L01_1HR_Wind.JPG"/>
+          </li>
+          <li>
+            <img src="./images/MET/2020_M01_D04_2000(UTC+0800)_L01_1HR_Wind.JPG"/>
+          </li>
+          <li>
+            <img src="./images/MET/2020_M01_D04_2100(UTC+0800)_L01_1HR_Wind.JPG"/>
+          </li>
+          <li>
+            <img src="./images/MET/2020_M01_D04_2200(UTC+0800)_L01_1HR_Wind.JPG"/>
+          </li>
+          <li>
+            <img src="./images/MET/2020_M01_D04_2300(UTC+0800)_L01_1HR_Wind.JPG"/>
+          </li>
+        </ul>
+  </div>
+  <div class="slider2 column2">
+      <ul>
+          <li>
+            <img src="./images/PM2.5/2020_M01_D04_0000(UTC+0800)_L00_TPM2.5_1HR_CONC.JPG"/>
+          </li>
+          <li>
+            <img src="./images/PM2.5/2020_M01_D04_0100(UTC+0800)_L00_TPM2.5_1HR_CONC.JPG"/>
+          </li>
+          <li>
+            <img src="./images/PM2.5/2020_M01_D04_0200(UTC+0800)_L00_TPM2.5_1HR_CONC.JPG"/>
+          </li>
+          <li>
+            <img src="./images/PM2.5/2020_M01_D04_0300(UTC+0800)_L00_TPM2.5_1HR_CONC.JPG"/>
+          </li>
+          <li>
+            <img src="./images/PM2.5/2020_M01_D04_0400(UTC+0800)_L00_TPM2.5_1HR_CONC.JPG"/>
+          </li>
+          <li>
+            <img src="./images/PM2.5/2020_M01_D04_0500(UTC+0800)_L00_TPM2.5_1HR_CONC.JPG"/>
+          </li>
+          <li>
+            <img src="./images/PM2.5/2020_M01_D04_0600(UTC+0800)_L00_TPM2.5_1HR_CONC.JPG"/>
+          </li>
+          <li>
+            <img src="./images/PM2.5/2020_M01_D04_0700(UTC+0800)_L00_TPM2.5_1HR_CONC.JPG"/>
+          </li>
+          <li>
+            <img src="./images/PM2.5/2020_M01_D04_0800(UTC+0800)_L00_TPM2.5_1HR_CONC.JPG"/>
+          </li>
+          <li>
+            <img src="./images/PM2.5/2020_M01_D04_0900(UTC+0800)_L00_TPM2.5_1HR_CONC.JPG"/>
+          </li>
+          <li>
+            <img src="./images/PM2.5/2020_M01_D04_1000(UTC+0800)_L00_TPM2.5_1HR_CONC.JPG"/>
+          </li>
+          <li>
+            <img src="./images/PM2.5/2020_M01_D04_1100(UTC+0800)_L00_TPM2.5_1HR_CONC.JPG"/>
+          </li>
+          <li>
+            <img src="./images/PM2.5/2020_M01_D04_1200(UTC+0800)_L00_TPM2.5_1HR_CONC.JPG"/>
+          </li>
+          <li>
+            <img src="./images/PM2.5/2020_M01_D04_1300(UTC+0800)_L00_TPM2.5_1HR_CONC.JPG"/>
+          </li>
+          <li>
+            <img src="./images/PM2.5/2020_M01_D04_1400(UTC+0800)_L00_TPM2.5_1HR_CONC.JPG"/>
+          </li>
+          <li>
+            <img src="./images/PM2.5/2020_M01_D04_1500(UTC+0800)_L00_TPM2.5_1HR_CONC.JPG"/>
+          </li>
+          <li>
+            <img src="./images/PM2.5/2020_M01_D04_1700(UTC+0800)_L00_TPM2.5_1HR_CONC.JPG"/>
+          </li>
+          <li>
+            <img src="./images/PM2.5/2020_M01_D04_1800(UTC+0800)_L00_TPM2.5_1HR_CONC.JPG"/>
+          </li>
+          <li>
+            <img src="./images/PM2.5/2020_M01_D04_1900(UTC+0800)_L00_TPM2.5_1HR_CONC.JPG"/>
+          </li>
+          <li>
+            <img src="./images/PM2.5/2020_M01_D04_2000(UTC+0800)_L00_TPM2.5_1HR_CONC.JPG"/>
+          </li>
+          <li>
+            <img src="./images/PM2.5/2020_M01_D04_2100(UTC+0800)_L00_TPM2.5_1HR_CONC.JPG"/>
+          </li>
+          <li>
+            <img src="./images/PM2.5/2020_M01_D04_2200(UTC+0800)_L00_TPM2.5_1HR_CONC.JPG"/>
+          </li>
+          <li>
+            <img src="./images/PM2.5/2020_M01_D04_2300(UTC+0800)_L00_TPM2.5_1HR_CONC.JPG"/>
+          </li>
+        </ul>
+  </div>
+</div>
+<div class="dialog" title="錯誤"></div>
+<script>
+	$('.timeSelect').clockpicker({
+    autoclose: true,
+  });
+</script>
+<script src="./javascripts/sliding.js"></script>
