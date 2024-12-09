@@ -226,12 +226,10 @@ form .button {
 <div class="row">
   <div class="slider1 column1">
     <ul id="pm">
-        <li>&nbsp;</li>
     </ul>
   </div>
   <div class="slider2 column2">
-    <ul id="met">        
-      <li>&nbsp;</li>
+    <ul id="met">     
     </ul>
   </div>
 </div>
@@ -239,68 +237,3 @@ form .button {
 <script>
 </script>
 <script src="./javascripts/sliding.js"></script>
-<script>
-  $(function () {
-    $( "input[name='startAt']" )
-    .datepicker({
-        dateFormat: "yy/mm/dd", 
-        minDate: new Date(2020, 0, 4),
-        maxDate: new Date(2020, 0, 6)
-    });
-  });
-	$('.timeSelect').clockpicker({
-    autoclose: true,
-  });
-  $('#search').click(function () {
-    $('.timeOrder').css('display', 'none');
-
-    const startAt = `${$('input[name="startAt"').val()}`; 
-    const dateList = startAt.split('/');
-    const year = dateList[0];
-    const month = dateList[1];
-    const day = dateList[2];
-    alert(year + ' ' + month + ' ' + day);
-
-    const timeType = $("input[name='timeType']:checked").val();
-    /* if(timeType) {
-        alert("Your are a - " + timeType);
-    } */
-    
-    const time = `${$('input[name="time"').val()}`;
-    var timeList = time.split(':');
-    var hour = timeList[0];
-    var minute = timeList[1];
-    alert(hour + ' ' + minute);
-    
-    var dataLen = 0; //資料長度
-    if(minute != '00') {
-      dataLen = Number(hour) + 1;
-    }
-    else {dataLen = Number(hour);} 
-    if (dataLen > 23) { dataLen = 23; } 
-    
-    var str = ""; //建立一個空字串，要將資料填入的
-    var pmEl = $("#pm");
-    var metEl = $("#met");
-
-    if(timeType == 'hour') {
-      for (var i = 0; i < dataLen; i++) {
-        var content = "<li><img src='./images/PM2.5/" + year + "_M" + String(month).padStart(2, '0') + "_D" + String(day).padStart(2, '0') + "_" + String(i).padStart(2, '0') + "00(UTC+0800)_L00_TPM2.5_1HR_CONC.JPG'/></li>"; //組字串
-        str += content; // 透過加總把 變數 content 的內容回傳到 str 中
-      }
-      pmEl.innerHTML = str;
-      str = "";
-      for (var i = 0; i < dataLen; i++) {
-        var content = "<li><img src='./images/MET/" + year + "_M" + String(month).padStart(2, '0') + "_D" + String(day).padStart(2, '0') + "_" + String(i).padStart(2, '0') + "00(UTC+0800)_L01_1HR_Wind.JPG'/></li>"; //組字串
-        str += content; // 透過加總把 變數 content 的內容回傳到 str 中
-      }
-      metEl.innerHTML = str;
-    }
-    else {
-      pmEl.innerHTML = "<li><img src='./images/PM2.5/" + year + "_M" + String(month).padStart(2, '0') + "_D" + String(day).padStart(2, '0') + "_0000(UTC+0800)_L00_TPM2.5_24HR_CONC.JPG'/></li>";
-      metEl.innerHTML = "";
-    }
-
-    sliding();
-  });
-</script>
