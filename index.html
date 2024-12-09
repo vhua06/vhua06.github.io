@@ -183,8 +183,9 @@ form .button {
 				<div class="form-group">
 				  <div class="col-md-12">
 				    <h4>起始日期</h4>
-				    <div class="col-md-5"><input type="text" name="date1" class="form-control" autocomplete="off" placeholder="2024/12/06"/>&nbsp;&nbsp;</div>
-				  </div>
+				    <!-- <div class="col-md-5"><input type="text" name="date1" class="form-control" autocomplete="off" placeholder="2024/12/06"/>&nbsp;&nbsp;</div> -->
+            <div class="col-md-5"><input type="text" name="startAt" autocomplete="off" class="form-control" />&nbsp;&nbsp;</div>
+          </div>
           <p class="col-md-1 button">
             <button type="button" id="search" class="btn btn-default btn-success col-sm-offset-2">送出</button>
           </p>
@@ -372,8 +373,24 @@ form .button {
 </div>
 <div class="dialog" title="錯誤"></div>
 <script>
+</script>
+<script src="./javascripts/sliding.js"></script>
+<script>
+  $(function () {
+    $( "input[name='startAt']" )
+    .datepicker({
+        dateFormat: "yy/mm/dd", 
+        minDate: new Date(2020, 1, 4),
+        maxDate: new Date(2019, 1, 6)
+    });
+  });
 	$('.timeSelect').clockpicker({
     autoclose: true,
   });
+  $('#search').click(function () {
+    $('.timeOrder').css('display', 'none');
+
+    const startAt = `${$('input[name="startAt"').val()} ${$('input[name="startAtMinutes"').val()}`;
+    alert(startAt);
+  });
 </script>
-<script src="./javascripts/sliding.js"></script>
