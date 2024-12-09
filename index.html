@@ -403,18 +403,21 @@ form .button {
     } */
     
     const time = `${$('input[name="time"').val()}`;
-    const timeList = time.split(':');
-    const hour = timeList[0];
-    const minute = timeList[1];
+    var timeList = time.split(':');
+    var hour = timeList[0];
+    var minute = timeList[1];
     alert(hour + ' ' + minute);
     
-    const dataLen = 0; //資料長度
-    dataLen = (minute != '00') ? Number(hour) + 1 : Number(hour);
-    dataLen = (dataLen > 23) ? 23 : dataLen;      
+    var dataLen = 0; //資料長度
+    if(minute != '00') {
+      dataLen = Number(hour) + 1;
+    }
+    else {dataLen = Number(hour);} 
+    if (dataLen > 23) { dataLen = 23; } 
     
-    const str = ""; //建立一個空字串，要將資料填入的
-    const pmEl = $("#pm");
-    const metEl = $("#met");
+    var str = ""; //建立一個空字串，要將資料填入的
+    var pmEl = $("#pm");
+    var metEl = $("#met");
 
     if(timeType == 'hour') {
       for (var i = 0; i < dataLen; i++) {
