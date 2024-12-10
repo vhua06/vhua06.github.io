@@ -1,0 +1,78 @@
+	.h2_icon a {
+      text-align: center;
+      margin: 3px;
+      vertical-align: bottom;
+      height: 32px;
+      width: 32px;
+      line-height: 0;
+      background-size: 32px auto;
+      text-indent: -999999px;
+      -webkit-transition: none;
+      transition: none;
+  }
+  
+  .facebook {
+    float: right;
+    background: url(../images/facebook_48.svg) no-repeat;
+    background-size: 30px 30px !important;
+  }
+
+  .lineicon {
+    float: right;
+    background: url(../images/line_48.svg) no-repeat; 
+    background-size: 33px 33px !important;
+  }	
+
+  .twitter {
+    float: right;
+    background: url(../images/twitter_48.svg) no-repeat;
+    background-size: 31px 29px !important;
+  }
+  
+  a.socialsharing {
+    pointer-events: auto;
+  }
+    
+  .socialsharing {
+    background: url(../images/share_48.svg) no-repeat;
+    background-size: 25px 25px !important;
+    color: currentColor;
+    cursor: default;
+  }
+
+  
+  a.socialsharing:hover,
+  a.socialsharing:active,
+  a.socialsharing:focus {  
+      background: url(../images/share_48_hover.svg) no-repeat; 
+      background-size: 30px 30px !important;
+  }
+  a.facebook:hover,
+  a.facebook:active,
+  a.facebook:focus  {  
+      background: url(../images/facebook_48_hover.svg) no-repeat; 
+      background-size: 30px 30px !important;
+  }
+  a.lineicon:hover,
+  a.lineicon:active,
+  a.lineicon:focus  {     
+      background: url(../images/line_48_hover.svg) no-repeat; 
+      background-size: 31px 31px !important;
+  }
+
+  a.twitter:hover,
+  a.twitter:active,
+  a.twitter:focus  {    
+      background: url(../images/twitter_48_hover.svg) no-repeat; 
+      background-size: 29px 29px !important;
+  }
+
+  a.lineicon, a.facebook, a.twitter, a.socialsharing {
+      color: #1264A3;
+      /* text-decoration: none; */
+      -webkit-transition: all 0.15s linear;
+      transition: all 0.15s linear;
+      display: inline-block;
+      position: relative;
+      word-break: break-word;
+  }
