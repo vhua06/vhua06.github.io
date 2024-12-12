@@ -534,3 +534,24 @@
 		let myurl = window.open(url, "reURL");
 		myurl.open(url, "reURL");
 	}
+
+    // $('.subMenu').find('.secCtrl').hover(function () {        
+    //     $('.subMenu').find('.secCtrl').each(function() {
+    //         $('.subMenu').find('.secCtrl').removeClass('action');
+    //     });
+    //     $(this).addClass('action');
+    // });
+
+    $('.subMenu').find('.secCtrl').on( 'keyup', function( e ) {
+        if( e.which == 9 ) { // Tab keypress
+            $(this).addClass('action');
+            $('.subMenu>dl>dd.secCtrl .secMenu').css('display', 'block');
+        }
+    });  
+
+    $('.subMenu').find('.secCtrl').on( 'keydown', function( e ) {
+        if( e.which == 9 ) { // Tab keypress
+            $(this).removeClass('action'); 
+        }
+    }); 
+    

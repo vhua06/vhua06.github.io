@@ -28,6 +28,12 @@
     background: url(../images/twitter_48.svg) no-repeat;
     background-size: 31px 29px !important;
   }
+
+  #accesskey_p {    
+    float: right;
+    background: url(../images/printer_48.svg) no-repeat;
+    background-size: 31px 29px !important;
+  }
   
   a.socialsharing {
     pointer-events: auto;
@@ -67,7 +73,14 @@
       background-size: 29px 29px !important;
   }
 
-  a.lineicon, a.facebook, a.twitter, a.socialsharing {
+  a#accesskey_p:hover,
+  a#accesskey_p:active,
+  a#accesskey_p:focus  {    
+      background: url(../images/printer_48_hover.svg) no-repeat; 
+      background-size: 29px 29px !important;
+  }
+
+  a.lineicon, a.facebook, a.twitter, a.printer, a.socialsharing {
       color: #1264A3;
       /* text-decoration: none; */
       -webkit-transition: all 0.15s linear;

@@ -98,7 +98,7 @@
                 <a href="index.html" tabindex="1" accesskey="H" title="To open Home page"><img src="../images/title_name_eng.png" class="logo" title="To open Home page" alt="Support Center for Air Quality Models" /></a>
             </div>
             <div class="headerMenu CGt">
-                <a href="#U" id="U" name="U" accesskey="U" class="accesskey u" title="Upper block / Alt + U"><span>:::</span></a>
+                <a href="#U" id="U" name="U" accesskey="U" tabindex="1" class="accesskey u" title="Upper block / Alt + U"><span>:::</span></a>
 						<ul role="header">
                     <li style="border-right: none;float: right;">
                         <a href="../index.html" title="TW" tabindex="1" role="button"><span class="circle c_lang" role="button"><div class="f_lang">中</div></span></a>&nbsp;
@@ -139,22 +139,22 @@
 				﻿<div class="subMenu CGt">
 	<dl role="menu">
 		<dt>
+			<a href="#l" id="l" name="L" accesskey="L" tabindex="1" class="accesskey L" title="Left block / Alt + L" style="left:-15px;"><span>:::</span></a>
 			<a href="#" onclick="openURL_e('Ministry of Environment','https://www.moenv.gov.tw/en/');return false;" tabindex="1" title="Ministry of Environment (open in a new tab)">
 				<img src="../images/MOENV-Logo_1_300-2.svg" class="titleName" title="Ministry of Environment (open in a new tab)" alt="Ministry of Environment | Home" />
 			</a>	
-			<a href="#l" id="l" name="L" accesskey="L" class="accesskey L" title="Left block / Alt + L" style="left:-15px;"><span>:::</span></a>
 		</dt>
-		<dd class="secCtrl"><a href="about.html" role="button" title="About Air Quality Modeling Support Center" tabindex="1"><i class="fa fa-angle-right"></i><small style="font-size: small;">About AQM Support Center</small></a></dd>
+		<dd class="secCtrl"><a href="about.html" title="About Air Quality Modeling Support Center" tabindex="1"><i class="fa fa-angle-right"></i><small style="font-size: small;">About AQM Support Center</small></a></dd>
 		<dd class="secCtrl">
-			<a title="Model Introduction | Support Center for Air Quality Models" href="#" onclick="linkCtrl(1);" tabindex="1"><i class="fa fa-angle-double-right"></i><small style="font-size: small;">Model Introduction</small></a>
+			<a title="Expand or collapse the Mode Introduction menu" href="#" role="button" onclick="linkCtrl(1);" tabindex="1"><i class="fa fa-angle-double-right"></i><small style="font-size: small;">Model Introduction</small></a>
 			<div class="secMenu">			
-				<a href="airquality_1.html" role="button" title="Gaussian Dispersion Model (GDM) | Support Center for Air Quality Models" tabindex="1"><i class="fa fa-angle-right"></i><small style="font-size: small;">Gaussian Dispersion Model</small></a>
-				<a href="airquality_2.html" role="button" title="Trajectory Model (non-chemical reactions) | Support Center for Air Quality Models" tabindex="1"><i class="fa fa-angle-right"></i><small style="font-size: small;">Trajectory Model</small></a>
-				<a href="airquality_3.html" role="button" title="Eulerian Grid Models | Support Center for Air Quality Models" tabindex="1"><i class="fa fa-angle-right"></i><small style="font-size: small;">Eulerian Grid Models</small></a>
-				<a href="weathermode_2.html" role="button" title="Weather Research and Forecasting Model (WRF) | Support Center for Air Quality Models" tabindex="1"><i class="fa fa-angle-right"></i><small style="font-size: small;">WRF</small></a>
+				<a href="airquality_1.html" title="Gaussian Dispersion Model (GDM) | Support Center for Air Quality Models" tabindex="1"><i class="fa fa-angle-right"></i><small style="font-size: small;">Gaussian Dispersion Model</small></a>
+				<a href="airquality_2.html" title="Trajectory Model (non-chemical reactions) | Support Center for Air Quality Models" tabindex="1"><i class="fa fa-angle-right"></i><small style="font-size: small;">Trajectory Model</small></a>
+				<a href="airquality_3.html" title="Eulerian Grid Models | Support Center for Air Quality Models" tabindex="1"><i class="fa fa-angle-right"></i><small style="font-size: small;">Eulerian Grid Models</small></a>
+				<a href="weathermode_2.html" title="Weather Research and Forecasting Model (WRF) | Support Center for Air Quality Models" tabindex="1"><i class="fa fa-angle-right"></i><small style="font-size: small;">WRF</small></a>
 			</div>
 		</dd>
-		<dd class="secCtrl"><a href="links.html" role="button" title="Related resource links" tabindex="1"><i class="fa fa-angle-right"></i><small style="font-size: small;">Related Links</small></a></dd>
+		<dd class="secCtrl"><a href="links.html" title="Related resource links" tabindex="1"><i class="fa fa-angle-right"></i><small style="font-size: small;">Related Links</small></a></dd>
 		<dd>
 			<a href="#" role="button" onclick="openURL_e('Contact Us','https://epamail.moenv.gov.tw/Front/MailBoxHome');return false;" tabindex="1" title="Contact Us (open in a new tab)"><i class="fa fa-angle-right"></i><small style="font-size: small;">Contact Us</small></a>
 		</dd>
@@ -212,14 +212,15 @@
 					<div class="pageCont pg_links">
 						<h1><i class="fa fa-link"></i>Related Links</h1>
 							<span class="mydropdown h2_icon topnav-right">
-								<span role="button"><a class="socialsharing" title="Click on the following social media to share web content" href="#" tabindex="1">Social Sharing</a></span>
+								<span role="button"><a class="socialsharing" title="Click the media icons below to share or print web content" href="#" tabindex="1">Social Sharing</a></span>
 								<div class="mydropdown-content">									
 									<p role="button"><a id="lnkFacebook" class="facebook" title="share on Facebook (open in a new tab)" onclick="myshare('fb')" href="javascript:;" tabindex="1">share on Facebook</a>
 									<p role="button"><a id="lnkLine" class="lineicon" title="share on Line (open in a new tab)" onclick="myshare('line')" href="javascript:;" tabindex="1">share on Line</a></p>
 									<p role="button"><a id="lnkTwitter" class="twitter" title="share on Twitter (open in a new tab)" onclick="myshare('twitter')" href="javascript:;" tabindex="1">share on Twitter</a></p>
+							  <p role="button"><a id="accesskey_p" class="btn_print"  title="Print / Alt + p" onClick="javascript:print();" accesskey="p" href="#" tabindex="1">Print / Alt + p</a></p>
 								</div>
 							</span>
-							<a href="#c" id="c" name="C" accesskey="C" class="accesskey C" title="Central block / Alt +C"><span>:::</span></a><br>
+							<a href="#c" id="c" name="C" accesskey="C" tabindex="1" class="accesskey C" title="Central block / Alt +C"><span>:::</span></a><br>
 						<br />
 						<div class="cssTable tableList" role="table">
 							<dl>
@@ -272,42 +273,44 @@
 	﻿
 
 <footer id="bottom_menu">
-		<a href="#z" id="z" name="z" accesskey="z" class="accesskey z" title="Bottom block / Alt + Z"><span>:::</span></a>	
+		<a href="#z" id="z" name="z" accesskey="z" tabindex="1" class="accesskey z" title="Bottom block / Alt + Z"><span>:::</span></a>	
 		<div id="exco_btn_img" class="exco_btn">
 			<a href="javascript:;" data-opentitle="Expand" data-closetitle="Cllapse" title="Cllapse" class="excoSwitch excoSwitchJs" role="button" tabindex="1">Cllapse</a>
 		</div>
 		<div class="footerAll">
 				<ul>
 					<li class="footerItem">
-							<a href="about.html" role="button" title="About AQM Support Center" tabindex="1">About AQM Support Center</a>
+							<a href="about.html" title="About AQM Support Center" tabindex="1">About AQM Support Center</a>
 					</li>
 					<li class="footerItem">
-							<a title="Model Introduction | Support Center for Air Quality Models" tabindex="1" role="button" data-opentitle="Model Introduction" data-closetitle="Model Introduction" class="excoSwitchJs">Model Introduction</a>
+							<a title="Expand or collapse the Mode Introduction menu" tabindex="1" role="button" data-opentitle="Model Introduction" data-closetitle="Model Introduction" class="excoSwitchJs">Model Introduction</a>
 							<ul>
-								<li><a href="airquality_1.html" role="button" title="Gaussian Dispersion Model (GDM) | Support Center for Air Quality Models" tabindex="1">Gaussian Dispersion Model</a></li>
-								<li><a href="airquality_2.html" role="button" title="Trajectory Model (non-chemical reactions) | Support Center for Air Quality Models" tabindex="1">Trajectory Model</a></li>
-								<li><a href="airquality_3.html" role="button" title="Eulerian Grid Models | Support Center for Air Quality Models" tabindex="1">Eulerian Grid Models</a></li>
-								<li><a href="weathermode_2.html" role="button" title="Weather Research and Forecasting Model (WRF) | Support Center for Air Quality Models" tabindex="1">WRF</a></li>
+								<li><a href="airquality_1.html" title="Gaussian Dispersion Model (GDM) | Support Center for Air Quality Models" tabindex="1">Gaussian Dispersion Model</a></li>
+								<li><a href="airquality_2.html" title="Trajectory Model (non-chemical reactions) | Support Center for Air Quality Models" tabindex="1">Trajectory Model</a></li>
+								<li><a href="airquality_3.html" title="Eulerian Grid Models | Support Center for Air Quality Models" tabindex="1">Eulerian Grid Models</a></li>
+								<li><a href="weathermode_2.html" title="Weather Research and Forecasting Model (WRF) | Support Center for Air Quality Models" tabindex="1">WRF</a></li>
 							</ul>
 					</li>
 					<li class="footerItem">
-							<a a href="links.html" role="button" title="Related resource links" tabindex="1">Related Links</a>
-					
+							<a a href="links.html" title="Related resource links" tabindex="1">Related Links</a>
 					</li>
 					<li class="footerItem">
-						<a tabindex="1" href="#" onclick="openURL_e('Privacy Protection Policy', 'https://www.moenv.gov.tw/en/49AACA21659166DB');return false;" title="Privacy Protection Policy (open in a new tab)" role="button"><i class="fa"></i>Privacy Protection Policy</a>
+						<a tabindex="1" href="#" onclick="openURL_e('Contact Us','https://epamail.moenv.gov.tw/Front/MailBoxHome');return false;" title="Contact Us (open in a new tab)">Contact Us</a>
 					</li>
 					<li class="footerItem">
-						<a tabindex="1" href="#" onclick="openURL_e('Website Security Policy', 'https://www.moenv.gov.tw/en/93AB5809EC92B90D');return false;" title="Website Security Policy (open in a new tab)" role="button"><i class="fa"></i>Website Security Policy</a>
+						<a tabindex="1" href="#" onclick="openURL_e('Privacy Protection Policy', 'https://www.moenv.gov.tw/en/49AACA21659166DB');return false;" title="Privacy Protection Policy (open in a new tab)">Privacy Protection Policy</a>
 					</li>
 					<li class="footerItem">
-						<a tabindex="1" href="#" onclick="openURL_e('Open Data Statement', 'https://www.moenv.gov.tw/en/6CA206960EF0DAEF');return false;" title="Open Data Statement (open in a new tab)" role="button"><i class="fa"></i>Open Data Statement</a>
+						<a tabindex="1" href="#" onclick="openURL_e('Website Security Policy', 'https://www.moenv.gov.tw/en/93AB5809EC92B90D');return false;" title="Website Security Policy (open in a new tab)">Website Security Policy</a>
+					</li>
+					<li class="footerItem">
+						<a tabindex="1" href="#" onclick="openURL_e('Open Data Statement', 'https://www.moenv.gov.tw/en/6CA206960EF0DAEF');return false;" title="Open Data Statement (open in a new tab)">Open Data Statement</a>
 					</li>
 					</ul>
 		</div>
 		<div class="contFt">
-			<a tabindex="1" href="" class="btn_print" onClick="javascript:print();" accesskey="p" title="Print / Alt + p" role="button"><i class="fa fa-print" aria-hidden="true"></i>Print</a>
-			<a tabindex="1" href="#main" class="btn_print" accesskey="t" title="TOP / Alt + t" role="button"><i class="fa fa-arrow-up" aria-hidden="true"></i>TOP</a>
+			<!-- <a tabindex="1" href="" class="btn_print" onClick="javascript:print();" accesskey="p" title="Print / Alt + p" role="button"><i class="fa fa-print" aria-hidden="true"></i>Print</a> -->
+			<a tabindex="1" href="#main" class="btn_print up" accesskey="t" title="TOP / Alt + t" role="button"><img src="../images/up.svg"  alt="TOP / Alt + t" title="TOP / Alt + t"/></a>
 		</div>
 	</footer>
 	<div class="footLinks mFootLink">
