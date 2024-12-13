@@ -1,6 +1,6 @@
 ﻿@charset "utf-8";
 /* CSS Document */
-/* Art Tangency Creation - 天井創意 CaGe Wei @art-tangency.com 2020*/
+/* 景丰科技股份有限公司 ENVIRONMENTAL SIMULATION CO. LTD.  2020*/
 /* ============= Setting ============= */
 
 body {
@@ -225,6 +225,26 @@ input[type='submit']:hover {
 .switchImage img:last-child {
     display: none;
 }
+
+a.btn_refresh {
+    display: inline-block; 
+    color: white !important; 
+    text-decoration: none;
+    background: url(../images/refresh_48.svg) no-repeat;
+    background-size: 31px 31px !important;
+    transition: background-color 0.3s ease;
+  }
+
+/* a.btn_refresh:hover,
+a.btn_refresh:active,
+a.btn_refresh:focus  {
+    display: inline-block;   
+    color: white !important; 
+    text-decoration: none;   
+    background: url(../images/refresh_48_hover.svg) no-repeat; 
+    background-size: 29px 29px !important;
+    transition: background-color 0.3s ease;
+}   */
 
 /*RWD Image*/
 
