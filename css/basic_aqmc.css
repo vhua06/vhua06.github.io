@@ -2358,6 +2358,9 @@ div .cloud-bk {
 
 
 @media print {
+    .search-form-wrapper {
+        display: none;
+    }
     .mydropdown, .mydropdown-content {
         display: none;
     }
