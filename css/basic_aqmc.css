@@ -2358,6 +2358,10 @@ div .cloud-bk {
 
 
 @media print {
+    .mydropdown, .mydropdown-content {
+        display: none;
+    }
+
     .headerMenu {
         display: none;
     }
