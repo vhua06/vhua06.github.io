@@ -233,8 +233,8 @@ footer{
 #linkGotoContent{
     margin:5px
 }
-.C:focus-visible,.L:focus-visible,.u:focus-visible,.z:focus-visible{
-    outline:#EEC552 dotted 5px!important;
+.C:focus-visible,.L:focus-visible,.u:focus-visible,.z:focus-visible {
+    outline:#EEC552 dotted 5px !important;
     text-shadow:1px 1px 1px #fff
 }
 .C:focus-visible,.L:focus-visible,.z:focus-visible{

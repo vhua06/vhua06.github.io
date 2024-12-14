@@ -1777,7 +1777,7 @@ a:focus .cloud-bk,
 a:hover .a1,
 a:active .a1,
 a:focus .a1 {
-    background-color: rgb(126, 9, 73);
+    background-color: rgb(126, 9, 73);  
 }
 .leftbanner .circle2 img{
     display: block;
