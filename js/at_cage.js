@@ -512,7 +512,8 @@ $('.socialsharing').click(function(e) {
 
 $('.socialsharing').keypress(function(e) {
     $(".mydropdown-content").css("display","block");
-    // $(".mydropdown").css("display","block");
+}, function(e) {    
+    $(".mydropdown-content").css("display","none");
 }); 
 
 $('.socialsharing').on( 'keyup', function( e ) {

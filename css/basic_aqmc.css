@@ -1671,12 +1671,15 @@ dd.leftMenu {
     width: 355px;
     /* 調水平位置
     left: 59%; */
-    right: 7px;
+    right: 18px;
+    /* 調垂直位置 */
+    top: 27px;
     padding-top: 3px 0;
     /* 調與TOP距離
     margin-top: 112px; */
     margin-top: -9px;
-    background: #f7f5f578;
+    background: #dedcdc78;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
     border-radius: 8px;
 }
 
