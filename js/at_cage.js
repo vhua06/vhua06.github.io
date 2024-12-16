@@ -380,7 +380,12 @@ function searchfire(event, keyword, lang) {
     // var sUTL = 'https://cse.google.com/cse?cx=a78015efb707541ae&as_sitesearch=aqmc.moenv.gov.tw';
     var sUTL = 'https://www.google.com.tw/search?hl=zh-TW&as_epq=&as_oq=&as_eq=&as_nlo=&as_nhi=&lr=&cr=&as_qdr=all&as_sitesearch=aqmc.moenv.gov.tw&as_occt=any&safe=images&as_filetype=&tbs=';
     // var sUTL = './search_result.html?hl=zh-TW';
-    if (keyword !== null && keyword !== "") {
+        var keywordL = keyword.toLowerCase();
+        if(keywordL.includes("alert") || keywordL.includes("prompt") || keywordL.includes("confirm") || keywordL.includes("(") || keywordL.includes(")") || keywordL.includes("script") || keywordL.includes("backup") || keywordL.includes("create") || keywordL.includes("update") || keywordL.includes("delete") || keywordL.includes("drop") || keywordL.includes("insert") || keywordL.includes("select")) {
+            keyword = " ";
+        }
+	
+    if (keyword !== null && keyword !== "" && keyword !== " ") {
         // sUTL = sUTL + '&as_q=' + keyword + '&q=' + keyword + '&hl=zh-TW&as_q=&num=100';
 	    sUTL = sUTL + '&q=' + keyword + " site:aqmc.moenv.gov.tw"; 
         // window.open(sUTL, "_blank");
