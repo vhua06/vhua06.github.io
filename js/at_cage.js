@@ -452,8 +452,25 @@ function openURL(title, url) {
     }
 }
 
+function openMailURL(title, url) {
+    let msg = (title !== undefined) ? "本意見信箱為首長信箱，若有模式相關問題可先至諮詢信箱詢問。\n按【確定】按鈕，將另開新視窗，前往連結 「" + title + "」 ？" : "您即將離開本網站，繼續前往連結頁嗎?";
+    let yesno = confirm(msg);
+    if (yesno == true) {
+        window.open(url, "_blank");
+    }
+}
+
 function openURL_e(title, url) {
     let msg = (title !== undefined) ? "To open in a new tab, then open a link (" +
+        title + ") on a web page ?" : "You are going to leave this website. Continue with ?";
+    let yesno = confirm(msg);
+    if (yesno == true) {
+        window.open(url, "_blank");
+    }
+}
+
+function openMailURL_e(title, url) {
+    let msg = (title !== undefined) ? "This opinion mailbox is the chief's mailbox. If you have any questions related to the model, you can first go to the Consultation Email to ask. \n\nPress the [OK] to open a link (" +
         title + ") on a web page ?" : "You are going to leave this website. Continue with ?";
     let yesno = confirm(msg);
     if (yesno == true) {

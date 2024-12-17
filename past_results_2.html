@@ -58,7 +58,8 @@
 	<link href="css/accesskey.css?t=20240530" rel="stylesheet" type="text/css" />  
 	<link href="css/at_cage.css" rel="stylesheet" type="text/css" />
 	<link href="css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
-    <link href="css/basic_aqmc.css" rel="stylesheet" type="text/css" />
+    <link href="css/basic_aqmc.css?20200518" rel="stylesheet" type="text/css" />	
+  
     
 	<!--Google Analytics Script碼(start) 要放在</head>之前-->
 	<!-- Global site tag (gtag.js) - Google Analytics -->
@@ -91,8 +92,7 @@
               </ul>
           </div>
           <div class="headerLogoPad">
-                  <!-- <img src="images/EPA-Logo_1_300-2.png" style="width:50%;height:50%;float:left; padding:0px 0px;"
-                      class="titleName optionalstuff" title="環境部 LOGO" alt="環境部 LOGO" /> -->
+                  
               <a href="index.html" tabindex="1" accesskey="H" title="返回網站首頁"><img src="images/title_name3.png" class="logo" title="返回網站首頁" alt="空氣模式支援中心" /></a>
           </div>
           <div class="headerMenu CGt">
@@ -104,8 +104,7 @@
                           <a href="#" onclick="openURL('Line 好友','https://line.me/R/ti/p/KjOox0U09B');return false;" tabindex="1" title="Line 好友 (另開視窗)" role="button"><span class="circle c_line" role="button"><div class="f_line">LINE</div></span></a>&nbsp;
                   </li><br />
                   <li style="border-right: none;float: right;"><a href="index.html" title="返回網站首頁" tabindex="1" role="button"><i class="fa fa-home"></i>回首頁</a>&nbsp;|&nbsp;
-                      <a href="#" title="意見信箱 (另開視窗) " tabindex="1" target="_blank" 
-                                  onclick="openURL('意見信箱','https://epamail.moenv.gov.tw/Front/MailBoxHome');return false;" role="button"><i class="fa fa-envelope"></i>意見信箱</a>&nbsp;|&nbsp;
+                      <a class="contactus" href="http://www.google.com" role="button" tabindex="1" title="意見信箱 (另開視窗)"><i class="fa fa-envelope"></i>意見信箱</a>&nbsp;|&nbsp;
                       <a href="sitemap.html" tabindex="1" title="檢視網站地圖" role="button"><i class="fa fa-sitemap"></i>網站導覽</a>
                   </li>
               </ul>
@@ -187,9 +186,7 @@
 		</dd>
 		<dd class="secCtrl"><a href="links.html" title="空氣品質模式相關資源連結" tabindex="1"><i class="fa fa-angle-right"></i>相關連結</a></dd>
 		<dd>
-			<a href="#" tabindex="1" title="意見信箱 (另開視窗) " onclick="openURL('意見信箱','https://epamail.moenv.gov.tw/Front/MailBoxHome');return false;">
-				<i class="fa fa-angle-right"></i>意見信箱
-			</a>
+			<a class="contactus" href="http://www.google.com" role="button" tabindex="1" title="意見信箱 (另開視窗)"><i class="fa fa-angle-right"></i>意見信箱</a>
 		</dd>
 		<!-- <dd><a href="qa.html" title="常見問題"><i class="fa fa-angle-right"></i>常見問題</a></dd> -->
 	</dl>
@@ -355,7 +352,7 @@
 						<a a href="links.html"  title="相關連結" tabindex="1">相關連結</a>
 				</li>
 				<li class="footerItem">
-					<a href="#" onclick="openURL('意見信箱','https://epamail.moenv.gov.tw/Front/MailBoxHome');return false;" tabindex="1" title="意見信箱 (另開視窗) ">意見信箱</a>
+					<a class="contactus" href="http://www.google.com" tabindex="1" title="意見信箱 (另開視窗)">意見信箱</a>
 				</li>
 				<li class="footerItem">
 					<a href="#" onclick="openURL('網站政策及宣告', 'https://www.moenv.gov.tw/Page/B12F9A27ED79AB88');return false;" tabindex="1" title="網站政策及宣告 (另開視窗)" role="button">網站政策及宣告</a>
@@ -373,7 +370,7 @@
 <div id="footer" role="footer">
   <div class="footerCont">
     <p class="address">環境部大氣環境司 版權所有 Copyright 2019 All Rights Reserved.</p>
-    <p class="address">網站維護：雲林科技大學 ｜ 聯絡地址：640301 雲林縣斗六市大學路3段123號 ｜ </p><p class="address">聯絡電話：05-534-2601 Ext 4417 ｜ 諮詢信箱：aqmc@airlab.yuntech.edu.tw</p>
+    <p class="address">網站維護：雲林科技大學 ｜ 聯絡地址：640301 雲林縣斗六市大學路3段123號 ｜ </p><p class="address">聯絡電話：05-534-2601 Ext 4417 ｜ 諮詢信箱：&nbsp;<a href="https://mail.google.com/mail/u/0/?fs=1&to=aqmc@airlab.yuntech.edu.tw&tf=cm" tabindex="1" title="送信到諮詢信箱 (另開視窗)" target="_blank"><i class="fa fa-paper-plane fa-2x"></i> aqmc@airlab.yuntech.edu.tw</a></p>
         <!-- <p class="address">通訊地址：100006台北市中正區中華路一段83號 / 聯絡電話：02-23117722#6113 許小姐</p> -->
     <p class="copyright">建議使用 Chrome、Microsoft Edge、Firefox 或 Safari 瀏覽器</p>
     <p class="osusumeBrowser"> 
@@ -412,6 +409,27 @@
 	});
 	// 避免不支援 X-Frame-Options 標頭的舊瀏覽器的使用者也免受點擊劫持攻擊	
 	(function() {
+
+		$('.contactus').click(function(e) {
+			e.preventDefault();
+			var dialog = $('<p>若要寄信給首長請點選下方【首長信箱】，若有模式相關問題可先點選下方【諮詢信箱】詢問。<br><br>點選後將另開新視窗。</p>')
+				.dialog({					
+					modal: true,
+					title: '意見信箱',
+					width: 500,
+					buttons: {
+							"首長信箱": function() {openURL('首長信箱','https://epamail.moenv.gov.tw/Front/MailBoxHome');dialog.dialog('close');return false;},
+							"諮詢信箱": function() {openURL('諮詢信箱','https://mail.google.com/mail/u/0/?fs=1&to=aqmc@airlab.yuntech.edu.tw&tf=cm');dialog.dialog('close');return false;},
+							"取消":  function() {
+									dialog.dialog('close');
+							}
+					},
+					create:function () {
+							$(this).closest(".ui-dialog").find(".ui-button").eq(1).addClass("tooltip01"); // the first button
+							$(this).closest(".ui-dialog").find(".ui-button").eq(2).addClass("tooltip02") // The second button
+					}
+				});
+		});
     // 檢查當前窗口是否不是頂層窗口
     if (window.top !== window.self) {
         // 如果不是，表示當前網頁被嵌入在 iframe 中

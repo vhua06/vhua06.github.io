@@ -251,7 +251,7 @@ a.up {
   	bottom: 0;
   	right: 0;
   	text-indent: -9999px;
-  	z-index: 9999;
+  	z-index: 100;
 }
 
 a.up:hover img,

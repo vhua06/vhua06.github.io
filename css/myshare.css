@@ -89,3 +89,13 @@
       position: relative;
       word-break: break-word;
   }
+
+  .my-ui-icon-close {    
+    background: url(../images/icons8-close.svg) no-repeat; 
+    background-size: 24px 24px !important;
+  }
+
+  .my-ui-icon-close:hover {    
+    background: url(../images/icons8-close_hover.svg) no-repeat; 
+    background-size: 24px 24px !important;
+  }

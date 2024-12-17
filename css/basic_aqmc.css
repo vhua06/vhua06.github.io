@@ -1913,6 +1913,145 @@ p strong a:hover {
     color: #fff;
 }
 
+/* Dialog */
+.ui-dialog .ui-dialog-titlebar-close {
+  /* background-image: url(https://cdnjs.cloudflare.com/ajax/libs/aui/6.0.1/aui/css/icons/aui-icon-close.png); */
+  background-image: url(../images/icons8-close.svg);
+  background-size: 19px 19px !important;
+  z-index:999999;
+}
+.ui-dialog .ui-dialog-titlebar-close:hover
+{
+  /* background-image: url(https://cdnjs.cloudflare.com/ajax/libs/aui/6.0.1/aui/css/icons/aui-icon-close.png); */
+  background-image: url(../images/icons8-close_hover.svg);
+  background-size: 19px 19px !important;
+  z-index:999999;
+}
+.ui-dialog-titlebar {
+    background-color: #05A2B7;
+}
+
+.ui-dialog-title {
+    font-weight: bold;
+    color: white;
+    /* content: "意見信箱 (Contact US)";  */
+}
+
+.ui-button:nth-child(1):hover {
+    color: #fff;     
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.ui-button:nth-child(2):hover {
+    color: #fff;
+    background-color: #06d2f1;
+    border-color: #06d2f1;
+}
+
+.ui-button:nth-child(3):hover {
+    color: #007bff;
+    background-color: transparent;
+    background-image: none;
+    border-color: #007bff;
+}
+
+.ui-button:nth-child(1) {
+    color: #fff;  
+    background-color: #056fe0;
+    border-color: #000913;
+}
+
+.ui-button:nth-child(2) {
+    color: #fff;
+    background-color: #05A2B7;
+    border-color: #05A2B7;
+}
+
+.ui-button:nth-child(3){
+    color: black;
+    background-color: transparent;
+    background-image: none;
+    border-color: black;
+}
+
+.tooltip01, .tooltip02, .tooltipE1, .tooltipE2 {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+.tooltip01:after {
+    content: "首長信箱 (另開新視窗)";
+    position: absolute;
+    white-space: nowrap;
+    font-size: smaller;
+    height: 20px;
+    width: 138%;
+    top: 45px;
+    right: 0;
+    left: 0;
+    display: none;
+    text-align: center;
+    background-color: white;
+    color: black;
+    border: 1px solid gray;
+    padding: 2px;
+}
+.tooltip02:after {
+    content: "諮詢信箱 (另開新視窗)";
+    position: absolute;
+    white-space: nowrap;
+    font-size: smaller;
+    height: 20px;
+    width: 138%;
+    top: 45px;
+    right: 0;
+    left: 0;
+    display: none;
+    text-align: center;
+    background-color: white;
+    color: black;
+    border: 1px solid gray;
+    padding: 2px;
+}
+.tooltipE1:after {
+    content: "Minister's Email (open in a new tab)";
+    position: absolute;
+    white-space: nowrap;
+    font-size: smaller;
+    height: 17px;
+    width: 148%;
+    top: 45px;
+    right: 0;
+    left: 0;
+    display: none;
+    text-align: center;
+    background-color: white;
+    color: black;
+    border: 1px solid gray;
+    padding: 2px;
+}
+.tooltipE2:after {
+    content: "Consultation Email (open in a new tab)";
+    position: absolute;
+    white-space: nowrap;
+    font-size: smaller;
+    height: 17px;
+    width: 140%;
+    top: 45px;
+    right: 0;
+    left: 0;
+    display: none;
+    text-align: center;
+    background-color: white;
+    color: black;
+    border: 1px solid gray;
+    padding: 2px;
+}
+.tooltip01:hover:after, .tooltip02:hover:after, .tooltipE1:hover:after, .tooltipE2:hover:after {
+    display: block;
+}
+
 /* dropdown-End */
 /* EPA OpenData */
 
