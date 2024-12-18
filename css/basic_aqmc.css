@@ -1981,12 +1981,12 @@ p strong a:hover {
     border-bottom: 1px dotted black;
 }
 .tooltip01:after {
-    content: "首長信箱 (另開新視窗)";
+    content: "寫信給首長 (另開新視窗)";
     position: absolute;
     white-space: nowrap;
     font-size: smaller;
     height: 20px;
-    width: 138%;
+    width: 150%;
     top: 45px;
     right: 0;
     left: 0;
@@ -1998,15 +1998,15 @@ p strong a:hover {
     padding: 2px;
 }
 .tooltip02:after {
-    content: "諮詢信箱 (另開新視窗)";
+    content: "送信到諮詢信箱：aqmc@airlab.yuntech.edu.tw (另開新視窗)";
     position: absolute;
-    white-space: nowrap;
+    /* white-space: nowrap; */
     font-size: smaller;
-    height: 20px;
-    width: 138%;
+    height: 50px;
+    width: 185%;
     top: 45px;
     right: 0;
-    left: 0;
+    left: -40px;
     display: none;
     text-align: center;
     background-color: white;
@@ -2015,15 +2015,15 @@ p strong a:hover {
     padding: 2px;
 }
 .tooltipE1:after {
-    content: "Minister's Email (open in a new tab)";
+    content: "Writing to the minister (open in a new tab)";
     position: absolute;
     white-space: nowrap;
     font-size: smaller;
     height: 17px;
-    width: 148%;
+    width: 175%;
     top: 45px;
     right: 0;
-    left: 0;
+    left: 90px;
     display: none;
     text-align: center;
     background-color: white;
@@ -2032,15 +2032,15 @@ p strong a:hover {
     padding: 2px;
 }
 .tooltipE2:after {
-    content: "Consultation Email (open in a new tab)";
+    content: "Send Consultation Email: aqmc@airlab.yuntech.edu.tw (open in a new tab)";
     position: absolute;
-    white-space: nowrap;
+    /* white-space: nowrap; */
     font-size: smaller;
-    height: 17px;
-    width: 140%;
+    height: 45px;
+    width: 115%;
     top: 45px;
     right: 0;
-    left: 0;
+    left: -40px;
     display: none;
     text-align: center;
     background-color: white;
