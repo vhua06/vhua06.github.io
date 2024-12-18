@@ -134,7 +134,7 @@
 				﻿<div class="subMenu CGt">
 	<dl role="menu">
 		<dt>	
-			<a href="#l" id="l" name="L" accesskey="L" tabindex="1" class="accesskey L" title="左方導覽區塊導盲磚 / Alt + L" style="left:-15px;"><span>:::</span></a>
+			<a href="#l" id="l" name="L" accesskey="L" tabindex="1" class="accesskey L" title="左方導覽區塊導盲磚 / Alt + L" style="left:-25px;"><span>:::</span></a>
 			<a href="#" onclick="openURL('環境部','https://www.moenv.gov.tw/');return false;" tabindex="1" title="環境部網站首頁 (另開新視窗)">
 				<img src="images/MOENV-Logo_1_300-2.svg" class="titleName" title="環境部網站首頁 (另開新視窗)" alt="環境部 LOGO" style="margin-top: 5px;" />
 			</a>
@@ -434,11 +434,16 @@
 									dialog.dialog('close');
 							}
 					},
-					create:function () {
-							$(this).closest(".ui-dialog").find(".ui-dialog-title").focus();
+					create:function () {							
 							$(this).closest(".ui-dialog").find(".ui-button").eq(1).addClass("tooltip01"); // the first button
-							$(this).closest(".ui-dialog").find(".ui-button").eq(2).addClass("tooltip02") // The second button
-					}
+							$(this).closest(".ui-dialog").find(".ui-button").eq(2).addClass("tooltip02"); // The second button
+							$(this).closest(".ui-dialog").find(".ui-button").eq(3).addClass("tooltip03");
+					},
+					open: function() {
+							$(this).closest('.ui-dialog').find('.ui-dialog-buttonpane button:eq(0)').focus();
+							$(this).closest('.ui-dialog').find('.ui-dialog-buttonpane button:eq(1)').blur();
+							$(this).closest('.ui-dialog').find('.ui-dialog-buttonpane button:eq(2)').blur();	
+					} 
 				});
 		});
     // 檢查當前窗口是否不是頂層窗口

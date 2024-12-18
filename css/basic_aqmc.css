@@ -1977,7 +1977,7 @@ p strong a:hover {
     border-color: #007bff;
 }
 
-.tooltip01, .tooltip02, .tooltipE1, .tooltipE2 {
+.tooltip01, .tooltip02, .tooltip03, .tooltipE1, .tooltipE2, .tooltipE3 {
     position: relative;
     display: inline-block;
     border-bottom: 1px dotted black;
@@ -2016,6 +2016,23 @@ p strong a:hover {
     border: 1px solid gray;
     padding: 2px;
 }
+.tooltip03:after {
+    content: "關閉意見信箱視窗";
+    position: absolute;
+    white-space: nowrap;
+    font-size: smaller;
+    height: 20px;
+    width: 165%;
+    top: 45px;
+    right: 0;
+    left: 0;
+    display: none;
+    text-align: center;
+    background-color: white;
+    color: black;
+    border: 1px solid gray;
+    padding: 2px;
+}
 .tooltipE1:after {
     content: "Writing to the minister (open in a new tab)";
     position: absolute;
@@ -2023,7 +2040,7 @@ p strong a:hover {
     font-size: smaller;
     height: 17px;
     width: 175%;
-    top: 45px;
+    top: 40px;
     right: 0;
     left: 90px;
     display: none;
@@ -2040,9 +2057,9 @@ p strong a:hover {
     font-size: smaller;
     height: 45px;
     width: 115%;
-    top: 45px;
+    top: 40px;
     right: 0;
-    left: -40px;
+    left: -14px;
     display: none;
     text-align: center;
     background-color: white;
@@ -2050,7 +2067,24 @@ p strong a:hover {
     border: 1px solid gray;
     padding: 2px;
 }
-.tooltip01:hover:after, .tooltip02:hover:after, .tooltipE1:hover:after, .tooltipE2:hover:after {
+.tooltipE3:after {
+    content: "Close the Conatct Us window";
+    position: absolute;
+    white-space: nowrap;
+    font-size: smaller;
+    height: 17px;
+    width: 213%;
+    top: 15px;
+    right: 0;
+    left: 90px;
+    display: none;
+    text-align: center;
+    background-color: white;
+    color: black;
+    border: 1px solid gray;
+    padding: 2px;
+}
+.tooltip01:hover:after, .tooltip02:hover:after, .tooltip03:hover:after, .tooltipE1:hover:after, .tooltipE2:hover:after, .tooltipE3:hover:after {
     display: block;
 }
 
