@@ -202,16 +202,27 @@ footer{
 .A11yBtn img{
     vertical-align:middle;
     height:45px;
-    width:128px
+    width:128px;
 }
 .C,.L,.u,.z{
-    color:transparent!important;
+    color:transparent !important;
     position:absolute;
     z-index:1000;
-    outline:none!important
+    outline:none !important;
 }
 .C:focus-visible,.L:focus-visible,.u:focus-visible,.z:focus-visible{
-    color:#535456!important
+    color: #333 !important;
+    width: 23px;
+    height: 37px;
+    line-height: 2rem;
+    margin: 0;
+    padding: 0;
+    background: #f4cb02fe;
+    text-align: center !important;
+    vertical-align: middle !important;
+    font-size: large !important;
+    font-weight: 900;
+    z-index: 1000;
 }
 @media screen and (max-width:1500px){
     .footerAll>ul>li{
