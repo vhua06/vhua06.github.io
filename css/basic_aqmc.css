@@ -1586,8 +1586,7 @@ dd.leftMenu {
 }
 
 .footerCont a:hover {
-    /* color: #C1D7FF; 2023-05-31 */
-    color: white;
+    color: rgb(126, 9, 73);
 }
 
 .footLinks {
