@@ -394,8 +394,9 @@
 							}
 					},
 					create:function () {
+							$(this).closest(".ui-dialog").find(".ui-dialog-title").focus();
 							$(this).closest(".ui-dialog").find(".ui-button").eq(1).addClass("tooltip01"); // the first button
-							$(this).closest(".ui-dialog").find(".ui-button").eq(2).addClass("tooltip02") // The second button
+							$(this).closest(".ui-dialog").find(".ui-button").eq(2).addClass("tooltip02"); // The second button
 					}
 				});
 		});

@@ -1935,11 +1935,26 @@ p strong a:hover {
     color: white;
     /* content: "意見信箱 (Contact US)";  */
 }
+.ui-button:focus {
+    border: 1px solid rgb(227, 84, 84);
+}
+
+.ui-button:nth-child(1) {    
+    color: black;        
+    background-color: #007bffad;
+    border-color: #007bffad;
+}
 
 .ui-button:nth-child(1):hover {
     color: #fff;     
     background-color: #007bff;
     border-color: #007bff;
+}
+
+.ui-button:nth-child(2) {
+    color: black; 
+    background-color: #05d7f7a8;
+    border-color: #05d7f7a8;
 }
 
 .ui-button:nth-child(2):hover {
@@ -1948,30 +1963,18 @@ p strong a:hover {
     border-color: #06d2f1;
 }
 
-.ui-button:nth-child(3):hover {
-    color: #007bff;
-    background-color: transparent;
-    background-image: none;
-    border-color: #007bff;
-}
-
-.ui-button:nth-child(1) {
-    color: #fff;  
-    background-color: #056fe0;
-    border-color: #000913;
-}
-
-.ui-button:nth-child(2) {
-    color: #fff;
-    background-color: #05A2B7;
-    border-color: #05A2B7;
-}
-
 .ui-button:nth-child(3){
     color: black;
     background-color: transparent;
     background-image: none;
     border-color: black;
+}
+
+.ui-button:nth-child(3):hover {
+    color: #007bff;
+    background-color: transparent;
+    background-image: none;
+    border-color: #007bff;
 }
 
 .tooltip01, .tooltip02, .tooltipE1, .tooltipE2 {
