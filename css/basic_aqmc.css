@@ -443,15 +443,16 @@ a.btn_refresh:focus  {
 
 .secCtrl>a:hover,
 .secCtrl>a:active,
-.secCtrl>a:focus,
 .secMenu>a:hover,
 .secMenu>a:active,
+.secCtrl>a:focus,
 .secMenu>a:focus,
+dd>a:focus,
 dd>a:hover,
-dd>a:active,
-dd>a:focus {    
+dd>a:active {    
     border: 0px dotted white !important;
 }
+
 .subMenu>dl>dd.secCtrl, .subMenu>dl>dd.secCtrl:hover {
     background: #92CED8;
 }
@@ -695,11 +696,14 @@ breadcrumbs2>dl>dd {
 
 /* Date Use */
 .cssTable>dl>dd a:hover,
-.cssTable>dl>dd a:active,
-.cssTable>dl>dd a:focus {  
+.cssTable>dl>dd a:active {  
     /* border: 1px dotted rgb(206, 209, 207) !important; */
     color: rgb(126, 9, 73)  !important;
     text-decoration: none;
+}
+
+.cssTable>dl>dd a:focus {
+    outline: black auto 5px;
 }
 
 .cssTable.dateList {
@@ -894,12 +898,15 @@ li a {
 }
 
 li a:hover,
-li a:active,
-li a:focus {    
+li a:active {    
     /* border: 1px solid rgb(2, 245, 2) !important; */
     color: rgb(126, 9, 73) !important;
     outline: 0 !important;
     text-decoration: none !important;
+}
+
+li a:focus {
+    outline: black auto 5px;
 }
 
 a:hover img,
@@ -1702,14 +1709,11 @@ dd.leftMenu {
     border-radius: 3px;
 }
 
-.input-group #search_e:focus {
-    background-color: #9AE22E;
-    color: #243f5f;
-}
-
+.input-group #search_e:focus,
 .input-group #search_in_e:focus {
     background-color: #9AE22E;
     color: #243f5f;
+    outline: black auto 5px;
 }
 
 #search-bar_e,
@@ -1772,12 +1776,16 @@ a:active span.circle,
 a:focus span.circle,
 a:hover .cloud-bk,
 a:active .cloud-bk,
-a:focus .cloud-bk,
 a:hover .a1,
-a:active .a1,
-a:focus .a1 {
+a:active .a1 {
     background-color: rgb(126, 9, 73);  
 }
+
+a:focus .cloud-bk,
+a:focus .a1 {
+    outline: black auto 5px;
+}
+
 .leftbanner .circle2 img{
     display: block;
     float: left;
