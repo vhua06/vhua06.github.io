@@ -910,8 +910,8 @@ li a:focus {
 }
 
 a:hover img,
-a:active img,
-a:focus img {  
+a:active img /*,
+a:focus img */ {  
     border: thin dashed rgb(218, 214, 214) !important;
 }
 
