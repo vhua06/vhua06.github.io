@@ -58,9 +58,7 @@
 	<link href="css/at_cage.css" rel="stylesheet" type="text/css" />
 	<link href="css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
     <link href="css/basic_aqmc.css?20200518" rel="stylesheet" type="text/css" />	
-  
-    
-		<style>
+  	<style>
 			.libox { 
 				box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 7px, rgb(51, 51, 51) 0px 0px 0px 1px;		
 				color: darkslategray;		
@@ -116,24 +114,29 @@
 				} 
 			}  */
 
-			/* On TABLET screens < 650px  */
-			@media screen and (max-width: 650px) {
-				
-				/* .mainRight {
-					width: 67%;
-				} */
-
+			/* On TABLET screens < 580px  */
+			@media screen and (max-width: 580px) {
 				.pageContPad {
-					width: 67%;
+					width: 95%;
 				}
-
 				.styled-table {
 					max-width:95%;
 					display: block; 
 					overflow-x: auto;  		
 				} 
 				th, td { padding: 3px; text-align: left; border: 1px solid #ddd; } 
-
+				.exfont { font-size:xx-small;}
+			}
+			@media screen and (max-width: 470px) {
+				.pageContPad {
+					width: 90%;
+				}
+				.styled-table {
+					max-width:90%;
+					display: block; 
+					overflow-x: auto;  		
+				} 
+				th, td { padding: 3px; text-align: left; border: 1px solid #ddd; } 
 				.exfont { font-size:xx-small;}
 			}
 		</style>
