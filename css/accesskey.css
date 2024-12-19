@@ -73,18 +73,19 @@ footer{
   position: absolute;
   width: 100%;
   height: 100%;
-  border: 1px solid #141211;
   transition: all 200ms ease-in-out;
   opacity: 0;
 }
 
 .excoSwitch::before {
   border-radius: 36px; /* outter border radius = inner border radius + distance, so border-radius = 30px + 6px */
+  border: 1px solid rgb(13, 14, 14);
 }
 
 .excoSwitch:hover::before {
   width: calc(100% + 12px);
   height: calc(100% + 12px);
+  /* background: rgba(32, 178, 171, 0.219); */
   opacity: 1;
 }
 
