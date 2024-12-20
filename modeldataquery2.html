@@ -244,272 +244,273 @@
 							</div>
 						</span>
 						<a href="#c" id="c" name="C" accesskey="C" tabindex="1" class="accesskey C" title="中央導覽區塊導盲磚 / Alt + C"><span>:::</span></a><br>
-						<br>
-						<h2 style="display:none">大綱</h2>
-						<blockquote>
-						根據空氣品質模式模擬規範第十一條的規定，公私場所申請固定污染源許可時，應將空品模式與模擬結果公開於中央主管機關規定之網站，以備各界查詢。 然而模式資料雖然存放網路上，但由於相當龐大，且目前存放模式資料的主機為國家高速網路與計算中心（以下簡稱國網）的主機，並不適合直接線上查詢，而是從國網下載到自己慣用電腦後再行查閱，才是比較適宜的方法。以下說明國網帳號申請方法、下載模式資料的方法以及下載資料路徑，使用者下載資料後，可使用適當的軟體讀取資料並查閱。
-						</blockquote>
-						<br>					
-						<h2>國網帳號申請方法說明</h2>
-						<blockquote>
-						欲上傳或下載資料者，皆需在國網申請帳號使用，國網帳號申請不需要費用，請依照下面條列的步驟申請：
-						</blockquote>
-						<blockquote>						
-							<blockquote>
-								1. 進入<a tabindex="1" href="#" onclick="openURL('iService計算資源服務網','https://iservice.nchc.org.tw/nchc_service/index.php?lang_type='); return false;" title="iService計算資源服務網 (另開新視窗)">iService計算資源服務網&nbsp;<span style="font-size: small;color:#C53B86;">[另開新視窗]</span></a>
-							</blockquote>
-							<blockquote>
-								2. 選取下圖紅框框起之右上角註冊按鈕<br>
-							</blockquote>
-							<img id="m1" src="images/register_btn.png" alt="註冊按鈕位置圖示" title="註冊按鈕位置圖示" />
-							<blockquote>
-								3. 輸入電子信箱並閱讀個資和權利義務聲明
-							</blockquote>
-							<blockquote>
-								4. 填寫會員基本資料
-							</blockquote>
-							<blockquote>
-								5. 收取認證信和驗證簡訊
-							</blockquote>
-							<blockquote>
-								6. 驗證成功即帳號申請完畢
-							</blockquote>
-						</blockquote>
-						<br>
+						<div class="htmlEditor">						
+              <h2 style="display:none">大綱</h2>
+              <blockquote>
+              根據空氣品質模式模擬規範第十一條的規定，公私場所申請固定污染源許可時，應將空品模式與模擬結果公開於中央主管機關規定之網站，以備各界查詢。 然而模式資料雖然存放網路上，但由於相當龐大，且目前存放模式資料的主機為國家高速網路與計算中心（以下簡稱國網）的主機，並不適合直接線上查詢，而是從國網下載到自己慣用電腦後再行查閱，才是比較適宜的方法。以下說明國網帳號申請方法、下載模式資料的方法以及下載資料路徑，使用者下載資料後，可使用適當的軟體讀取資料並查閱。
+              </blockquote>
+              <br>					
+              <h2>國網帳號申請方法說明</h2>
+              <blockquote>
+              欲上傳或下載資料者，皆需在國網申請帳號使用，國網帳號申請不需要費用，請依照下面條列的步驟申請：
+              </blockquote>
+              <blockquote>						
+                <blockquote>
+                  1. 進入<a tabindex="1" href="#" onclick="openURL('iService計算資源服務網','https://iservice.nchc.org.tw/nchc_service/index.php?lang_type='); return false;" title="iService計算資源服務網 (另開新視窗)">iService計算資源服務網&nbsp;<span style="font-size: small;color:#C53B86;">[另開新視窗]</span></a>
+                </blockquote>
+                <blockquote>
+                  2. 選取下圖紅框框起之右上角註冊按鈕<br>
+                </blockquote>
+                <img id="m1" src="images/register_btn.png" alt="註冊按鈕位置圖示" title="註冊按鈕位置圖示" />
+                <blockquote>
+                  3. 輸入電子信箱並閱讀個資和權利義務聲明
+                </blockquote>
+                <blockquote>
+                  4. 填寫會員基本資料
+                </blockquote>
+                <blockquote>
+                  5. 收取認證信和驗證簡訊
+                </blockquote>
+                <blockquote>
+                  6. 驗證成功即帳號申請完畢
+                </blockquote>
+              </blockquote>
+              <br>
 
-						<h2>國網下載資料方法</h2>
-						<blockquote>
-						從國網下載資料可分為以下兩種主要的方法，以下分別說明這兩種下載方法：
-						</blockquote>
-						<blockquote>
-							<h3>
-							一、	使用linux指令下載
-							</h3>
-							<br>
-							<blockquote>
-							於自己的linux主機執行以下任一種指令：
-							</blockquote>								
-							<div>
-								<h4>1. scp 指令</h4>
-								<ul>
-									<li class="libox" style="list-style-type: none;">
-										<spen>
-											<p style="padding: 0 3px;">
-												$ <b>scp</b> [<span style="color:lightseagreen">option:</span>] &lt;<span style="color:mediumvioletred">source host</span>&gt;<b>:</b>&lt;<span style="color:darkviolet">remote patd of directory or file</span>&gt; &lt;<span style="color:dodgerblue">destination host</span>&gt;<b>:</b>&lt;<span style="color:coral">local patd of directory or file</span>&gt;
-											</p>
-										</spen>
-									</li>
-								</ul>
-								<h4>2. rsync 指令</h4>
-								<ul>
-									<li class="libox" style="list-style-type: none;">
-										<spen>
-											<p style="padding: 0 3px;">
-												$ <b>rsync</b> [<span style="color:lightseagreen">option:</span>] &lt;<span style="color:mediumvioletred">source host</span>&gt;<b>:</b>&lt;<span style="color:darkviolet">remote patd of directory or file</span>&gt; &lt;<span style="color:dodgerblue">destination host</span>&gt;<b>:</b>&lt;<span style="color:coral">local patd of directory or file</span>&gt;
-											</p>
-										</spen>
-									</li>
-								</ul>
-								<h4><span style="color:lightseagreen">option:</span> 指令使用選項</h4>
-								<ul>
-									<li class="libox" style="list-style-type: none;">
-										<div>
-											<ul>
-												<li><span style="color:mediumvioletred">source host</span> : 國網帳號@<span style="color:red;">台灣杉三號</span>資料傳輸節點 (<span style="color:red;">t3-x1.nchc.org.tw 或<br> t3-x2.nchc.org.tw</span>)</li>
-												<li><span style="color:darkviolet">remote patd of directory or file</span> : 欲下載資料的國網路徑</li>
-												<li><span style="color:dodgerblue">destination host</span> : 下載目標主機(如為下載至本機可不輸入)</li>
-												<li><span style="color:coral">local patd of directory or file</span> : 檔案下載目標路徑</li>
-											</ul>
-										</div>
-									</li>
-								</ul>
-								<br>
-								<h3>
-								二、	使用第三方軟體下載（以winSCP為例）
-								</h3>
-								<p>
-									<blockquote>
-									開啟winSCP程式後在登入介面依下圖輸入內容：
-									</blockquote>
-									<img id="m2" src="images/modeldataquery_1.png" alt="winSCP程式操作" title="使用第三方軟體下載" />
-								</p>
-								<p>
-									<blockquote>
-									登入後頁面如下，雙擊右半視窗路徑列，輸入欲下載檔案路徑，或至<span style="color:red;">/work/simenvipub01/ 資料夾</span>中自行搜尋目標檔案，右鍵點選欲下載檔案即開始下載。
-									</blockquote>
-									<img id="m3" src="images/modeldataquery_2.png" alt="winSCP程式操作" title="使用第三方軟體下載" />
-								</p>																		
-							</div>	
-						</blockquote>		
-						<br>					
-						<h2>下載資料路徑說明</h2>
-						<blockquote>
-						資料公開之模擬結果檔案儲存於國網<span style="color:red;">台灣杉三號</span>主機中，<span style="color:red;">台灣杉三號</span>主機檔案傳輸ip為 <span style="color:red;">t3-x1.nchc.org.tw 或 t3-x2.nchc.org.tw</span>，檔案路徑包含「共通路徑/縣市/案件類型/模式分類/案號」等五個部分：
-						</blockquote>
-						<blockquote>
-							1. 共通路徑，為公開資料的共通檔案儲存路徑 <br>
-							<blockquote>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red;">/work/simenvipub01/upload/</span></blockquote>
-						</blockquote>
-						<blockquote>
-							2. 縣市資料夾選項，依照不同縣市的案件輸入資料夾名稱，如下表
-						</blockquote>
-						<blockquote>
-							3.	案件類型選項，選項包含環境影響評估（assess/）、減量或控制策略評估（control/）、<br>
-							<blockquote>&nbsp;&nbsp;&nbsp;&nbsp;許可申請（permit/）和其他類型（other/）</blockquote>
-						</blockquote>
-						<blockquote>
-							4.	模式分類，分為公告模式（recommend/）、非公告模式（alternative/）和其他（other/）
-						</blockquote>
-						<blockquote>
-							5.	案號則依縣市環保局命名
-						</blockquote>								
-						<div>
-							<table role="table" class="styled-table">
-								<thead>
-									<tr>
-										<th style="border: 2px solid black;background: #ECECEC;color: #FF0000;text-align: center;"><b>共通路徑</b></th>
-										<th style="border: 1px solid black;background: #ECECEC;color: #0070C0;"><b>機關單位選項</b></th>
-										<th style="border: 1px solid black;background: #ECECEC;color: #0070C0;"><b>機關單位選項說明</b></th>
-										<th style="border: 1px solid black;background: #ECECEC;color: #FFB000;"><b>案件類型選項</b></th>
-										<th style="border: 1px solid black;background: #ECECEC;color: #FFB000;"><b>案件類型選項說明</b></th>
-										<th style="border: 1px solid black;background: #ECECEC;color: #00B010;text-align: center;"><b>模式分類</b></th>
-										<th style="border: 1px solid black;background: #ECECEC;color: #00B010;"><b>模式分類選項說明</b></th>
-										<th style="border: 1px solid black;background: #ECECEC;color: black;text-align: center;"><b>案號</b></th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td rowspan="26" style="border: 2px solid black;">/work/simenvipub01/upload/</td>
-										<td >00/</td>
-										<td >中央</td>
-										<td rowspan="6" style="background: white;">assess/</td>
-										<td rowspan="6" style="background: white;">環境影響評估</td>
-										<td rowspan="7">recommend/</td>
-										<td rowspan="7">公告模式</td>
-										<td rowspan="26">依縣市環保局命名</td>
-									</tr>
-									<tr>
-										<td >01/</td>
-										<td >臺北市</td>
-									</tr>
-									<tr>
-										<td >02/</td>
-										<td >高雄市</td>
-									</tr>
-									<tr>
-										<td >11/</td>
-										<td >基隆市</td>
-									</tr>
-									<tr>
-										<td >12/</td>
-										<td >新竹市</td>
-									</tr>
-									<tr>
-										<td >17/</td>
-										<td >臺中市</td>
-									</tr>
-									<tr>
-										<td >21/</td>
-										<td >臺南市</td>
-										<td rowspan="5">control/</td>
-										<td rowspan="5">減量或控制策略評估</td>
-									</tr>
-									<tr>
-										<td >22/</td>
-										<td >嘉義市</td>
-										<td rowspan="7">alternative/</td>
-										<td rowspan="7">非公告模式</td>
-									</tr>
-									<tr>
-										<td >31/</td>
-										<td >新北市</td>
-									</tr>
-									<tr>
-										<td >32/</td>
-										<td >桃園市</td>
-									</tr>
-									<tr>
-										<td >33/</td>
-										<td >新竹縣</td>
-									</tr>
-									<tr>
-										<td >34/</td>
-										<td >宜蘭縣</td>
-										<td rowspan="5">permit/</td>
-										<td rowspan="5">許可申請</td>
-									</tr>
-									<tr>
-										<td >35/</td>
-										<td >苗栗縣</td>
-									</tr>
-									<tr>
-										<td >37/</td>
-										<td >彰化縣</td>
-									</tr>
-									<tr>
-										<td >38/</td>
-										<td >南投縣</td>
-										<td rowspan="12">other/</td>
-										<td rowspan="12">其他</td>
-									</tr>
-									<tr>
-										<td >39/</td>
-										<td >雲林縣</td>
-									</tr>
-									<tr>
-										<td >40/</td>
-										<td >嘉義縣</td>
-										<td rowspan="10">other/</td>
-										<td rowspan="10">其他</td>
-									</tr>
-									<tr>
-										<td >43/</td>
-										<td >屏東縣</td>
-									</tr>
-									<tr>
-										<td >44/</td>
-										<td >澎湖縣</td>
-									</tr>
-									<tr>
-										<td >45/</td>
-										<td >花蓮縣</td>
-									</tr>
-									<tr>
-										<td >46/</td>
-										<td >臺東縣</td>
-									</tr>
-									<tr>
-										<td >101/</td>
-										<td >國家科學及技術委員會新竹科學園區管理局</td>
-									</tr>
-									<tr>
-										<td >102/</td>
-										<td >國家科學及技術委員會中部科學園區管理局</td>
-									</tr>
-									<tr>
-										<td >103/</td>
-										<td >國家科學及技術委員會南部科學園區管理局</td>
-									</tr>
-									<tr>
-										<td >201/</td>
-										<td >經濟部加工出口區管理處</td>
-									</tr>
-									<tr>
-										<td >202/</td>
-										<td >行政院農業委員會屏東農業生物技術園區籌備處</td>
-									</tr>
-								</tbody>		
-							</table>
-						</div>	
-						<br>					
-						<h2>範例路徑及說明：</h2>
-						<blockquote class="exfont">
-							<span style="color: #FF0000;">/work/simenvipub01/upload/</span><span style="color: #0070C0;">21/</span><span style="color: #FFB000;">permit/</span><span style="color: #00B010;">recommend/</span>R0900017-M01-1091117
-							<br>
-							<blockquote>
-							為<span style="color: #0070C0;">臺南市</span>的<span style="color: #FFB000;">許可申請</span>，使用<span style="color: #00B010;">公告模式</span>的案件R0900017-M01-1091117
-							</blockquote>
-						</blockquote>
+              <h2>國網下載資料方法</h2>
+              <blockquote>
+              從國網下載資料可分為以下兩種主要的方法，以下分別說明這兩種下載方法：
+              </blockquote>
+              <blockquote>
+                <h3>
+                一、	使用linux指令下載
+                </h3>
+                <br>
+                <blockquote>
+                於自己的linux主機執行以下任一種指令：
+                </blockquote>								
+                <div>
+                  <h4>1. scp 指令</h4>
+                  <ul>
+                    <li class="libox" style="list-style-type: none;">
+                      <spen>
+                        <p style="padding: 0 3px;">
+                          $ <b>scp</b> [<span style="color:lightseagreen">option:</span>] &lt;<span style="color:mediumvioletred">source host</span>&gt;<b>:</b>&lt;<span style="color:darkviolet">remote patd of directory or file</span>&gt; &lt;<span style="color:dodgerblue">destination host</span>&gt;<b>:</b>&lt;<span style="color:coral">local patd of directory or file</span>&gt;
+                        </p>
+                      </spen>
+                    </li>
+                  </ul>
+                  <h4>2. rsync 指令</h4>
+                  <ul>
+                    <li class="libox" style="list-style-type: none;">
+                      <spen>
+                        <p style="padding: 0 3px;">
+                          $ <b>rsync</b> [<span style="color:lightseagreen">option:</span>] &lt;<span style="color:mediumvioletred">source host</span>&gt;<b>:</b>&lt;<span style="color:darkviolet">remote patd of directory or file</span>&gt; &lt;<span style="color:dodgerblue">destination host</span>&gt;<b>:</b>&lt;<span style="color:coral">local patd of directory or file</span>&gt;
+                        </p>
+                      </spen>
+                    </li>
+                  </ul>
+                  <h4><span style="color:lightseagreen">option:</span> 指令使用選項</h4>
+                  <ul>
+                    <li class="libox" style="list-style-type: none;">
+                      <div>
+                        <ul>
+                          <li><span style="color:mediumvioletred">source host</span> : 國網帳號@<span style="color:red;">台灣杉三號</span>資料傳輸節點 (<span style="color:red;">t3-x1.nchc.org.tw 或<br> t3-x2.nchc.org.tw</span>)</li>
+                          <li><span style="color:darkviolet">remote patd of directory or file</span> : 欲下載資料的國網路徑</li>
+                          <li><span style="color:dodgerblue">destination host</span> : 下載目標主機(如為下載至本機可不輸入)</li>
+                          <li><span style="color:coral">local patd of directory or file</span> : 檔案下載目標路徑</li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+                  <br>
+                  <h3>
+                  二、	使用第三方軟體下載（以winSCP為例）
+                  </h3>
+                  <p>
+                    <blockquote>
+                    開啟winSCP程式後在登入介面依下圖輸入內容：
+                    </blockquote>
+                    <img id="m2" src="images/modeldataquery_1.png" alt="winSCP程式操作" title="使用第三方軟體下載" />
+                  </p>
+                  <p>
+                    <blockquote>
+                    登入後頁面如下，雙擊右半視窗路徑列，輸入欲下載檔案路徑，或至<span style="color:red;">/work/simenvipub01/ 資料夾</span>中自行搜尋目標檔案，右鍵點選欲下載檔案即開始下載。
+                    </blockquote>
+                    <img id="m3" src="images/modeldataquery_2.png" alt="winSCP程式操作" title="使用第三方軟體下載" />
+                  </p>																		
+                </div>	
+              </blockquote>		
+              <br>					
+              <h2>下載資料路徑說明</h2>
+              <blockquote>
+              資料公開之模擬結果檔案儲存於國網<span style="color:red;">台灣杉三號</span>主機中，<span style="color:red;">台灣杉三號</span>主機檔案傳輸ip為 <span style="color:red;">t3-x1.nchc.org.tw 或 t3-x2.nchc.org.tw</span>，檔案路徑包含「共通路徑/縣市/案件類型/模式分類/案號」等五個部分：
+              </blockquote>
+              <blockquote>
+                1. 共通路徑，為公開資料的共通檔案儲存路徑 <br>
+                <blockquote>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red;">/work/simenvipub01/upload/</span></blockquote>
+              </blockquote>
+              <blockquote>
+                2. 縣市資料夾選項，依照不同縣市的案件輸入資料夾名稱，如下表
+              </blockquote>
+              <blockquote>
+                3.	案件類型選項，選項包含環境影響評估（assess/）、減量或控制策略評估（control/）、<br>
+                <blockquote>&nbsp;&nbsp;&nbsp;&nbsp;許可申請（permit/）和其他類型（other/）</blockquote>
+              </blockquote>
+              <blockquote>
+                4.	模式分類，分為公告模式（recommend/）、非公告模式（alternative/）和其他（other/）
+              </blockquote>
+              <blockquote>
+                5.	案號則依縣市環保局命名
+              </blockquote>								
+              <div>
+                <table role="table" class="styled-table">
+                  <thead>
+                    <tr>
+                      <th style="border: 2px solid black;background: #ECECEC;color: #FF0000;text-align: center;"><b>共通路徑</b></th>
+                      <th style="border: 1px solid black;background: #ECECEC;color: #0070C0;"><b>機關單位選項</b></th>
+                      <th style="border: 1px solid black;background: #ECECEC;color: #0070C0;"><b>機關單位選項說明</b></th>
+                      <th style="border: 1px solid black;background: #ECECEC;color: #FFB000;"><b>案件類型選項</b></th>
+                      <th style="border: 1px solid black;background: #ECECEC;color: #FFB000;"><b>案件類型選項說明</b></th>
+                      <th style="border: 1px solid black;background: #ECECEC;color: #00B010;text-align: center;"><b>模式分類</b></th>
+                      <th style="border: 1px solid black;background: #ECECEC;color: #00B010;"><b>模式分類選項說明</b></th>
+                      <th style="border: 1px solid black;background: #ECECEC;color: black;text-align: center;"><b>案號</b></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td rowspan="26" style="border: 2px solid black;">/work/simenvipub01/upload/</td>
+                      <td >00/</td>
+                      <td >中央</td>
+                      <td rowspan="6" style="background: white;">assess/</td>
+                      <td rowspan="6" style="background: white;">環境影響評估</td>
+                      <td rowspan="7">recommend/</td>
+                      <td rowspan="7">公告模式</td>
+                      <td rowspan="26">依縣市環保局命名</td>
+                    </tr>
+                    <tr>
+                      <td >01/</td>
+                      <td >臺北市</td>
+                    </tr>
+                    <tr>
+                      <td >02/</td>
+                      <td >高雄市</td>
+                    </tr>
+                    <tr>
+                      <td >11/</td>
+                      <td >基隆市</td>
+                    </tr>
+                    <tr>
+                      <td >12/</td>
+                      <td >新竹市</td>
+                    </tr>
+                    <tr>
+                      <td >17/</td>
+                      <td >臺中市</td>
+                    </tr>
+                    <tr>
+                      <td >21/</td>
+                      <td >臺南市</td>
+                      <td rowspan="5">control/</td>
+                      <td rowspan="5">減量或控制策略評估</td>
+                    </tr>
+                    <tr>
+                      <td >22/</td>
+                      <td >嘉義市</td>
+                      <td rowspan="7">alternative/</td>
+                      <td rowspan="7">非公告模式</td>
+                    </tr>
+                    <tr>
+                      <td >31/</td>
+                      <td >新北市</td>
+                    </tr>
+                    <tr>
+                      <td >32/</td>
+                      <td >桃園市</td>
+                    </tr>
+                    <tr>
+                      <td >33/</td>
+                      <td >新竹縣</td>
+                    </tr>
+                    <tr>
+                      <td >34/</td>
+                      <td >宜蘭縣</td>
+                      <td rowspan="5">permit/</td>
+                      <td rowspan="5">許可申請</td>
+                    </tr>
+                    <tr>
+                      <td >35/</td>
+                      <td >苗栗縣</td>
+                    </tr>
+                    <tr>
+                      <td >37/</td>
+                      <td >彰化縣</td>
+                    </tr>
+                    <tr>
+                      <td >38/</td>
+                      <td >南投縣</td>
+                      <td rowspan="12">other/</td>
+                      <td rowspan="12">其他</td>
+                    </tr>
+                    <tr>
+                      <td >39/</td>
+                      <td >雲林縣</td>
+                    </tr>
+                    <tr>
+                      <td >40/</td>
+                      <td >嘉義縣</td>
+                      <td rowspan="10">other/</td>
+                      <td rowspan="10">其他</td>
+                    </tr>
+                    <tr>
+                      <td >43/</td>
+                      <td >屏東縣</td>
+                    </tr>
+                    <tr>
+                      <td >44/</td>
+                      <td >澎湖縣</td>
+                    </tr>
+                    <tr>
+                      <td >45/</td>
+                      <td >花蓮縣</td>
+                    </tr>
+                    <tr>
+                      <td >46/</td>
+                      <td >臺東縣</td>
+                    </tr>
+                    <tr>
+                      <td >101/</td>
+                      <td >國家科學及技術委員會新竹科學園區管理局</td>
+                    </tr>
+                    <tr>
+                      <td >102/</td>
+                      <td >國家科學及技術委員會中部科學園區管理局</td>
+                    </tr>
+                    <tr>
+                      <td >103/</td>
+                      <td >國家科學及技術委員會南部科學園區管理局</td>
+                    </tr>
+                    <tr>
+                      <td >201/</td>
+                      <td >經濟部加工出口區管理處</td>
+                    </tr>
+                    <tr>
+                      <td >202/</td>
+                      <td >行政院農業委員會屏東農業生物技術園區籌備處</td>
+                    </tr>
+                  </tbody>		
+                </table>
+              </div>	
+              <br>					
+              <h2>範例路徑及說明：</h2>
+              <blockquote class="exfont">
+                <span style="color: #FF0000;">/work/simenvipub01/upload/</span><span style="color: #0070C0;">21/</span><span style="color: #FFB000;">permit/</span><span style="color: #00B010;">recommend/</span>R0900017-M01-1091117
+                <br>
+                <blockquote>
+                為<span style="color: #0070C0;">臺南市</span>的<span style="color: #FFB000;">許可申請</span>，使用<span style="color: #00B010;">公告模式</span>的案件R0900017-M01-1091117
+                </blockquote>
+              </blockquote>
+            </div>
 					</div>
 					<hr />							
 				</div>
