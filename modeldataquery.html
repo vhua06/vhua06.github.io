@@ -81,7 +81,7 @@
 				border: 1px solid black;
 			}
 
-			/* On TABLET screens < 650px  */
+			/* On MOBILE screens < 650px  */
 			@media screen and (max-width: 650px) {
 				
 				.styled-table {
@@ -98,8 +98,15 @@
 				}
 			}			
 
-			/* 800px Image Width on Smaller Screens  */
+			/* On TABLET screens < 800px  */
 			@media only screen and (max-width: 800px) {
+				
+				.styled-table {
+					max-width:97%;
+					display: block; 
+					overflow-x: auto;  		
+				} 
+				th, td { padding: 3px; text-align: left; border: 1px solid #ddd; } 
 					
 				.exfont { 
 					font-size: 50% !important;
