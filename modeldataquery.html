@@ -92,7 +92,17 @@
 				th, td { padding: 3px; text-align: left; border: 1px solid #ddd; } 
 				
 				.exfont { 
-					/* font-size: 10% !important; */
+					/* font-size: smaller !important; */
+					text-wrap: wrap;
+					word-break: break-all;
+				}
+			}			
+
+			/* 100% Image Width on Smaller Screens  */
+			@media only screen and (max-width: 740px) {
+					
+				.exfont { 
+					font-size: smaller !important;
 					text-wrap: wrap;
 					word-break: break-all;
 				}
