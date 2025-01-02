@@ -261,6 +261,9 @@ a.btn_refresh:focus  {
     #exco_btn_img, footer{
         display:none
     }  
+    .search_e_link {
+        display:none
+    }
 }
 
 .htmlEditor {
