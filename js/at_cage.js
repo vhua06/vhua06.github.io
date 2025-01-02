@@ -350,8 +350,8 @@ function replaceTagChar(value) {
 
 function searchfire_BK(event, keyword, lang) {
     event.preventDefault();
-    // var sUTL = 'https://cse.google.com/cse?cx=a78015efb707541ae&as_sitesearch=aqmc.moenv.gov.tw';
-    var sUTL = 'https://www.google.com.tw/search?hl=zh-TW&as_epq=&as_oq=&as_eq=&as_nlo=&as_nhi=&lr=&cr=&as_qdr=all&as_sitesearch=aqmc.moenv.gov.tw&as_occt=any&safe=images&as_filetype=&tbs=';
+    var sUTL = 'https://cse.google.com/cse?cx=a78015efb707541ae&as_sitesearch=aqmc.moenv.gov.tw';
+    // var sUTL = 'https://www.google.com.tw/search?hl=zh-TW&as_epq=&as_oq=&as_eq=&as_nlo=&as_nhi=&lr=&cr=&as_qdr=all&as_sitesearch=aqmc.moenv.gov.tw&as_occt=any&safe=images&as_filetype=&tbs=';
     // var sUTL = './search_result.html?hl=zh-TW';
     if (keyword !== null && keyword !== "") {
         keyword = replaceTagChar(keyword);
@@ -377,8 +377,8 @@ function searchfire_BK(event, keyword, lang) {
 
 function searchfire(event, keyword, lang) {
     event.preventDefault();
-    // var sUTL = 'https://cse.google.com/cse?cx=a78015efb707541ae&as_sitesearch=aqmc.moenv.gov.tw';
-    var sUTL = 'https://www.google.com.tw/search?hl=zh-TW&as_epq=&as_oq=&as_eq=&as_nlo=&as_nhi=&lr=&cr=&as_qdr=all&as_sitesearch=aqmc.moenv.gov.tw&as_occt=any&safe=images&as_filetype=&tbs=';
+    var sUTL = 'https://cse.google.com/cse?cx=a78015efb707541ae&as_sitesearch=aqmc.moenv.gov.tw';
+    // var sUTL = 'https://www.google.com.tw/search?hl=zh-TW&as_epq=&as_oq=&as_eq=&as_nlo=&as_nhi=&lr=&cr=&as_qdr=all&as_sitesearch=aqmc.moenv.gov.tw&as_occt=any&safe=images&as_filetype=&tbs=';
     // var sUTL = './search_result.html?hl=zh-TW';
         var keywordL = keyword.toLowerCase();
         if(keywordL.includes("alert") || keywordL.includes("prompt") || keywordL.includes("confirm") || keywordL.includes("(") || keywordL.includes(")") || keywordL.includes("script") || keywordL.includes("backup") || keywordL.includes("create") || keywordL.includes("update") || keywordL.includes("delete") || keywordL.includes("drop") || keywordL.includes("insert") || keywordL.includes("select")) {
@@ -392,16 +392,12 @@ function searchfire(event, keyword, lang) {
         if(lang === 'tw') {
         // if(lang != 'tw') {
             openURL("搜尋：" + keyword, sUTL); 
-            // sUTL = './search_result.html?hl=en-US';
         }
         else openURL_e("Search: " + keyword, sUTL); 
-        // keyword = replaceTagChar(keyword);
-        // sUTL = sUTL + '&q=' + keyword + " site:aqmc.moenv.gov.tw";        
-        // location.href = sUTL;
     } else {
         $('form').find("input[type=text]").each(function(ev) {
             if (!$(this).val()) {
-                alert("＊ 此處不能為空白 ( This cannot be blank ) ＊");
+                alert("＊ 此處不能為空白或控制字元 ( This cannot be blank or control characters. ) ＊");
                 $(this).attr("placeholder", "＊ 此處不能為空白 ＊");
             }
         });
@@ -511,7 +507,7 @@ function reOpen(url) {
 //     });
 //     $(this).addClass('action');
 // });
-
+/*
 $('.subMenu').find('.secCtrl').on( 'keyup', function( e ) {
     if( e.which == 9 ) { // Tab keypress
         $(this).addClass('action');
@@ -524,7 +520,7 @@ $('.subMenu').find('.secCtrl').on( 'keydown', function( e ) {
         $(this).removeClass('action'); 
     }
 }); 
-
+*/
     
 $('.socialsharing').click(function(e) {
     $(".mydropdown-content").css("display","block");

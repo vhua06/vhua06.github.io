@@ -1,11 +1,11 @@
 $(document).ready(function() {
   function e(e) {
       var i = attHtmlEncode(e, "data-closetitle");
-      $(".footerAll>ul>li>ul").slideDown(350), $("footer").removeClass("off"), e.html(i)
+      $(".footerAll>ul>li>ul").slideDown(350), $("footer").removeClass("off"), e.attr("title", i).html(i)
   }
   function i(e) {
       var i = attHtmlEncode(e, "data-opentitle");
-      $(".footerAll>ul>li>ul").slideUp(350), e.html(i), setTimeout(function() {
+      $(".footerAll>ul>li>ul").slideUp(350), e.attr("title", i).html(i), setTimeout(function() {
           $("footer").addClass("off")
       }, 250)
   }
