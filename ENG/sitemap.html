@@ -124,7 +124,7 @@
           <label for="search_e" title="search" style="color: darkblue;">Search:</label>
           <input tabindex="1" type="search" name="search" id="search_e" class="search form-control" placeholder="Enter or Select Keywords" />
           <span tabindex="1" id="search-bar_e" class="search-button search-button-v2" accesskey="s" title="Search (open in a new tab)" name="search_btn" role="button"><i class='fa fa-search' aria-hidden="true"></i></span>
-          <span tabindex="1" id="adv-search-bar_e" class="search-button search-button-v2" accesskey="s" title="Advanced Search (open in a new tab)" name="advanced_search_btn" role="button"><i class='fa fa-search-plus' aria-hidden="true"></i></span>
+          <span tabindex="1" id="adv-search-bar_e" class="search-button search-button-v2" title="Advanced Search (open in a new tab)" name="advanced_search_btn" role="button"><i class='fa fa-search-plus' aria-hidden="true"></i></span>
       </div>
   </form>
 </div>
@@ -171,7 +171,7 @@
       <label for="search_in_e" title="search">Search:</label>
 			<input tabindex="1" type="text" id="search_in_e" name="search" class="search-left form-control" placeholder="Keyword" style="width: 40%;height: 75%;" />
 			<span tabindex="1" id="search-left_e" class="search-button search-button-v2" accesskey="s" title="Search (open in a new tab)" name="search_btn" role="button"><i class='fa fa-search' aria-hidden="true"></i></span>
-      <span tabindex="1" id="adv-search-left_e" class="search-button search-button-v2" accesskey="s" title="Advanced Search (open in a new tab)" name="advanced_search_btn" role="button"><i class='fa fa-search-plus' aria-hidden="true"></i></span>
+      <span tabindex="1" id="adv-search-left_e" class="search-button search-button-v2" title="Advanced Search (open in a new tab)" name="advanced_search_btn" role="button"><i class='fa fa-search-plus' aria-hidden="true"></i></span>
 		</div>
 	</form>
 </div>
@@ -247,7 +247,7 @@
 									<tr><td>Alt+H</td><td>Home</td></tr>
 									<tr><td>Alt+P</td><td>Print</td></tr>
 									<tr><td>Alt+T</td><td>Back to the top</td></tr>
-									<tr><td>Alt+S</td><td>Advanced Search (open in a new tab)</td></tr>
+									<tr><td>Alt+S</td><td>Search</td></tr>
 								</tbody>	
 							</table><br/>
 							<h2>Site Map</h2>
@@ -255,7 +255,7 @@
 								<dt><a href="index.html" title="To open Home page" tabindex="1" style="text-decoration: none;">Home</a></dt>			
 								<dd><a href="about.html" title="About Air Quality Modeling Support Center" tabindex="1"><i class="fa fa-angle-right"></i> About AQM Support Center</a></dd>
 								<dd class="secCtrl">
-									<a title="Model Introduction | Support Center for Air Quality Models"><i class="fa fa-angle-double-right"></i> Model Introduction</a>
+									<a href="airquality_0.html" tabindex="1" title="Model Introduction | Support Center for Air Quality Models"><i class="fa fa-angle-double-right"></i> Model Introduction</a>
 									<div class="secMenu">			
 										<a href="airquality_1.html" title="Gaussian Dispersion Model (GDM) | Support Center for Air Quality Models" tabindex="1"><i class="fa fa-angle-right"></i> Gaussian Dispersion Model</a>
 										<a href="airquality_2.html" title="Trajectory Model (non-chemical reactions) | Support Center for Air Quality Models" tabindex="1"><i class="fa fa-angle-right"></i> Trajectory Model</a>
@@ -265,7 +265,7 @@
 								</dd>				
 								<dd><a href="links.html" role="button" title="Related resource links" tabindex="1"><i class="fa fa-angle-right"></i> Related Links</a></dd>
 								<dd><a class="contactus" href="https://aqmc.moenv.gov.tw"  tabindex="1" title="Writing to the minister，or send a consultation mail to ask questions related to the mode"><i class="fa fa-angle-right"></i> Contact Us</a></dd>
-								<dd><a href="https://www.google.com.tw/advanced_search?hl=zh-TW&as_q=&num=100&as_sitesearch=aqmc.moenv.gov.tw&cof=FORID%3A10&ie=UTF-8&sa=%E6%90%9C%E5%B0%8B&siteurl=www" tabindex="1" title="Advanced Search (open in a new tab)" target="_blank" ><i class="fa fa-search-plus" aria-hidden="true"></i>&nbsp;Advanced Search&nbsp;<i class="fa fa-external-link" aria-hidden="true" title="open in a new tab"></i>&nbsp;<span style="font-size: small;color:#C53B86;">[open in a new tab]</span></a></dd>
+								<dd><a class="search_e_link" onclick="document.getElementById('search_e').focus();" tabindex="1" title="Search" target="_blank" ><i class="fa fa-search" aria-hidden="true"></i>&nbsp;Search</a></dd>
 							</dl>
 						</div>			
 					</div>				
@@ -277,7 +277,7 @@
 	<footer id="bottom_menu">
 		<a href="#z" id="z" name="z" accesskey="z" tabindex="1" class="accesskey z" title="Bottom block / Alt + Z"><span>:::</span></a>	
 		<div id="exco_btn_img" class="exco_btn">
-			<a href="javascript:;" data-opentitle="Expand" data-closetitle="Collapse" title="Expand or Collapse menus" class="excoSwitch excoSwitchJs" role="button" tabindex="1">Cllapse</a>
+			<a href="javascript:;" data-opentitle="Expand" data-closetitle="Collapse" title="Collapse" class="excoSwitch excoSwitchJs" role="button" tabindex="1">Cllapse</a>
 		</div>
 		<div class="footerAll">
 				<ul>

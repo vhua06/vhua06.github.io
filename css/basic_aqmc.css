@@ -1015,10 +1015,10 @@ a.btn_more:hover {
     padding-left: 1.3em;
 }
 
-.sitemapPad .secCtrl>a {
+/* .sitemapPad .secCtrl>a {
     color: #333;
     pointer-events: none;
-}
+} */
 
 .sitemapPad .secCtrl .secMenu {
     display: inline-block;
@@ -1714,6 +1714,7 @@ dd.leftMenu {
     background-color: #9AE22E;
     color: #243f5f;
     outline: black auto 5px;
+    cursor: text !important;
 }
 
 #search-bar_e,

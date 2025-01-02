@@ -79,7 +79,19 @@ $(document).ready(function() {
      }
      function extractLast(term) {
          return split(term).pop();
-     }
+     }     
+    //  $("body").on("click", ".searchSwitch", function() {
+    //     if ($(this).hasClass("on")) {
+    //         var e = contentEncode($(this), "data-opentitle");
+    //         $(this).removeClass("on"), $(this).next(".search_wrap").stop(!0, !0).slideUp(400), $(this).attr("title", e).find(".text-hidden").text(e)
+    //     } else {
+    //         var i = contentEncode($(this), "data-closetitle");
+    //         $(this).addClass("on"), $(this).next(".search_wrap").stop(!0, !0).slideDown(400), $(this).attr("title", i).find(".text-hidden").text(i), setTimeout(function() {
+    //             $("#navbar-menu > .search_wrap > .KeyWord").setfocus()
+    //         }, 400)
+    //     }
+    //  });
+     $(".search_e_link").keypress(function() { $("#search_e").focus(); });
      $( "#search_e" )
      // don't navigate away from the field on tab 
      // when selecting an item
@@ -184,6 +196,7 @@ $(document).ready(function() {
     });
     $('#search-bar').click(function(event) {
         var keyword = $('.search').val();
+        if(keyword === '') { $('#search_e').focus(); return; }
         $('.search').val(''); //清空欄位
         searchfire(event, keyword, 'tw');
     });
@@ -196,6 +209,7 @@ $(document).ready(function() {
 
     $('#search-left').click(function(event) {
         var keyword = $('.search-left').val();
+        if(keyword === '') { $('#search_e').focus(); return; }
         $('.search-left').val(''); //清空欄位
         searchfire(event, keyword, 'tw');
     });
@@ -208,6 +222,7 @@ $(document).ready(function() {
 
     $('#search-bar_e').click(function(event) {
         var keyword = $('.search').val();
+        if(keyword === '') { $('#search_e').focus(); return; }
         $('.search').val(''); //清空欄位
         searchfire(event, keyword, 'us');
     });
@@ -220,6 +235,7 @@ $(document).ready(function() {
 
     $('#search-left_e').click(function(event) {
         var keyword = $('.search-left').val();
+        if(keyword === '') { $('#search_e').focus(); return; }
         $('.search-left').val(''); //清空欄位
         searchfire(event, keyword, 'us');
     });
@@ -235,6 +251,7 @@ $(document).ready(function() {
         var keyword = $('.search').val();
         if(key == 13)  // the enter key code
         {
+            if(keyword === '') { $('#search_e').focus(); return; }
             $('.search').val(''); //清空欄位
             searchfire(e, keyword, 'tw');
         }
@@ -244,6 +261,7 @@ $(document).ready(function() {
         var keyword = $('.search').val();
         if(key == 13)  // the enter key code
         {
+            if(keyword === '') { $('#search_e').focus(); return; }
             $('.search').val(''); //清空欄位
             searchfire(e, keyword, 'us');
         }
@@ -271,7 +289,8 @@ $(document).ready(function() {
         var key = e.which;
         var keyword = $('.search-left').val();
         if(key == 13)  // the enter key code
-        {
+        {            
+            if(keyword === '') { $('#search_e').focus(); return; }
             $('.search-left').val(''); //清空欄位
             searchfire(e, keyword, 'tw');
         }
@@ -292,6 +311,7 @@ $(document).ready(function() {
         var keyword = $('.search-left').val();
         if(key == 13)  // the enter key code
         {
+            if(keyword === '') { $('#search_e').focus(); return; }
             $('.search-left').val(''); //清空欄位
             searchfire(e, keyword, 'us');
         }
@@ -380,11 +400,11 @@ function searchfire(event, keyword, lang) {
     var sUTL = 'https://cse.google.com/cse?cx=a78015efb707541ae&as_sitesearch=aqmc.moenv.gov.tw';
     // var sUTL = 'https://www.google.com.tw/search?hl=zh-TW&as_epq=&as_oq=&as_eq=&as_nlo=&as_nhi=&lr=&cr=&as_qdr=all&as_sitesearch=aqmc.moenv.gov.tw&as_occt=any&safe=images&as_filetype=&tbs=';
     // var sUTL = './search_result.html?hl=zh-TW';
-        var keywordL = keyword.toLowerCase();
-        if(keywordL.includes("alert") || keywordL.includes("prompt") || keywordL.includes("confirm") || keywordL.includes("(") || keywordL.includes(")") || keywordL.includes("script") || keywordL.includes("backup") || keywordL.includes("create") || keywordL.includes("update") || keywordL.includes("delete") || keywordL.includes("drop") || keywordL.includes("insert") || keywordL.includes("select")) {
-            keyword = " ";
-        }
-	
+    var keywordL = keyword.toLowerCase();
+    if(keywordL.includes("alert") || keywordL.includes("prompt") || keywordL.includes("confirm") || keywordL.includes("(") || keywordL.includes(")") || keywordL.includes("script") || keywordL.includes("backup") || keywordL.includes("create") || keywordL.includes("update") || keywordL.includes("delete") || keywordL.includes("drop") || keywordL.includes("insert") || keywordL.includes("select")) {
+        keyword = " ";
+    }
+    if(keyword === '') { $('#search_e').focus(); return; }
     if (keyword !== null && keyword !== "" && keyword !== " ") {
         // sUTL = sUTL + '&as_q=' + keyword + '&q=' + keyword + '&hl=zh-TW&as_q=&num=100';
 	    sUTL = sUTL + '&q=' + keyword + " site:aqmc.moenv.gov.tw"; 
