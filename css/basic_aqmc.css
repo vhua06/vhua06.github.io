@@ -1714,14 +1714,36 @@ dd.leftMenu {
 
 .input-group #search_e:focus,
 .input-group #search_in_e:focus {
-    background-color: #9AE22E;
+    background-color: #9ae22ee1;
     color: #243f5f;
     outline: black auto 5px;
     cursor: text !important;
 }
 
+.input-group #search_e,
+.input-group #search_in_e {
+    border: 1px solid #ccc; 
+    padding: 10px; 
+    position: relative;
+}
+
+/* 閃爍游標 */
+.input-group #search_e::before,
+.input-group #search_in_e::before { 
+    content: ''; 
+    transform: translateY(-50%); 
+    width: 55%;
+    height: 86%;
+    background-color: black; 
+    animation: blink 1s step-end infinite; 
+}
+@keyframes blinkCursor {
+    from, to { opacity: 1; } 
+    50% { opacity: 0; }
+}
+
 #search-bar_e,
-#search-left_e,#adv-search-bar_e,
+#search-left_e, #adv-search-bar_e,
 #adv-search-left_e {
     width: 48px;
     height: auto;
