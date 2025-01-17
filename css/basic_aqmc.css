@@ -443,17 +443,20 @@ a.btn_refresh:focus  {
     margin-right: 7px;
 }
 
-
 .secCtrl>a:hover,
 .secCtrl>a:active,
 .secMenu>a:hover,
 .secMenu>a:active,
-.secCtrl>a:focus,
-.secMenu>a:focus,
-dd>a:focus,
 dd>a:hover,
-dd>a:active {    
-    border: 0px dotted white !important;
+dd>a:active {        
+    /* border: 0px dotted white !important; */
+    color: white !important; 
+}
+
+.secCtrl>a:focus,
+.secMenu>a:focus /*, dd>a:focus */ {        
+    /* border: 0px dotted white !important; */
+    color: #FAFAD2 !important; 
 }
 
 .subMenu>dl>dd.secCtrl, .subMenu>dl>dd.secCtrl:hover {
