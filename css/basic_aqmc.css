@@ -1717,7 +1717,7 @@ dd.leftMenu {
 
 .input-group #search_e:focus,
 .input-group #search_in_e:focus {
-    background-color: #9ae22ee1;
+    background-color: #a9f0cad6;
     color: #243f5f;
     outline: black auto 5px;
     cursor: text !important;
