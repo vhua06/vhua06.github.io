@@ -5,7 +5,7 @@
  *
  * Date: 2017-02-09T23:09:19.514Z
  */
-// $(window).on('load', function() {
+
 $(window).on('load', function() {
     "use strict";
     var Gw = $(window),
@@ -79,7 +79,19 @@ $(document).ready(function() {
      }
      function extractLast(term) {
          return split(term).pop();
-     }
+     }     
+    //  $("body").on("click", ".searchSwitch", function() {
+    //     if ($(this).hasClass("on")) {
+    //         var e = contentEncode($(this), "data-opentitle");
+    //         $(this).removeClass("on"), $(this).next(".search_wrap").stop(!0, !0).slideUp(400), $(this).attr("title", e).find(".text-hidden").text(e)
+    //     } else {
+    //         var i = contentEncode($(this), "data-closetitle");
+    //         $(this).addClass("on"), $(this).next(".search_wrap").stop(!0, !0).slideDown(400), $(this).attr("title", i).find(".text-hidden").text(i), setTimeout(function() {
+    //             $("#navbar-menu > .search_wrap > .KeyWord").setfocus()
+    //         }, 400)
+    //     }
+    //  });
+     $(".search_e_link").keypress(function() { $("#search_e").focus(); });
      $( "#search_e" )
      // don't navigate away from the field on tab 
      // when selecting an item
@@ -184,49 +196,53 @@ $(document).ready(function() {
     });
     $('#search-bar').click(function(event) {
         var keyword = $('.search').val();
-        $('.search').val(''); //清空欄位
+        if(keyword === '') { $('#search_e').focus(); return; }
+        // $('.search').val(''); //清空欄位
         searchfire(event, keyword, 'tw');
     });
 
     $('#adv-search-bar').click(function(event) {
         var keyword = $('.search').val();
-        $('.search').val(''); //清空欄位
+        // $('.search').val(''); //清空欄位
         advsearchfire(event, keyword, 'tw');
     });
 
     $('#search-left').click(function(event) {
         var keyword = $('.search-left').val();
-        $('.search-left').val(''); //清空欄位
+        if(keyword === '') { $('#search_e').focus(); return; }
+        // $('.search-left').val(''); //清空欄位
         searchfire(event, keyword, 'tw');
     });
 
     $('#adv-search-left').click(function(event) {
         var keyword = $('.search-left').val();
-        $('.search-left').val(''); //清空欄位
+        // $('.search-left').val(''); //清空欄位
         advsearchfire(event, keyword, 'tw');
     });
 
     $('#search-bar_e').click(function(event) {
         var keyword = $('.search').val();
-        $('.search').val(''); //清空欄位
+        if(keyword === '') { $('#search_e').focus(); return; }
+        // $('.search').val(''); //清空欄位
         searchfire(event, keyword, 'us');
     });
 
     $('#adv-search-bar_e').click(function(event) {
         var keyword = $('.search').val();
-        $('.search').val(''); //清空欄位
+        // $('.search').val(''); //清空欄位
         advsearchfire(event, keyword, 'us');
     });
 
     $('#search-left_e').click(function(event) {
         var keyword = $('.search-left').val();
-        $('.search-left').val(''); //清空欄位
+        if(keyword === '') { $('#search_e').focus(); return; }
+        // $('.search-left').val(''); //清空欄位
         searchfire(event, keyword, 'us');
     });
 
     $('#adv-search-left_e').click(function(event) {
         var keyword = $('.search-left').val();
-        $('.search-left').val(''); //清空欄位
+        // $('.search-left').val(''); //清空欄位
         advsearchfire(event, keyword, 'us');
     });
     //
@@ -235,7 +251,8 @@ $(document).ready(function() {
         var keyword = $('.search').val();
         if(key == 13)  // the enter key code
         {
-            $('.search').val(''); //清空欄位
+            if(keyword === '') { $('#search_e').focus(); return; }
+            // $('.search').val(''); //清空欄位
             searchfire(e, keyword, 'tw');
         }
     });
@@ -244,7 +261,8 @@ $(document).ready(function() {
         var keyword = $('.search').val();
         if(key == 13)  // the enter key code
         {
-            $('.search').val(''); //清空欄位
+            if(keyword === '') { $('#search_e').focus(); return; }
+            // $('.search').val(''); //清空欄位
             searchfire(e, keyword, 'us');
         }
     });
@@ -253,7 +271,7 @@ $(document).ready(function() {
         var keyword = $('.search').val();
         if(key == 13)  // the enter key code
         {
-            $('.search').val(''); //清空欄位
+            // $('.search').val(''); //清空欄位
             advsearchfire(e, keyword, 'tw');
         }
     });
@@ -262,7 +280,7 @@ $(document).ready(function() {
         var keyword = $('.search').val();
         if(key == 13)  // the enter key code
         {
-            $('.search').val(''); //清空欄位
+            // $('.search').val(''); //清空欄位
             advsearchfire(e, keyword, 'us');
         }
     });
@@ -271,8 +289,9 @@ $(document).ready(function() {
         var key = e.which;
         var keyword = $('.search-left').val();
         if(key == 13)  // the enter key code
-        {
-            $('.search-left').val(''); //清空欄位
+        {            
+            if(keyword === '') { $('#search_e').focus(); return; }
+            // $('.search-left').val(''); //清空欄位
             searchfire(e, keyword, 'tw');
         }
     });
@@ -282,7 +301,7 @@ $(document).ready(function() {
         var keyword = $('.search-left').val();
         if(key == 13)  // the enter key code
         {
-            $('.search-left').val(''); //清空欄位
+            // $('.search-left').val(''); //清空欄位
             advsearchfire(e, keyword, 'tw');
         }
     });
@@ -292,7 +311,8 @@ $(document).ready(function() {
         var keyword = $('.search-left').val();
         if(key == 13)  // the enter key code
         {
-            $('.search-left').val(''); //清空欄位
+            if(keyword === '') { $('#search_e').focus(); return; }
+            // $('.search-left').val(''); //清空欄位
             searchfire(e, keyword, 'us');
         }
     });
@@ -302,8 +322,8 @@ $(document).ready(function() {
         var keyword = $('.search-left').val();
         if(key == 13)  // the enter key code
         {
-            $('.search-left').val(''); //清空欄位
-            advsearchfire(event, keyword, 'us');
+            // $('.search-left').val(''); //清空欄位
+            advsearchfire(e, keyword, 'us');
         }
     });
     
@@ -312,7 +332,7 @@ $(document).ready(function() {
         var keyword = $('.search').val();
         if(key == 13)  // the enter key code
         {
-            // $('.search').val(''); //清空欄位
+            // // $('.search').val(''); //清空欄位
             return false;
         }
     });
@@ -348,57 +368,60 @@ function replaceTagChar(value) {
     return value.toString().replace(lt, "&lt;").replace(gt, "&gt;").replace(ap, "&#39;").replace(ic, "&#34;").replace(bk1, "&#40;").replace(bk2, "&#41;");
 }
 
-function searchfire_BK(event, keyword, lang) {
-    event.preventDefault();
-    // var sUTL = 'https://cse.google.com/cse?cx=a78015efb707541ae&as_sitesearch=aqmc.moenv.gov.tw';
-    var sUTL = 'https://www.google.com.tw/search?hl=zh-TW&as_epq=&as_oq=&as_eq=&as_nlo=&as_nhi=&lr=&cr=&as_qdr=all&as_sitesearch=aqmc.moenv.gov.tw&as_occt=any&safe=images&as_filetype=&tbs=';
-    // var sUTL = './search_result.html?hl=zh-TW';
-    if (keyword !== null && keyword !== "") {
-        keyword = replaceTagChar(keyword);
-        sUTL = sUTL + '&q=' + keyword;
-        // sUTL = sUTL + '&as_q=' + keyword + '&q=' + keyword + '&hl=zh-TW&as_q=&num=100';
-        // window.open(sUTL, "_blank");
-        if(lang === 'tw') {
-        // if(lang != 'tw') {
-            openURL("搜尋：" + keyword, sUTL); 
-            // sUTL = './search_result.html?hl=en-US';
-        }
-        else openURL_e("Search: " + keyword, sUTL); 
-        // sUTL = sUTL + '&q=' + keyword + " site:aqmc.moenv.gov.tw";        
-        // location.href = sUTL;
-    } else {
-        $('form').find("input[type=text]").each(function(ev) {
-            if (!$(this).val()) {
-                $(this).attr("placeholder", "＊ KEYWORD ＊");
-            }
-        });
-    }
-}
+// function searchfire_BK(event, keyword, lang) {
+//     event.preventDefault();
+//     var sUTL = 'https://cse.google.com/cse?cx=a78015efb707541ae&as_sitesearch=aqmc.moenv.gov.tw';
+//     // var sUTL = 'https://www.google.com.tw/search?hl=zh-TW&as_epq=&as_oq=&as_eq=&as_nlo=&as_nhi=&lr=&cr=&as_qdr=all&as_sitesearch=aqmc.moenv.gov.tw&as_occt=any&safe=images&as_filetype=&tbs=';
+//     // var sUTL = './search_result.html?hl=zh-TW';
+//     if (keyword !== null && keyword !== "") {
+//         keyword = replaceTagChar(keyword);
+//         sUTL = sUTL + '&q=' + keyword;
+//         // sUTL = sUTL + '&as_q=' + keyword + '&q=' + keyword + '&hl=zh-TW&as_q=&num=100';
+//         // window.open(sUTL, "_blank");
+//         if(lang === 'tw') {
+//         // if(lang != 'tw') {
+//             openURL("搜尋：" + keyword, sUTL); 
+//             // sUTL = './search_result.html?hl=en-US';
+//         }
+//         else openURL_e("Search: " + keyword, sUTL); 
+//         // sUTL = sUTL + '&q=' + keyword + " site:aqmc.moenv.gov.tw";        
+//         // location.href = sUTL;
+//     } else {
+//         $('form').find("input[type=text]").each(function(ev) {
+//             if (!$(this).val()) {
+//                 $(this).attr("placeholder", "＊ KEYWORD ＊");
+//             }
+//         });
+//     }
+// }
 
 function searchfire(event, keyword, lang) {
     event.preventDefault();
-    // var sUTL = 'https://cse.google.com/cse?cx=a78015efb707541ae&as_sitesearch=aqmc.moenv.gov.tw';
-    var sUTL = 'https://www.google.com.tw/search?hl=zh-TW&as_epq=&as_oq=&as_eq=&as_nlo=&as_nhi=&lr=&cr=&as_qdr=all&as_sitesearch=aqmc.moenv.gov.tw&as_occt=any&safe=images&as_filetype=&tbs=';
+    var sUTL = 'https://cse.google.com/cse?cx=a78015efb707541ae&as_sitesearch=aqmc.moenv.gov.tw';
+    // var sUTL = 'https://www.google.com.tw/search?hl=zh-TW&as_epq=&as_oq=&as_eq=&as_nlo=&as_nhi=&lr=&cr=&as_qdr=all&as_sitesearch=aqmc.moenv.gov.tw&as_occt=any&safe=images&as_filetype=&tbs=';
     // var sUTL = './search_result.html?hl=zh-TW';
-    if (keyword !== null && keyword !== "") {
+    var keywordL = keyword.toLowerCase();
+    if(keywordL.includes("alert") || keywordL.includes("prompt") || keywordL.includes("confirm") || keywordL.includes("(") || keywordL.includes(")") || keywordL.includes("script") || keywordL.includes("backup") || keywordL.includes("create") || keywordL.includes("update") || keywordL.includes("delete") || keywordL.includes("drop") || keywordL.includes("insert") || keywordL.includes("select")) {
+        keyword = " ";
+    }
+    if(keyword === '') { $('#search_e').focus(); return; }
+    if (keyword !== null && keyword !== "" && keyword !== " ") {
         // sUTL = sUTL + '&as_q=' + keyword + '&q=' + keyword + '&hl=zh-TW&as_q=&num=100';
-	sUTL = sUTL + '&q=' + keyword + " site:aqmc.moenv.gov.tw"; 
+	    sUTL = sUTL + '&q=' + keyword + " site:aqmc.moenv.gov.tw"; 
         // window.open(sUTL, "_blank");
         if(lang === 'tw') {
         // if(lang != 'tw') {
             openURL("搜尋：" + keyword, sUTL); 
-            // sUTL = './search_result.html?hl=en-US';
         }
         else openURL_e("Search: " + keyword, sUTL); 
-        // keyword = replaceTagChar(keyword);
-        // sUTL = sUTL + '&q=' + keyword + " site:aqmc.moenv.gov.tw";        
-        // location.href = sUTL;
     } else {
         $('form').find("input[type=text]").each(function(ev) {
             if (!$(this).val()) {
-                $(this).attr("placeholder", "＊ KEYWORD ＊");
+                alert("＊ 此處不能為空白或控制字元 ( This cannot be blank or control characters. ) ＊");
+                $(this).attr("placeholder", "＊ 此處不能為空白 ＊");
             }
         });
+        $("#search_e").effect( "shake" );
     }
 }
 
@@ -445,6 +468,14 @@ function openURL(title, url) {
     }
 }
 
+function openMailURL(title, url) {
+    let msg = (title !== undefined) ? "本意見信箱為首長信箱，若有模式相關問題可先至諮詢信箱詢問。\n按【確定】按鈕，將另開新視窗，前往連結 「" + title + "」 ？" : "您即將離開本網站，繼續前往連結頁嗎?";
+    let yesno = confirm(msg);
+    if (yesno == true) {
+        window.open(url, "_blank");
+    }
+}
+
 function openURL_e(title, url) {
     let msg = (title !== undefined) ? "To open in a new tab, then open a link (" +
         title + ") on a web page ?" : "You are going to leave this website. Continue with ?";
@@ -453,4 +484,110 @@ function openURL_e(title, url) {
         window.open(url, "_blank");
     }
 }
+
+function openMailURL_e(title, url) {
+    let msg = (title !== undefined) ? "This opinion mailbox is the chief's mailbox. If you have any questions related to the model, you can first go to the Consultation Email to ask. \n\nPress the [OK] to open a link (" +
+        title + ") on a web page ?" : "You are going to leave this website. Continue with ?";
+    let yesno = confirm(msg);
+    if (yesno == true) {
+        window.open(url, "_blank");
+    }
+}
+    
+/*----- 社群分享 -----*/
+function myshare(key, subkey = "") {
+    let _loc = location;
+    let link = encodeURIComponent(_loc.href);
+    let url = "";
+    let urls = link.split("%2F");
+
+    subkey = (subkey === "") ? "" : "%23".concat(subkey);
+    let reURL = (link.includes("ENG")) ? "https%3A%2F%2Faqmc.moenv.gov.tw%2FENG%2F".concat(urls.at(-1)).concat(subkey) : "https%3A%2F%2Faqmc.moenv.gov.tw%2F".concat(urls.at(-1)).concat(subkey);
+    switch (key) {
+        case "fb": url = 'https://www.facebook.com/sharer/sharer.php?u='.concat(reURL).concat("&amp;src=sdkpreparse"); 
+        break;
+        
+        case "line": url = 'https://social-plugins.line.me/lineit/share?url='.concat(reURL).concat("&text=環境部大氣環境司"); 
+        break;
+
+        case "twitter": url = 'https://twitter.com/share?url='.concat(reURL);
+        break;
+    }
+    reOpen(url);
+}
+
+function reOpen(url) {
+    let myurl = window.open(url, "reURL");
+    myurl.open(url, "reURL");
+}
+
+// $('.subMenu').find('.secCtrl').hover(function () {        
+//     $('.subMenu').find('.secCtrl').each(function() {
+//         $('.subMenu').find('.secCtrl').removeClass('action');
+//     });
+//     $(this).addClass('action');
+// });
+/*
+$('.subMenu').find('.secCtrl').on( 'keyup', function( e ) {
+    if( e.which == 9 ) { // Tab keypress
+        $(this).addClass('action');
+        $('.subMenu>dl>dd.secCtrl .secMenu').css('display', 'block');
+    }
+});  
+
+$('.subMenu').find('.secCtrl').on( 'keydown', function( e ) {
+    if( e.which == 9 ) { // Tab keypress
+        $(this).removeClass('action'); 
+    }
+}); 
+*/
+    
+$('.socialsharing').click(function(e) {
+    $(".mydropdown-content").css("display","block");
+    // $(".mydropdown").css("display","block");
+    // $(".mydropdown-content").toggle();
+});
+
+$('.socialsharing').keypress(function(e) {
+    $(".mydropdown-content").css("display","block");
+}, function(e) {    
+    $(".mydropdown-content").css("display","none");
+}); 
+
+$('.socialsharing').on( 'keyup', function( e ) {
+    if( e.which == 9 ) { // Tab keypress
+        $(".mydropdown-content").css("display","block");
+        // $(".mydropdown").css("display","block");
+    }
+});
+
+$(".mydropdown").hover(function(){
+    $(".mydropdown-content").css("display","block");
+},function(){
+    $(".mydropdown-content").css("display","none");
+}); 
+
+$('.facebook').click(function(e) {
+    myshare('fb');
+});       
+
+$('.facebook').keypress(function(e) {
+    myshare('fb');
+});        
+
+$('.lineicon').click(function(e) {
+    myshare('line');
+});       
+
+$('.lineicon').keypress(function(e) {
+    myshare('line');
+});        
+
+$('.twitter').click(function(e) {
+    myshare('twitter');
+});       
+
+$('.twitter').keypress(function(e) {
+    myshare('twitter');
+});
 
