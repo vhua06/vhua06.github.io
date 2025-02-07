@@ -2530,6 +2530,9 @@ div .cloud-bk {
     }
 
     /* 當 Mobile 隱藏，當 Desktop 時才顯現 */
+    .up {
+        display: none;
+    }
     img.leftMenu {
         display: none;
     }
