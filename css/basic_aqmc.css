@@ -263,6 +263,9 @@ a.btn_refresh:focus  {
     }  
     .search_e_link {
         display:none
+    }    
+    .up{
+        display: none;
     }
 }
 
@@ -2530,9 +2533,6 @@ div .cloud-bk {
     }
 
     /* 當 Mobile 隱藏，當 Desktop 時才顯現 */
-    .up {
-        display: none;
-    }
     img.leftMenu {
         display: none;
     }
@@ -2653,7 +2653,7 @@ div .cloud-bk {
         display: none;
     } 
 
-    .contFt, .footLinks, .copyright, .osusumeBrowser a {
+    /* .contFt, */ .footLinks, .copyright, .osusumeBrowser a {
         display: none;
     } 
     footer {
