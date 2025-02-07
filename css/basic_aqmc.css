@@ -2533,7 +2533,7 @@ div .cloud-bk {
     }
 
     /* 當 Mobile 隱藏，當 Desktop 時才顯現 */
-    img.leftMenu {
+    img.leftMenu, .up img {
         display: none;
     }
 
@@ -2591,6 +2591,9 @@ div .cloud-bk {
 
 /* 當 Desktop 隱藏，當 Mobile 時才顯現 */
 @media (min-width:741px) {
+    .up img {
+        display: block;
+    }
     .mFootLink {
         display: none;
     }
