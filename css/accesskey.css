@@ -227,6 +227,16 @@ footer{
     font-weight: 900;
     z-index: 9999;
 }
+.C:focus-visible,.L:focus-visible,.u:focus-visible,.z:focus-visible {
+    outline:#f1b205 dotted 5px !important;
+    text-shadow:1px 1px 1px #fff
+}
+.C:focus-visible,.L:focus-visible,.z:focus-visible{
+    scroll-margin-top:10em
+}
+.z:focus-visible:focus-visible{
+    margin-left:8px
+}
 @media screen and (max-width:1500px){
     .footerAll>ul>li{
         flex-basis:20%
@@ -246,16 +256,6 @@ footer{
 }
 #linkGotoContent{
     margin:5px
-}
-.C:focus-visible,.L:focus-visible,.u:focus-visible,.z:focus-visible {
-    outline:#f1b205 dotted 5px !important;
-    text-shadow:1px 1px 1px #fff
-}
-.C:focus-visible,.L:focus-visible,.z:focus-visible{
-    scroll-margin-top:10em
-}
-.z:focus-visible:focus-visible{
-    margin-left:8px
 }
 
 .up {
