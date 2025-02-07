@@ -44,16 +44,18 @@
 }
 /* Button 1 */
 .htmlEditor .btn-1 {
-  background: #6CB8EF;
+  /* background: #025b96;
+  color: rgb(218, 215, 215); */
+  background:#1777d0;
   color: white;
 }
 
 .htmlEditor .btn-1:hover {
-  background: #05A2B7;
+  background: #01606b;
 }
 
 .htmlEditor .btn-1:active {
-  background: #05A2B7;
+  background: #01606b;
   top: 1px;
 }
 

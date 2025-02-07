@@ -324,54 +324,6 @@
                 advsearchfire(e, keyword, 'us');
             }
         });
-    
-        $('.socialsharing').click(function(e) {
-            $(".mydropdown-content").css("display","block");
-            // $(".mydropdown").css("display","block");
-            // $(".mydropdown-content").toggle();
-        });
-    
-        $('.socialsharing').keypress(function(e) {
-            $(".mydropdown-content").css("display","block");
-            // $(".mydropdown").css("display","block");
-        }); 
-
-        $('.socialsharing').on( 'keyup', function( e ) {
-            if( e.which == 9 ) { // Tab keypress
-                $(".mydropdown-content").css("display","block");
-                // $(".mydropdown").css("display","block");
-            }
-        });
-        
-        $(".mydropdown").hover(function(){
-            $(".mydropdown-content").css("display","block");
-        },function(){
-            $(".mydropdown-content").css("display","none");
-        }); 
-
-        $('.facebook').click(function(e) {
-            myshare('fb');
-        });       
-    
-        $('.facebook').keypress(function(e) {
-            myshare('fb');
-        });        
-    
-        $('.lineicon').click(function(e) {
-            myshare('line');
-        });       
-    
-        $('.lineicon').keypress(function(e) {
-            myshare('line');
-        });        
-    
-        $('.twitter').click(function(e) {
-            myshare('twitter');
-        });       
-    
-        $('.twitter').keypress(function(e) {
-            myshare('twitter');
-        });
     });
     
     $(window).resize(function() {
@@ -441,7 +393,8 @@
         if(keywordL.includes("alert") || keywordL.includes("prompt") || keywordL.includes("confirm") || keywordL.includes("(") || keywordL.includes(")") || keywordL.includes("script") || keywordL.includes("backup") || keywordL.includes("create") || keywordL.includes("update") || keywordL.includes("delete") || keywordL.includes("drop") || keywordL.includes("insert") || keywordL.includes("select")) {
             keyword = " ";
         }
-        if (keyword !== null && keyword !== "") {
+        if(keyword === '') { $('#search_e').focus(); return; }
+        if (keyword !== null && keyword !== "" && keyword !== " ") {
             // sUTL = sUTL + '&as_q=' + keyword + '&q=' + keyword + '&hl=zh-TW&as_q=&num=100';
             // window.open(sUTL, "_blank");
             // if(lang === 'tw') {
@@ -457,7 +410,7 @@
         } else {
             $('form').find("input[type=text]").each(function(ev) {
                 if (!$(this).val()) {
-                    alert("＊ 此處不能為空白 ( This cannot be blank ) ＊");
+                    alert("＊ 此處不能為空白或控制字元 ( This cannot be blank or control characters. ) ＊");
                     $(this).attr("placeholder", "＊ 此處不能為空白 ＊");
                 }
             });
@@ -550,11 +503,11 @@
     //     });
     //     $(this).addClass('action');
     // });
-
+/*
     $('.subMenu').find('.secCtrl').on( 'keyup', function( e ) {
         if( e.which == 9 ) { // Tab keypress
             $(this).addClass('action');
-            $('.subMenu>dl>dd.secCtrl .secMenu').css('display', 'block');
+            //$('.subMenu>dl>dd.secCtrl .secMenu').css('display', 'block');
         }
     });  
 
@@ -563,4 +516,53 @@
             $(this).removeClass('action'); 
         }
     }); 
+*/   
     
+$('.socialsharing').click(function(e) {
+    $(".mydropdown-content").css("display","block");
+    // $(".mydropdown").css("display","block");
+    // $(".mydropdown-content").toggle();
+});
+
+$('.socialsharing').keypress(function(e) {
+    $(".mydropdown-content").css("display","block");
+}, function(e) {    
+    $(".mydropdown-content").css("display","none");
+}); 
+
+$('.socialsharing').on( 'keyup', function( e ) {
+    if( e.which == 9 ) { // Tab keypress
+        $(".mydropdown-content").css("display","block");
+        // $(".mydropdown").css("display","block");
+    }
+});
+
+$(".mydropdown").hover(function(){
+    $(".mydropdown-content").css("display","block");
+},function(){
+    $(".mydropdown-content").css("display","none");
+}); 
+
+$('.facebook').click(function(e) {
+    myshare('fb');
+});       
+
+$('.facebook').keypress(function(e) {
+    myshare('fb');
+});        
+
+$('.lineicon').click(function(e) {
+    myshare('line');
+});       
+
+$('.lineicon').keypress(function(e) {
+    myshare('line');
+});        
+
+$('.twitter').click(function(e) {
+    myshare('twitter');
+});       
+
+$('.twitter').keypress(function(e) {
+    myshare('twitter');
+});
