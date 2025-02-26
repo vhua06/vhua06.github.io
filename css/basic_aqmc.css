@@ -462,8 +462,8 @@ dd>a:active {
 
 .secCtrl>a:focus,
 .secMenu>a:focus /*, dd>a:focus */ {        
-    /* border: 0px dotted white !important; */
-    color: #FAFAD2 !important; 
+    border: 0px dotted white !important;
+    /* color: #FAFAD2 !important;  */
 }
 
 .subMenu>dl>dd.secCtrl, .subMenu>dl>dd.secCtrl:hover {
