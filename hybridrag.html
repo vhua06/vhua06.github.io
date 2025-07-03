@@ -1,0 +1,611 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企業混合式檢索增強生成（Hybrid RAG）實施白皮書</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/preline@3.0.1/dist/preline.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            900: '#0c4a6e'
+                        },
+                        accent: {
+                            400: '#fb7185',
+                            500: '#f43f5e'
+                        }
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'Noto Sans TC', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap');
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        }
+        
+        .dark .gradient-bg {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        }
+    </style>
+</head>
+
+<body class="h-full bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-4">
+                    <div class="p-2 bg-primary-500 rounded-lg">
+                        <i class="fas fa-brain text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-semibold text-gray-900 dark:text-white">Hybrid RAG 實施白皮書</h1>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">企業級檢索增強生成系統</p>
+                    </div>
+                </div>
+                
+                <button id="theme-toggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                    <i class="fas fa-moon dark:fa-sun text-gray-600 dark:text-gray-300"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Overview Section -->
+        <section class="fade-in mb-12">
+            <div class="gradient-bg rounded-2xl p-8 hover-lift">
+                <div class="flex items-start space-x-6">
+                    <div class="p-4 bg-primary-500/10 rounded-xl">
+                        <i class="fas fa-chart-line text-primary-600 text-2xl"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">概覽</h2>
+                        <p class="text-gray-700 dark:text-gray-300 leading-relaxed text-lg">
+                            在企業環境中實施混合式檢索增強生成（Hybrid RAG）是一項複雜的系統工程，旨在結合大型語言模型（LLM）的生成能力與多源數據的即時檢索能力。其核心挑戰在於彌合LLM對非結構化文本的理解能力與企業高價值結構化數據之間的鴻溝。成功的實施不僅需要建立一個能同時處理向量與圖譜數據的整合架構，還必須克服技術準確性、高昂的資源成本、嚴格的資安隱私以及使用者學習曲線等多重障礙。最終目標是實現「資料平權化」，讓業務使用者能透過自然語言即時、準確地獲取決策所需洞見，同時確保答案的來源透明可驗證，從而提升企業整體的數據驅動決策效率。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Architecture Diagram -->
+        <section class="fade-in mb-12">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm hover-lift">
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+                    <i class="fas fa-sitemap text-primary-500 mr-3"></i>
+                Hybrid RAG 架構設計
+                </h3>
+                <!-- <div class="mermaid bg-gray-50 dark:bg-gray-700 p-6 rounded-xl" id="architecture-diagram">
+                    graph TBA[使用者查詢] >>> B{查詢分析器}
+                        B >>>|結構化查詢| C[圖譜式RAG<br/>左腦]
+                        B >>>|非結構化查詢| D[向量式RAG<br/>右腦]
+                
+                        C >>> E[圖資料庫<br/>結構化數據]
+                        D >>> F[向量資料庫<br/>非結構化文件]
+                        
+                        E >>> G[圖查詢生成]
+                        F >>> H[語意搜尋]
+                        
+                        G >>> I[AI大腦整合]
+                        H >>> I        I >> J[統一回答生成]
+                        J >>> K[可追溯答案輸出]
+                        
+                        classDef queryBox fill:#e0f2fe,stroke:#0284c7,stroke-width:2px
+                        classDef ragBox fill:#dcfce7,stroke:#16a34a,stroke-width:2px
+                        classDef dataBox fill:#fef3c7,stroke:#f59e0b,stroke-width:2px
+                        classDef outputBox fill:#fce7f3,stroke:#ec4899,stroke-width:2px
+                        class A,B queryBox
+                        class C,D,G,H,I ragBox
+                        class E,F dataBox
+                        class J,K outputBox
+                </div> -->
+                <img src="hybridrag.webp" width="700"/>
+            </div>
+        </section>
+
+        <!-- Challenges Chart -->
+        <section class="fade-in mb-12">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm hover-lift">
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+                    <i class="fas fa-exclamation-triangle text-accent-500 mr-3"></i>
+                    實施挑戰分析
+                </h3>
+                <div id="challenges-chart" class="h-96"></div>
+            </div>
+        </section>
+
+        <!-- Detailed Sections -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8mb-12">
+            <!-- Data Processing Section -->
+            <section class="fade-in">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm hover-lift h-full">
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+                        <i class="fas fa-database text-primary-500 mr-3"></i>
+                        資料處理與整合
+                    </h3>
+                    <div class="space-y-6">
+                        <div class="border-l-4 border-primary-500 pl-4">
+                            <h4 class="font-semibold text-gray-900 dark:text-white mb-2">大型語言模型的原生限制</h4>
+                            <p class="text-gray-600 dark:text-gray-300 text-sm">
+                                LLM在文本生成方面表現出色，但對於表格數據中欄位與資料表之間的複雜關聯性缺乏深層理解。企業的關鍵任務數據以結構化表格形式儲存，LLM無法直接洞察其內在邏輯。
+                            </p>
+                        </div>
+                        
+                        <div class="border-l-4 border-accent-500 pl-4">
+                            <h4 class="font-semibold text-gray-900 dark:text-white mb-2">結構化資料的轉換複雜性</h4>
+                            <p class="text-gray-600 dark:text-gray-300 text-sm">
+                                關鍵步驟是將表格數據轉換為圖資料結構。LLM天生能理解圖譜中的節點與關係，這種轉換是打通LLM與企業核心資料庫之間壁壘的核心技術。
+                            </p>
+                        </div>
+                        
+                        <div class="border-l-4 border-green-500 pl-4">
+                            <h4 class="font-semibold text-gray-900 dark:text-white mb-2">資料的即時性與實效性</h4>
+                            <p class="text-gray-600 dark:text-gray-300 text-sm">
+                                企業營運數據動態更新，Hybrid RAG系統必須具備即時存取最新數據的能力，以確保答案具有實效性與商業價值。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Technical Implementation Section -->
+            <section class="fade-in">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm hover-lift h-full">
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+                        <i class="fas fa-cogs text-primary-500 mr-3"></i>
+                        技術實施與準確性
+                    </h3>
+                <div class="space-y-6">
+                        <div class="border-l-4 border-primary-500 pl-4">
+                            <h4 class="font-semibold text-gray-900 dark:text-white mb-2">處理複雜查詢的難度</h4>
+                            <p class="text-gray-600 dark:text-gray-300 text-sm">
+                                直接讓LLM生成複雜SQL的失敗率極高。相比之下，Graph RAG透過讓LLM生成圖查詢來探索數據關聯，準確性遠高於SQL生成。
+                            </p>
+                        </div><div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                            <h4 class="font-semibold text-gray-900 dark:text-white mb-3">架構組成對比</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                                <div class="bg-blue-50 dark:bg-blue-900/20 p-3 rounded">
+                                    <span class="font-medium text-blue-800 dark:text-blue-200">圖譜式RAG（左腦）</span>
+                                    <p class="text-blue-600 dark:text-blue-300 mt-1">理性、精準處理結構化數據</p>
+                                </div>
+                                <div class="bg-green-50 dark:bg-green-900/20 p-3 rounded">
+                                    <span class="font-medium text-green-800 dark:text-green-200">向量式RAG（右腦）</span><p class="text-green-600 dark:text-green-300 mt-1">感性、模糊處理非結構化文本</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Cost Analysis Chart -->
+        <section class="fade-in mb-12">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm hover-lift">
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+                    <i class="fas fa-dollar-sign text-accent-500 mr-3"></i>
+                    資源投入與成本效益分析
+                </h3><div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <div class="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg border border-red-200 dark:border-red-800">
+                            <h4 class="font-semibold text-red-800 dark:text-red-200 mb-2">高昂的運算資源需求</h4>
+                            <p class="text-red-700 dark:text-red-300 text-sm">
+                                從頭訓練405B參數級別的模型需要數千萬新台幣預算，約98%的中小企業無法承擔如此高昂的算力成本。
+                            </p>
+                        </div>
+                        
+                        <div class="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-200 dark:border-green-800">
+                            <h4 class="font-semibold text-green-800 dark:text-green-200 mb-2">雲端與地端部署選擇</h4>
+                            <p class="text-green-700 dark:text-green-300 text-sm">
+                                直接訂閱雲端LLM服務是更經濟的選擇，企業可專注於數據整合與應用開發，而非基礎設施維護。
+                            </p>
+                        </div>
+                    </div><div id="cost-comparison-chart" class="h-64"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Security and Privacy Section -->
+        <section class="fade-in mb-12">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm hover-lift">
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+                    <i class="fas fa-shield-alt text-primary-500 mr-3"></i>
+                    安全性、隱私與透明度
+                </h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 dark:text-blue-200 mb-2 flex items-center">
+                                <i class="fas fa-user-shield mr-2"></i>
+                                企業級隱私與安全管理
+                            </h4>
+                            <p class="text-blue-700 dark:text-blue-300 text-sm">
+                                建立基於角色的存取控制（RBAC），確保「什麼人可以問什麼問題，並看到什麼樣的答案」，防止敏感資訊外洩。
+                            </p>
+                        </div>        <div class="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
+                            <h4 class="font-semibold text-purple-800 dark:text-purple-200 mb-2 flex items-center">
+                                <i class="fas fa-search mr-2"></i>
+                                答案透明度與可驗證性
+                            </h4>
+                            <p class="text-purple-700 dark:text-purple-300 text-sm">
+                                所有答案必須具備可追溯性，能明確指出資訊來源並展示背後的查詢邏輯，建立使用者對AI系統的信任。
+                            </p>
+                        </div>
+                    </div>
+                <div class="mermaid bg-gray-50 dark:bg-gray-700 p-4 rounded-xl" id="security-flow">
+                        graph TD
+                            A[使用者登入] --> B[身份驗證]
+                            B --> C[角色權限檢查]
+                            C --> D{權限是否足夠}
+                            D -->|是| E[執行查詢]
+                            D -->|否| F[拒絕存取]
+                            E --> G[答案生成]
+                            G --> H[來源標註]
+                            H --> I[回傳結果]
+                            
+                            classDef authBox fill:#dbeafe,stroke:#3b82f6
+                            classDef securityBox fill:#fef3c7,stroke:#f59e0b
+                            classDef outputBox fill:#dcfce7,stroke:#16a34a
+                            class A,B,C authBox
+                            class D,F securityBox
+                            class E,G,H,I outputBox
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- User Adoption Section -->
+        <section class="fade-in mb-12">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm hover-lift">
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+                    <i class="fas fa-users text-primary-500 mr-3"></i>
+                    使用者採納與學習曲線
+                </h3><div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 space-y-4">
+                        <div class="bg-gradient-to-r from-primary-50 to-blue-50 dark:from-primary-900/20 dark:to-blue-900/20 p-6 rounded-lg">
+                            <h4 class="font-semibold text-primary-800 dark:text-primary-200 mb-3 flex items-center">
+                                <i class="fas fa-balance-scale mr-2"></i>
+                                資料平權化的實現
+                            </h4>
+                            <p class="text-primary-700 dark:text-primary-300 text-sm leading-relaxed">讓第一線業務使用者無需依賴IT或DBA提供數據報表，透過對話式AI隨時獲取所需數據，無需具備SQL等專業技能。
+                            </p>
+                        </div>
+                        
+                        <div class="bg-gradient-to-r from-accent-50 to-pink-50 dark:from-accent-900/20 dark:to-pink-900/20 p-6 rounded-lg">
+                            <h4 class="font-semibold text-accent-800 dark:text-accent-200 mb-3 flex items-center">
+                                <i class="fas fa-graduation-cap mr-2"></i>
+                                使用者提問技能的培養
+                            </h4>
+                            <p class="text-accent-700 dark:text-accent-300 text-sm leading-relaxed">
+                                與AI進行有效對話需要學習。業務使用者需學習精準提問，問題語意表達必須清晰明確。透過持續引導和培訓，才能充分發揮系統價值。
+                            </p>
+                        </div></div>
+                <div id="adoption-curve-chart" class="h-80"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Implementation Roadmap -->
+        <section class="fade-in mb-12">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm hover-lift">
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+                    <i class="fas fa-road text-primary-500 mr-3"></i>
+                    實施路線圖
+                </h3>
+                <div class="mermaid bg-gray-50 dark:bg-gray-700 p-6 rounded-xl" id="roadmap">
+                    gantt
+                        title Hybrid RAG 實施時程規劃
+                        dateFormat YYYY-MM-DD
+                        section 準備階段
+                        需求分析與評估        :done, prep1, 2025-01-01, 30d
+                        技術架構設計          :done, prep2, 2025-01-15, 45d
+                        資料盤點與整理        :active, prep3, 2025-02-01, 60d
+                
+                        section 開發階段
+                圖譜式RAG開發         :dev1, after prep3, 90d
+                        向量式RAG開發         :dev2, 2025-02-15, 90d
+                        整合架構建置:dev3, after dev1, 60d
+                        
+                        section 測試階段
+                        功能測試              :test1, after dev3, 30d
+                        安全性測試            :test2, after dev3, 45d
+                        使用者驗收測試        :test3, after test1, 30d
+                        
+                        section 部署階段
+                        生產環境部署          :deploy1, after test3, 15d
+                        使用者培訓            :deploy2, after test3, 30d
+                        正式上線              :deploy3, after deploy1, 7d
+                </div>
+                
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">作者資訊</h4>
+                    <p class="text-gray-300 mb-2">景丰科技</p>
+                    <p class="text-gray-400 text-sm">專業的企業AI解決方案提供商</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">聯繫方式</h4>
+                    <div class="space-y-2"><a href="https://twitter.com/" target="_blank" class="flex items-center text-gray-300 hover:text-white transition-colors">
+                            <i class="fab fa-twitter mr-2"></i>
+                            Twitter/X
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">版權資訊</h4>
+                    <p class="text-gray-400 text-sm">© 2025 景丰科技. 保留所有權利。</p>
+                    <p class="text-gray-400 text-sm mt-2">本白皮書內容受版權保護</p>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-400 text-sm">
+                    企業混合式檢索增強生成（Hybrid RAG）實施白皮書 - 數位轉型的關鍵技術
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            themeVariables: {
+                primaryColor: '#0ea5e9',
+                primaryTextColor: '#1f2937',
+                primaryBorderColor: '#0284c7',
+                lineColor: '#64748b',
+                secondaryColor: '#f1f5f9',
+                tertiaryColor: '#f8fafc'
+            }
+        });
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        
+        // Check for saved theme preference or default to system
+        const currentTheme = localStorage.getItem('theme') || 
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        if (currentTheme === 'dark') {
+            html.classList.add('dark');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+        });
+
+        // Wait for DOM to load before initializing charts
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize ECharts
+            const challengesChart = echarts.init(document.getElementById('challenges-chart'));
+            const costChart = echarts.init(document.getElementById('cost-comparison-chart'));
+            const adoptionChart = echarts.init(document.getElementById('adoption-curve-chart'));
+
+            // Challenges Radar Chart
+            const challengesOption = {
+                title: {
+                    text: '企業實施Hybrid RAG的主要挑戰',
+                    textStyle: { color: '#374151' },
+                    left: 'center'
+                },
+                tooltip: {},
+                radar: {
+                    indicator: [
+                        { name: '技術準確性', max: 10 },
+                        { name: '資源成本', max: 10 },
+                        { name: '資安隱私', max: 10 },
+                        { name: '學習曲線', max: 10 },
+                        { name: '系統整合', max: 10 },
+                        { name: '資料品質', max: 10 }
+                    ],
+                    splitArea: {
+                        areaStyle: {
+                            color: ['#f8fafc', '#f1f5f9', '#e2e8f0', '#cbd5e1', '#94a3b8']
+                        }
+                    }
+                },
+                series: [{
+                    name: '挑戰程度',
+                    type: 'radar',
+                    data: [{
+                        value: [8, 9, 8, 7, 7, 6],
+                        name: '實施難度',
+                        itemStyle: { color: '#0ea5e9' }
+                    }]
+                }]
+            };
+
+            // Cost Comparison Pie Chart
+            const costOption = {
+                title: {
+                    text: '成本結構分析',
+                    textStyle: { color: '#374151' },
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{a} <br/>{b}: {c}% ({d}%)'
+                },
+                series: [{
+                    name: '成本占比',
+                    type: 'pie',
+                    radius: '70%',
+                    data: [
+                        { value: 40, name: '運算資源', itemStyle: { color: '#0ea5e9' } },
+                        { value: 25, name: '人力成本', itemStyle: { color: '#10b981' } },
+                        { value: 20, name: '系統整合', itemStyle: { color: '#f59e0b' } },
+                        { value: 15, name: '維護營運', itemStyle: { color: '#f43f5e' } }
+                    ],
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }]
+            };
+
+            // User Adoption Curve
+            const adoptionOption = {
+                title: {
+                    text: '使用者採納曲線',
+                    textStyle: { color: '#374151' },
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['第1月', '第2月', '第3月', '第4月', '第5月', '第6月']
+                },
+                yAxis: {
+                    type: 'value',
+                    name: '採納率(%)',
+                    max: 100
+                },
+                series: [{
+                    name: '使用者採納率',
+                    type: 'line',
+                    smooth: true,
+                    data: [15, 25, 45, 65, 80, 90],
+                    itemStyle: { color: '#0ea5e9' },
+                    areaStyle: {
+                        color: {
+                            type: 'linear',
+                            x: 0, y: 0, x2: 0, y2: 1,
+                            colorStops: [
+                                { offset: 0, color: 'rgba(14, 165, 233, 0.3)' },
+                                { offset: 1, color: 'rgba(14, 165, 233, 0.1)' }
+                            ]
+                        }
+                    }
+                }]
+            };
+
+            challengesChart.setOption(challengesOption);
+            costChart.setOption(costOption);
+            adoptionChart.setOption(adoptionOption);
+
+            // Handle responsive charts
+            window.addEventListener('resize', () => {
+                challengesChart.resize();
+                costChart.resize();
+                adoptionChart.resize();
+            });
+
+            // Handle theme changes for charts
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                        const isDark = html.classList.contains('dark');
+                        const textColor = isDark ? '#f3f4f6' : '#374151';
+                        
+                        // Update chart themes
+                        challengesOption.title.textStyle.color = textColor;
+                        costOption.title.textStyle.color = textColor;
+                        adoptionOption.title.textStyle.color = textColor;
+                        adoptionOption.yAxis.nameTextStyle = { color: textColor };
+                        adoptionOption.xAxis.axisLabel = { color: textColor };
+                        adoptionOption.yAxis.axisLabel = { color: textColor };
+                        
+                        challengesChart.setOption(challengesOption);
+                        costChart.setOption(costOption);
+                        adoptionChart.setOption(adoptionOption);
+                    }
+                });
+            });
+
+            observer.observe(html, { attributes: true });
+
+            // Smooth scroll for internal links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+
+            // Intersection Observer for fade-in animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer2 = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                observer2.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
