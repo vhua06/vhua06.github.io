@@ -1,0 +1,645 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企業級 RAG挑戰賽獲勝架構解析</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/preline@3.0.1/dist/preline.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-icons@1.13.14/iconfont/material-icons.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e'
+                        },
+                        gray: {
+                            50: '#fafafa',
+                            100: '#f5f5f5',
+                            200: '#e5e5e5',
+                            300: '#d4d4d4',
+                            400: '#a3a3a3',
+                            500: '#737373',
+                            600: '#525252',
+                            700: '#404040',
+                            800: '#262626',
+                            900: '#171717'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans TC', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace']
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans TC', sans-serif;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(16px) saturate(180%);
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .dark .glass-effect {
+            background-color: rgba(30, 30, 30, 0.8);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 glass-effect border-b border-gray-200 dark:border-gray-700">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-2xl font-bold gradient-text">企業級 RAG 挑戰賽</h1>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Ilya Rice 獲勝架構深度解析</p>
+                </div>
+                <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:inline"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Overview Section -->
+        <section class="mb-12fade-in">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover-lift">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-trophy text-3xl text-yellow-500 mr-4"></i>
+                    <h2 class="text-3xl font-bold">總覽</h2>
+                </div>
+                <p class="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+                Ilya Rice 在企業級 RAG 挑戰賽中取得的勝利，並非依賴單一的革命性技術，而是透過對整個檢索增強生成（RAG）流程進行系統性、細緻入微的優化。其成功的核心在於對任務細節的深刻理解和對每個組件的精確微調。
+                </p>
+                <div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900 dark:to-blue-800 p-4 rounded-xl">
+                        <i class="fas fa-file-alt text-2xl text-blue-600 dark:text-blue-400 mb-2"></i>
+                        <h3 class="font-semibold text-blue-800 dark:text-blue-300">客製化解析</h3>
+                        <p class="text-sm text-blue-700 dark:text-blue-400">確保資料品質</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900 dark:to-green-800 p-4 rounded-xl">
+                        <i class="fas fa-search text-2xl text-green-600 dark:text-green-400 mb-2"></i>
+                        <h3 class="font-semibold text-green-800 dark:text-green-300">智慧檢索</h3>
+                        <p class="text-sm text-green-700 dark:text-green-400">父文件檢索與重排序</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900 dark:to-purple-800 p-4 rounded-xl">
+                        <i class="fas fa-route text-2xl text-purple-600 dark:text-purple-400 mb-2"></i>
+                        <h3 class="font-semibold text-purple-800 dark:text-purple-300">查詢路由</h3>
+                        <p class="text-sm text-purple-700 dark:text-purple-400">處理複雜問題</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900 dark:to-orange-800 p-4 rounded-xl">
+                        <i class="fas fa-cog text-2xl text-orange-600 dark:text-orange-400 mb-2"></i>
+                        <h3 class="font-semibold text-orange-800 dark:text-orange-300">提示工程</h3>
+                        <p class="text-sm text-orange-700 dark:text-orange-400">結構化輸出與 CoT</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Architecture Diagram -->
+        <section class="mb-12 fade-in">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
+                <h2 class="text-2xl font-bold mb-6 flex items-center">
+                    <i class="fas fa-project-diagram mr-3 text-primary-600"></i>
+                    系統架構
+                </h2>
+                <div id="architecture-mermaid" class="w-full">
+                    <div class="mermaid">
+                        graph TD
+                            A[PDF 文件] --> B[客製化解析<br/>Docling]
+                            B --> C[文本清理]
+                            C --> D[分塊處理]
+                            D --> E[向量化]
+                            E --> F[向量資料庫]
+                            G[用戶查詢] --> H{查詢路由器}
+                            H --> I[單一公司查詢]
+                            H --> J[多公司比較]
+                            
+                            I --> K[向量搜尋]
+                            J --> K
+                            K --> L[前30個最相關塊]
+                            L --> M[父文件檢索]
+                            M --> N[LLM 重排序]
+                            N --> O[精選上下文]
+                            
+                            O --> P[思維鏈提示]
+                            P --> Q[LLM 生成]
+                            Q --> R[結構化輸出<br/>JSON]
+                            
+                            style A fill:#e1f5fe
+                            style G fill:#f3e5f5
+                            style R fill:#e8f5e8
+                            style N fill:#fff3e0
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Challenge Details -->
+        <section class="mb-12 fade-in">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
+                <h2 class="text-2xl font-bold mb-6 flex items-center">
+                    <i class="fas fa-flag-checkered mr-3 text-red-600"></i>
+                    挑戰賽詳情
+                </h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">任務要求</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-clock text-red-500 mr-3 mt-1"></i>
+                                <span>時間限制：2.5 小時內完成</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-file-pdf text-red-500 mr-3 mt-1"></i>
+                                <span>處理 100 份上市公司年度報告</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-file-text text-red-500 mr-3 mt-1"></i>
+                                <span>每份報告可能長達 1000 頁</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-question-circle text-red-500 mr-3 mt-1"></i>
+                                <span>回答 100 個隨機生成的問題</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">答案要求</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                <span>明確答案：是/否、公司名稱、數值</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-bookmark text-green-500 mr-3 mt-1"></i>
+                                <span>附帶證據頁碼參考</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-shield-alt text-green-500 mr-3 mt-1"></i>
+                                <span>避免模型產生幻覺</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-code text-green-500 mr-3 mt-1"></i>
+                                <span>結構化 JSON 格式輸出</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Stages -->
+        <section class="mb-12 fade-in">
+            <h2 class="text-3xl font-bold mb-8 text-center">核心階段深度解析</h2>
+            
+            <!-- Stage 1: Parsing -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg mb-8 hover-lift">
+                <div class="flex items-center mb-6">
+                    <div class="bg-blue-100 dark:bg-blue-900 rounded-full p-4 mr-4">
+                        <i class="fas fa-file-alt text-2xl text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold">第一階段：解析 (Parsing)</h3>
+                        <p class="text-gray-600 dark:text-gray-400">文件解析是RAG 流程的基石</p>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-xl font-semibold mb-4 text-red-600 dark:text-red-400">
+                            <i class="fas fa-exclamation-triangle mr-2"></i>解析挑戰
+                        </h4>
+                        <div class="space-y-4">
+                            <div class="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg">
+                                <h5 class="font-semibold text-red-800 dark:text-red-300">複雜表格</h5>
+                                <p class="text-sm text-red-700 dark:text-red-400">難以保持表格的行列結構，特別是跨頁或包含合併儲存格的表格</p>
+                            </div>
+                            <div class="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg">
+                                <h5 class="font-semibold text-red-800 dark:text-red-300">多欄佈局</h5>
+                                <p class="text-sm text-red-700 dark:text-red-400">標準解析器常將多欄文本錯誤地合併成一行</p>
+                            </div>
+                            <div class="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg">
+                                <h5 class="font-semibold text-red-800 dark:text-red-300">旋轉頁面</h5>
+                                <p class="text-sm text-red-700 dark:text-red-400">90度旋轉的頁面導致解析文本混亂不堪</p>
+                            </div>
+                            <div class="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg">
+                                <h5 class="font-semibold text-red-800 dark:text-red-300">字體編碼問題</h5>
+                                <p class="text-sm text-red-700 dark:text-red-400">解析出的文本變成亂碼，甚至是凱撒密碼</p>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div>
+                        <h4 class="text-xl font-semibold mb-4 text-green-600 dark:text-green-400">
+                            <i class="fas fa-tools mr-2"></i>解決方案
+                        </h4>
+                        <div class="space-y-4">
+                            <div class="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
+                                <h5 class="font-semibold text-green-800 dark:text-green-300">IBM Docling</h5>
+                                <p class="text-sm text-green-700 dark:text-green-400">測試20多種解析器後的最佳選擇</p>
+                            </div>
+                            <div class="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
+                                <h5 class="font-semibold text-green-800 dark:text-green-300">客製化修改</h5>
+                                <p class="text-sm text-green-700 dark:text-green-400">深入研究原始碼並客製化輸出格式</p>
+                            </div>
+                            <div class="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
+                                <h5 class="font-semibold text-green-800 dark:text-green-300">GPU 加速</h5>
+                                <p class="text-sm text-green-700 dark:text-green-400">使用 NVIDIA 4090，40分鐘完成全部解析</p>
+                            </div>
+                            <div class="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
+                                <h5 class="font-semibold text-green-800 dark:text-green-300">OCR 備用</h5>
+                                <p class="text-sm text-green-700 dark:text-green-400">對於特殊編碼問題採用光學字元辨識</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stage 2: Preprocessing -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg mb-8 hover-lift">
+                <div class="flex items-center mb-6">
+                    <div class="bg-purple-100 dark:bg-purple-900 rounded-full p-4 mr-4">
+                        <i class="fas fa-broom text-2xl text-purple-600 dark:text-purple-400"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold">第二階段：資料清理與預處理</h3>
+                        <p class="text-gray-600 dark:text-gray-400">確保文本品質和格式一致性</p>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-xl font-semibold mb-4">文本清理</h4>
+                        <p class="mb-4">使用一系列正則表達式修正因解析錯誤產生的特定語法問題：</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-center"><i class="fas fa-arrow-right text-blue-500 mr-2"></i>不必要的換行</li>
+                            <li class="flex items-center"><i class="fas fa-arrow-right text-blue-500 mr-2"></i>錯誤的字符連接</li>
+                            <li class="flex items-center"><i class="fas fa-arrow-right text-blue-500 mr-2"></i>格式不一致問題</li></ul>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-semibold mb-4">表格序列化</h4>
+                        <p class="mb-4">將大型表格轉換為上下文獨立的小字串：</p>
+                        <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                            <p class="text-sm font-mono">"公司在 2021 年的股東權益為 577,782百萬日元"</p>
+                        </div><p class="text-sm text-gray-600 dark:text-gray-400 mt-2">HTML 格式比Markdown 更適合描述複雜表格結構</p>
+                    </div></div>
+            </div>
+
+            <!-- Stage 3: Retrieval -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg mb-8 hover-lift">
+                <div class="flex items-center mb-6">
+                    <div class="bg-green-100 dark:bg-green-900 rounded-full p-4 mr-4">
+                        <i class="fas fa-search text-2xl text-green-600 dark:text-green-400"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold">第三階段：擷取 (Retrieval)</h3>
+                        <p class="text-gray-600 dark:text-gray-400">從龐大資料庫中找出最相關的資訊</p>
+                    </div>
+                </div><div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">父文件檢索策略流程</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                        <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg text-center">
+                            <div class="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center mx-auto mb-2">1</div>
+                            <p class="text-sm">將頁面切分成小文本塊</p>
+                        </div>
+                        <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg text-center">
+                            <div class="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center mx-auto mb-2">2</div>
+                            <p class="text-sm">為小文本塊建立向量索引</p>
+                        </div>
+                        <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg text-center">
+                            <div class="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center mx-auto mb-2">3</div>
+                            <p class="text-sm">找到前30個最相關文本塊</p>
+                        </div>
+                        <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg text-center">
+                            <div class="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center mx-auto mb-2">4</div>
+                            <p class="text-sm">找到文本塊所屬的父頁面</p>
+                        </div>
+                        <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg text-center">
+                            <div class="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center mx-auto mb-2">5</div>
+                            <p class="text-sm">去重後提供完整頁面</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-orange-50 dark:bg-orange-900/20 p-6 rounded-lg">
+                    <h4 class="text-xl font-semibold mb-4 text-orange-800 dark:text-orange-300">
+                        <i class="fas fa-star mr-2"></i>LLM 重排序
+                    </h4>
+                    <p class="text-orange-700 dark:text-orange-400">
+                        在擷取流程中加入 LLM 重排序是提升系統準確性的最重要因素之一。系統使用輕量級 LLM 對候選頁面的相關性進行重新評分和排序，確保最有價值的資訊被優先處理。
+                    </p>
+                </div>
+            </div>
+
+            <!-- Stage 4: Generation -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg mb-8 hover-lift">
+                <div class="flex items-center mb-6">
+                    <div class="bg-orange-100 dark:bg-orange-900 rounded-full p-4 mr-4">
+                        <i class="fas fa-magic text-2xl text-orange-600 dark:text-orange-400"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold">第四階段：增強與生成</h3>
+                        <p class="text-gray-600 dark:text-gray-400">將高品質上下文與原始問題結合生成答案</p>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-xl font-semibold mb-4">查詢路由 (Query Routing)</h4>
+                        <div class="space-y-4">
+                            <div class="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
+                                <h5 class="font-semibold text-purple-800 dark:text-purple-300">單一公司查詢</h5>
+                                <p class="text-sm text-purple-700 dark:text-purple-400">"A 公司的營收是多少？"</p>
+                            </div>
+                            <div class="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
+                                <h5 class="font-semibold text-purple-800 dark:text-purple-300">比較性查詢</h5>
+                                <p class="text-sm text-purple-700 dark:text-purple-400">分解為多個獨立子問題，分別處理後綜合結果</p>
+                            </div></div>
+                    </div><div>
+                        <h4 class="text-xl font-semibold mb-4">提示工程</h4>
+                        <div class="space-y-4">
+                            <div class="bg-indigo-50 dark:bg-indigo-900/20 p-4 rounded-lg">
+                                <h5 class="font-semibold text-indigo-800 dark:text-indigo-300">思維鏈 (CoT)</h5>
+                                <p class="text-sm text-indigo-700 dark:text-indigo-400">引導 LLM 模擬人類推理過程</p>
+                            </div>
+                            <div class="bg-indigo-50 dark:bg-indigo-900/20 p-4 rounded-lg">
+                                <h5 class="font-semibold text-indigo-800 dark:text-indigo-300">結構化輸出</h5>
+                                <p class="text-sm text-indigo-700 dark:text-indigo-400">預先定義的 JSON 格式，包含答案、參考頁碼和推理過程</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- JSON Example -->
+                <div class="mt-6 bg-gray-100 dark:bg-gray-700 p-6 rounded-lg">
+                    <h5 class="font-semibold mb-3">結構化輸出範例：</h5>
+                    <pre class="text-sm overflow-x-auto"><code>{
+  "question_text": "How does RoPE work?",
+  "kind": "explanation",
+  "value": "RoPE, or Rotary Positional Embedding...",
+  "references": [
+    {
+      "pdf_sha1": "LLM_roadmap_1",
+      "page_index": 84
+    }
+  ],
+  "reasoning_process": "1. The question asks..."
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Insights -->
+        <section class="mb-12 fade-in">
+            <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl p-8 shadow-lg">
+                <h2 class="text-3xl font-bold mb-8 text-center">
+                    <i class="fas fa-lightbulb mr-3 text-yellow-500"></i>
+                    核心洞見與成功要素
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
+                        <h3 class="text-xl font-bold mb-4 text-blue-600 dark:text-blue-400">
+                            <i class="fas fa-microscope mr-2"></i>細節決定成敗
+                        </h3>
+                        <p class="text-gray-700 dark:text-gray-300">
+                            RAG 的卓越表現源於對每一個環節的精雕細琢，而非尋找某種單一的「神奇」技術。從文件解析到提示設計，每一個細節都至關重要。
+                        </p>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
+                        <h3 class="text-xl font-bold mb-4 text-green-600 dark:text-green-400">
+                            <i class="fas fa-puzzle-piece mr-2"></i>四大成功支柱
+                        </h3>
+                        <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>高品質解析 (Docling)</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>智慧檢索 (父文件 + 重排序)</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>靈活查詢路由</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i>精密提示工程 (CoT + JSON)</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
+                        <h3 class="text-xl font-bold mb-4 text-purple-600 dark:text-purple-400">
+                            <i class="fas fa-robot mr-2"></i>小模型的大潛力
+                        </h3>
+                        <p class="text-gray-700 dark:text-gray-300">
+                            設計精良的 RAG 架構可以極大地賦能語言模型。即使是較小的模型如 o3-mini 或 llama-3.1 8b，也能取得頂尖成績。
+                        </p>
+                    </div>
+                
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
+                        <h3 class="text-xl font-bold mb-4 text-orange-600 dark:text-orange-400">
+                            <i class="fab fa-github mr-2"></i>開源的力量
+                        </h3>
+                        <p class="text-gray-700 dark:text-gray-300">Ilya Rice 將其獲勝的完整解決方案開源在 GitHub上，為 RAG 領域的研究人員和開發者提供了極具價值的參考資源。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Performance Metrics -->
+        <section class="mb-12 fade-in">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
+                <h2 class="text-2xl font-bold mb-6 flex items-center">
+                    <i class="fas fa-chart-line mr-3 text-green-600"></i>
+                    效能指標
+                </h2>
+                <div id="performance-chart" style="height: 400px;"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 dark:bg-gray-950 text-white py-12 mt-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <div class="mb-8">
+                    <h3 class="text-2xl font-bold mb-4">作者資訊</h3>
+                    <div class="flex justify-center items-center space-x-6">
+                        <div class="flex items-center">
+                            <i class="fas fa-user-circle text-2xl mr-3 text-blue-400"></i>
+                            <span class="text-lg">花繼利</span>
+                        </div>
+                        <div class="flex items-center">
+                            <a href="https://twitter.com" target="_blank" class="flex items-center hover:text-blue-400 transition-colors">
+                                <i class="fab fa-twitter text-2xl mr-2"></i>
+                                <span>Twitter/X</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-t border-gray-700 pt-8">
+                    <p class="text-gray-400">
+                        <i class="fas fa-copyright mr-2"></i>2025 花繼利. 保留所有權利.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        // Check for saved theme preference or default to 'light' mode
+        const currentTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+        if (currentTheme === 'dark') {
+            htmlElement.classList.add('dark');
+        }
+
+        themeToggle.addEventListener('click', function() {
+            htmlElement.classList.toggle('dark');
+            localStorage.setItem('theme', htmlElement.classList.contains('dark') ? 'dark' : 'light');
+        });
+
+        // Initialize Mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#0ea5e9',
+                primaryTextColor: '#374151',
+                primaryBorderColor: '#0284c7',
+                lineColor: '#6b7280',
+                secondaryColor: '#f3f4f6',
+                tertiaryColor: '#e5e7eb'
+            }
+        });
+
+        // Performance Chart
+        const performanceChart = echarts.init(document.getElementById('performance-chart'));
+        const option = {
+            title: {
+                text: 'RAG 系統各階段處理時間分布',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b}: {c}分鐘 ({d}%)'
+            },
+            legend: {
+                bottom: 10,
+                left: 'center'
+            },
+            series: [
+                {
+                    name: '處理階段',
+                    type: 'pie',
+                    radius: ['40%', '70%'],
+                    center: ['50%', '45%'],
+                    data: [
+                        { value: 40, name: 'PDF解析 (40分鐘)' },
+                        { value: 15, name: '資料清理 (15分鐘)' },
+                        { value: 20, name: '向量化 (20分鐘)' },
+                        { value: 30, name: '檢索最佳化 (30分鐘)' },
+                        { value: 45, name: '問答生成 (45分鐘)' }
+                    ],
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    },
+                    itemStyle: {
+                        borderRadius: 8
+                    }
+                }
+            ]
+        };
+        performanceChart.setOption(option);
+
+        // Responsive chart
+        window.addEventListener('resize', function() {
+            performanceChart.resize();
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
