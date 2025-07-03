@@ -1,0 +1,582 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企業AI轉型：資訊管理基礎建設研究報告</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/preline@3.0.1/dist/preline.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-icons@1.13.14/iconfont/material-icons.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            900: '#0c4a6e'
+                        },
+                        secondary: {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            500: '#78716c',
+                            600: '#57534e',
+                            700: '#44403c'
+                        }
+                    },
+                    fontFamily: {
+                        'sans': ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'system-ui', 'sans-serif'],
+                        'mono': ['SF Mono', 'Monaco', 'Consolas', 'monospace']
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-in-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'float': 'float 6s ease-in-out infinite'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .dark .glass-effect {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark .hover-lift:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <!-- 導航欄 -->
+    <nav class="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200/50 dark:border-gray-700/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-brain text-white text-sm"></i>
+                    </div>
+                    <h1 class="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                        AI轉型研究報告
+                    </h1>
+                </div><div class="flex items-center space-x-4">
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:inline"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 英雄區塊 -->
+    <header class="relative py-20 overflow-hidden">
+        <div class="absolute inset-0 gradient-bg opacity-90"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-purple-900/20"></div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="animate-fade-in">
+                <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
+                    企業AI轉型<span class="block text-blue-200">資訊管理基礎建設</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
+                    探索企業在推動人工智慧轉型過程中的核心挑戰與解決方案
+                </p>
+                <div class="mt-8 flex justify-center">
+                    <div class="animate-float">
+                        <i class="fas fa-chevron-down text-white text-2xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要內容 -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        
+        <!-- 概要區塊 -->
+        <section class="mb-16 animate-slide-up">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 hover-lift">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mr-4">
+                        <i class="fas fa-lightbulb text-white text-xl"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white">概要</h2>
+                </div>
+                <div class="prose prose-lg dark:prose-invert max-w-none">
+                    <p class="text-gray-700 dark:text-gray-300 leading-relaxed text-lg">
+                        企業在推動人工智慧（AI）轉型的過程中，其成功與否不僅取決於先進技術的導入，更深刻地根植於企業既有的資訊管理基礎建設。研究顯示，缺乏系統性的知識管理、混亂的檔案組織以及失序的權限控管，是阻礙AI發揮最大潛力的三大核心痛點。若未能妥善處理這些基礎問題，導入AI不僅無法提升效率，反而可能引發數據搜尋緩慢、資訊錯誤、甚至敏感資料外洩等嚴重風險。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 三大挑戰圖表 -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">AI轉型三大核心挑戰</h2>
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
+                <div id="challenges-chart" class="h-96"></div>
+            </div>
+        </section>
+
+        <!-- 挑戰詳述 -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">AI轉型中的基礎建設挑戰</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- 知識孤島 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 hover-lift">
+                    <div class="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fas fa-network-wired text-red-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">知識孤島與管理缺失</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">
+                        企業內部知識分散在不同部門的系統、文件和溝通渠道中，形成嚴重的「資訊孤島」。
+                    </p>
+                    <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                        <li class="flex items-center">
+                            <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>
+                            56%企業高管認為數據就緒是AI採用首要挑戰
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-clock text-yellow-500 mr-2"></i>
+                            知識傳遞效率低下
+                        </li></ul>
+                </div>
+
+                <!-- 檔案管理混亂 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 hover-lift">
+                    <div class="w-16 h-16 bg-yellow-100 dark:bg-yellow-900/30 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fas fa-folder-open text-yellow-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">檔案管理混亂</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">隨意的檔案命名、缺乏統一分類標準、文件散落各處帶來雙重風險。
+                    </p>
+                    <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                        <li class="flex items-center">
+                            <i class="fas fa-tachometer-alt text-orange-500 mr-2"></i>
+                            效率風險：搜尋速度大幅下降
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-bullseye text-red-500 mr-2"></i>
+                            準確性風險：AI提供錯誤資訊
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 權限控管失序 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 hover-lift">
+                    <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fas fa-shield-alt text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">權限控管失序</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">
+                        AI會根據用戶權限搜尋所有可存取檔案，將原本隱形的權限漏洞完全暴露。
+                    </p>
+                    <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                        <li class="flex items-center">
+                            <i class="fas fa-eye text-red-500 mr-2"></i>敏感資訊過度暴露
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-gavel text-purple-500 mr-2"></i>
+                            可能觸犯法規如GDPR
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 權限控制模型比較表 -->
+        <section class="mb-16">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
+                <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">權限控制模型比較</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full table-auto">
+                        <thead>
+                            <tr class="border-b-2 border-gray-200 dark:border-gray-700">
+                                <th class="text-left py-4 px-6 text-gray-900 dark:text-white font-semibold">權限控制模型</th>
+                                <th class="text-left py-4 px-6 text-gray-900 dark:text-white font-semibold">描述</th>
+                                <th class="text-left py-4 px-6 text-gray-900 dark:text-white font-semibold">優勢</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                                <td class="py-4 px-6"><span class="font-semibold text-blue-600 dark:text-blue-400">基於角色的存取控制 (RBAC)</span>
+                                </td>
+                                <td class="py-4 px-6 text-gray-700 dark:text-gray-300">
+                                    透過將用戶分配到預設的角色（如「銷售」、「財務」），並為角色賦予權限，來簡化管理。
+                                </td>
+                                <td class="py-4 px-6 text-gray-700 dark:text-gray-300">
+                                    易於管理，適用於職責劃分清晰的組織。
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                                <td class="py-4 px-6">
+                                    <span class="font-semibold text-purple-600 dark:text-purple-400">基於屬性的存取控制 (ABAC)</span>
+                                </td>
+                                <td class="py-4 px-6 text-gray-700 dark:text-gray-300">
+                                    根據用戶屬性（如部門、職位）、資源屬性（如敏感級別）和環境屬性（如時間、IP）動態決策。
+                                </td>
+                                <td class="py-4 px-6 text-gray-700 dark:text-gray-300">
+                                    控制粒度極細，靈活適應複雜場景，可實現動態授權。
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 解決方案流程圖 -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">建構AI就緒型企業的解決方案</h2>
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
+                <div id="solution-flow" class="h-96"></div>
+            </div>
+        </section>
+
+        <!-- AI Agent角色設定公式 -->
+        <section class="mb-16">
+            <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl shadow-xl p-8 text-white">
+                <div class="text-center mb-8">
+                    <h3 class="text-2xl font-bold mb-4">AI Agent角色指令萬能公式</h3>
+                    <p class="text-blue-100">精確設計和約束AI Agent的關鍵框架</p>
+                </div>
+                
+                <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 mb-6">
+                    <div class="text-center text-xl font-mono">
+                        <span class="text-yellow-300">角色設定</span> = 
+                        <span class="text-green-300">角色名稱</span> + 
+                        <span class="text-blue-300">使用場景</span> +<span class="text-purple-300">可用工具</span> + 
+                        <span class="text-red-300">行為限制</span> + 
+                        <span class="text-orange-300">輸出樣式</span>
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-5 gap-4">
+                    <div class="bg-yellow-500/20 rounded-lg p-4 text-center">
+                        <i class="fas fa-user-tag text-2xl mb-2"></i>
+                        <div class="font-semibold">角色名稱</div>
+                    </div>
+                    <div class="bg-blue-500/20 rounded-lg p-4 text-center">
+                        <i class="fas fa-map-marker-alt text-2xl mb-2"></i>
+                        <div class="font-semibold">使用場景</div>
+                    </div>
+                    <div class="bg-purple-500/20 rounded-lg p-4 text-center">
+                        <i class="fas fa-tools text-2xl mb-2"></i>
+                        <div class="font-semibold">可用工具</div>
+                    </div>
+                    <div class="bg-red-500/20 rounded-lg p-4 text-center">
+                        <i class="fas fa-ban text-2xl mb-2"></i>
+                        <div class="font-semibold">行為限制</div>
+                    </div>
+                    <div class="bg-orange-500/20 rounded-lg p-4 text-center">
+                        <i class="fas fa-palette text-2xl mb-2"></i>
+                        <div class="font-semibold">輸出樣式</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 解決方案詳述 -->
+        <section class="mb-16">
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- 智慧知識庫 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 hover-lift">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-teal-600 rounded-xl flex items-center justify-center mr-4">
+                            <i class="fas fa-database text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white">打造智慧知識庫</h3>
+                    </div>
+                
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <div class="w-6 h-6 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mr-3 mt-1">
+                                <i class="fas fa-check text-green-600 text-xs"></i>
+                            </div>
+                            <div>
+                                <span class="font-semibold text-gray-900 dark:text-white">統一的資訊來源</span>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">整合不同系統數據，打破部門壁壘</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-6 h-6 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mr-3 mt-1">
+                                <i class="fas fa-check text-green-600 text-xs"></i>
+                            </div>
+                            <div>
+                                <span class="font-semibold text-gray-900 dark:text-white">嚴格的內容審核</span>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">確保資訊準確性、及時性和權威性</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-6 h-6 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mr-3 mt-1">
+                                <i class="fas fa-check text-green-600 text-xs"></i>
+                            </div>
+                            <div>
+                                <span class="font-semibold text-gray-900 dark:text-white">AI驅動的檢索</span>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">利用NLP和知識圖譜提供語義精準答案</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 標準化檔案管理 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 hover-lift">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center mr-4">
+                            <i class="fas fa-file-alt text-white text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white">標準化檔案管理</h3>
+                    </div>
+                    
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <div class="w-6 h-6 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mr-3 mt-1">
+                                <i class="fas fa-check text-blue-600 text-xs"></i>
+                            </div>
+                            <div>
+                                <span class="font-semibold text-gray-900 dark:text-white">統一命名原則</span>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">制定清晰的文件命名規範</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-6 h-6 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mr-3 mt-1">
+                                <i class="fas fa-check text-blue-600 text-xs"></i>
+                            </div>
+                            <div>
+                                <span class="font-semibold text-gray-900 dark:text-white">明確分類體系</span>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">建立邏輯清晰的檔案分類結構</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-6 h-6 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mr-3 mt-1">
+                                <i class="fas fa-check text-blue-600 text-xs"></i>
+                            </div>
+                            <div>
+                                <span class="font-semibold text-gray-900 dark:text-white">生命週期管理</span>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">定義文件完整生命週期流程</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 頁腳 -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- 作者資訊 -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">作者資訊</h3>
+                    <p class="text-gray-300 mb-4">景丰科技</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a></div>
+                </div>
+                
+                <!-- 快速連結 -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">快速連結</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#" class="hover:text-white transition-colors">概要</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">挑戰分析</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">解決方案</a></li>
+                    </ul>
+                </div>
+                
+                <!-- 版權資訊 -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">版權資訊</h3>
+                    <p class="text-gray-300">© 2025 景丰科技</p>
+                    <p class="text-gray-400 text-sm">保留所有權利</p>
+                </div>
+            </div>
+            
+            <hr class="border-gray-700 my-8">
+            
+            <div class="text-center text-gray-400">
+                <p>本報告旨在協助企業建立AI就緒型的資訊基礎建設</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 主題切換功能
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        // 初始化主題
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                html.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+
+        // 初始化 Mermaid
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            themeVariables: {
+                primaryColor: '#0ea5e9',
+                primaryTextColor: '#1f2937',
+                primaryBorderColor: '#0369a1',
+                lineColor: '#6b7280'
+            }
+        });
+
+        // ECharts 圖表
+        window.addEventListener('load', () => {
+            // 挑戰圖表
+            const challengesChart = echarts.init(document.getElementById('challenges-chart'));
+            const challengesOption = {
+                tooltip: { trigger: 'item' },
+                legend: {
+                    top: '5%',
+                    left: 'center'
+                },
+                series: [
+                    {
+                        name: 'AI轉型挑戰',
+                        type: 'pie',
+                        radius: ['40%', '70%'],
+                        avoidLabelOverlap: false,
+                        label: {
+                            show: false,
+                            position: 'center'
+                        },
+                        emphasis: {
+                            label: {
+                                show: true,
+                                fontSize: '20',
+                                fontWeight: 'bold'
+                            }
+                        },
+                        labelLine: { show: false },
+                        data: [
+                            { value: 40, name: '知識孤島與管理缺失', itemStyle: { color: '#ef4444' } },
+                            { value: 35, name: '檔案管理混亂', itemStyle: { color: '#f59e0b' } },
+                            { value: 25, name: '權限控管失序', itemStyle: { color: '#8b5cf6' } }
+                        ]
+                    }
+                ]
+            };
+            challengesChart.setOption(challengesOption);
+
+            // 解決方案流程圖
+            const solutionChart = echarts.init(document.getElementById('solution-flow'));
+            const solutionOption = {
+                tooltip: { trigger: 'item' },
+                series: [
+                    {
+                        type: 'sankey',
+                        data: [
+                            { name: '知識孤島' },
+                            { name: '檔案混亂' },
+                            { name: '權限失序' },
+                            { name: '智慧知識庫' },
+                            { name: '標準化管理' },
+                            { name: '精細化權限' },
+                            { name: 'AI就緒企業' }
+                        ],
+                        links: [
+                            { source: '知識孤島', target: '智慧知識庫', value: 10 },
+                            { source: '檔案混亂', target: '標準化管理', value: 10 },
+                            { source: '權限失序', target: '精細化權限', value: 10 },
+                            { source: '智慧知識庫', target: 'AI就緒企業', value: 10 },
+                            { source: '標準化管理', target: 'AI就緒企業', value: 10 },
+                            { source: '精細化權限', target: 'AI就緒企業', value: 10 }
+                        ],
+                        emphasis: { focus: 'adjacency' },
+                        lineStyle: { curveness: 0.5 }
+                    }
+                ]
+            };
+            solutionChart.setOption(solutionOption);
+
+            // 響應式處理
+            window.addEventListener('resize', () => {
+                challengesChart.resize();
+                solutionChart.resize();
+            });
+        });
+
+        // 平滑滾動動畫
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                }
+            });
+        }, observerOptions);
+
+        //觀察所有需要動畫的元素
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
