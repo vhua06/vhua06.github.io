@@ -1,0 +1,1450 @@
+
+<!DOCTYPE html><html lang="zh-TW" class="scroll-smooth" data-google-analytics-opt-out=""><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>建置整合式向量化RAG與知識圖譜RAG專案</title>
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Material Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/material-icons@1.13.14/iconfont/material-icons.min.css" rel="stylesheet">
+    
+    <!-- Preline UI -->
+    <script src="https://cdn.jsdelivr.net/npm/preline@3.0.1/dist/preline.min.js"></script>
+    
+    <!-- Mermaid -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    
+    <!-- ECharts -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        gray: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        }
+                    },fontFamily: {
+                        sans: ['Inter', 'Noto Sans TC', 'system-ui', 'sans-serif'],},
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'float': 'float 6s ease-in-out infinite',
+                    }
+                }
+            }
+        }
+    </script><style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap');
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);}
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .tech-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .tech-icon:hover {
+            transform: scale(1.1);
+            color: #0ea5e9;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 3rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0.75rem;
+            top: 0;
+            bottom: -2rem;
+            width: 2px;
+            background: linear-gradient(to bottom, #0ea5e9, #64748b);
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 0.25rem;
+            top: 0.5rem;
+            width: 1rem;
+            height: 1rem;
+            background: #0ea5e9;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #0ea5e9;
+        }
+        
+        .timeline-item:last-child::before {
+            display: none;
+        }
+        
+        .dark .timeline-item::after {
+            border-color: #1e293b;
+        }
+    </style>
+<script src="https://felo.ai/js/webpageIframe.js"></script>
+ <style>
+* {
+  scrollbar-width: thin !important;
+  scrollbar-color: #bfc5ce transparent !important;
+}
+*::-webkit-scrollbar {
+  width: 6px !important;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #bfc5ce !important;
+  border-radius: 9999px !important;
+}
+*::-webkit-scrollbar-track {
+  background-color: transparent !important;
+  border-radius: 9999px !important;
+}
+</style><style data-id="immersive-translate-input-injected-css">.immersive-translate-input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 2147483647;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.immersive-translate-attach-loading::after {
+  content: " ";
+
+  --loading-color: #f78fb6;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: block;
+  margin: 12px auto;
+  position: relative;
+  color: white;
+  left: -100px;
+  box-sizing: border-box;
+  animation: immersiveTranslateShadowRolling 1.5s linear infinite;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-2000%, -50%);
+  z-index: 100;
+}
+
+.immersive-translate-loading-spinner {
+  vertical-align: middle !important;
+  width: 10px !important;
+  height: 10px !important;
+  display: inline-block !important;
+  margin: 0 4px !important;
+  border: 2px rgba(221, 244, 255, 0.6) solid !important;
+  border-top: 2px rgba(0, 0, 0, 0.375) solid !important;
+  border-left: 2px rgba(0, 0, 0, 0.375) solid !important;
+  border-radius: 50% !important;
+  padding: 0 !important;
+  -webkit-animation: immersive-translate-loading-animation 0.6s infinite linear !important;
+  animation: immersive-translate-loading-animation 0.6s infinite linear !important;
+}
+
+@-webkit-keyframes immersive-translate-loading-animation {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(359deg);
+  }
+}
+
+@keyframes immersive-translate-loading-animation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.immersive-translate-input-loading {
+  --loading-color: #f78fb6;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: block;
+  margin: 12px auto;
+  position: relative;
+  color: white;
+  left: -100px;
+  box-sizing: border-box;
+  animation: immersiveTranslateShadowRolling 1.5s linear infinite;
+}
+
+@keyframes immersiveTranslateShadowRolling {
+  0% {
+    box-shadow: 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0),
+      0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
+  }
+
+  12% {
+    box-shadow: 100px 0 var(--loading-color), 0px 0 rgba(255, 255, 255, 0),
+      0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
+  }
+
+  25% {
+    box-shadow: 110px 0 var(--loading-color), 100px 0 var(--loading-color),
+      0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
+  }
+
+  36% {
+    box-shadow: 120px 0 var(--loading-color), 110px 0 var(--loading-color),
+      100px 0 var(--loading-color), 0px 0 rgba(255, 255, 255, 0);
+  }
+
+  50% {
+    box-shadow: 130px 0 var(--loading-color), 120px 0 var(--loading-color),
+      110px 0 var(--loading-color), 100px 0 var(--loading-color);
+  }
+
+  62% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 130px 0 var(--loading-color),
+      120px 0 var(--loading-color), 110px 0 var(--loading-color);
+  }
+
+  75% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0),
+      130px 0 var(--loading-color), 120px 0 var(--loading-color);
+  }
+
+  87% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0),
+      200px 0 rgba(255, 255, 255, 0), 130px 0 var(--loading-color);
+  }
+
+  100% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0),
+      200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0);
+  }
+}
+
+.immersive-translate-toast {
+  display: flex;
+  position: fixed;
+  z-index: 2147483647;
+  left: 0;
+  right: 0;
+  top: 1%;
+  width: fit-content;
+  padding: 12px 20px;
+  margin: auto;
+  overflow: auto;
+  background: #fef6f9;
+  box-shadow: 0px 4px 10px 0px rgba(0, 10, 30, 0.06);
+  font-size: 15px;
+  border-radius: 8px;
+  color: #333;
+}
+
+.immersive-translate-toast-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.immersive-translate-toast-hidden {
+  margin: 0 20px 0 72px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.immersive-translate-toast-close {
+  color: #666666;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .immersive-translate-toast {
+    top: 0;
+    padding: 12px 0px 0 10px;
+  }
+  .immersive-translate-toast-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  .immersive-translate-toast-hidden {
+    margin: 10px auto;
+  }
+}
+
+.immersive-translate-modal {
+  display: none;
+  position: fixed;
+  z-index: 2147483647;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+  font-size: 15px;
+}
+
+.immersive-translate-modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 40px 24px 24px;
+  border-radius: 12px;
+  width: 350px;
+  font-family: system-ui, -apple-system, "Segoe UI", "Roboto", "Ubuntu",
+    "Cantarell", "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
+  position: relative;
+}
+
+@media screen and (max-width: 768px) {
+  .immersive-translate-modal-content {
+    margin: 50% auto !important;
+  }
+}
+
+.immersive-translate-modal .immersive-translate-modal-content-in-input {
+  max-width: 500px;
+}
+.immersive-translate-modal-content-in-input .immersive-translate-modal-body {
+  text-align: left;
+  max-height: unset;
+}
+
+.immersive-translate-modal-title {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #333333;
+}
+
+.immersive-translate-modal-body {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+  color: #333333;
+  margin-top: 24px;
+}
+
+@media screen and (max-width: 768px) {
+  .immersive-translate-modal-body {
+    max-height: 250px;
+    overflow-y: auto;
+  }
+}
+
+.immersive-translate-close {
+  color: #666666;
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.immersive-translate-close:hover,
+.immersive-translate-close:focus {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.immersive-translate-modal-footer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+.immersive-translate-btn {
+  width: fit-content;
+  color: #fff;
+  background-color: #ea4c89;
+  border: none;
+  font-size: 14px;
+  margin: 0 8px;
+  padding: 9px 30px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.immersive-translate-btn:hover {
+  background-color: #f082ac;
+}
+.immersive-translate-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.immersive-translate-btn:disabled:hover {
+  background-color: #ea4c89;
+}
+
+.immersive-translate-cancel-btn {
+  /* gray color */
+  background-color: rgb(89, 107, 120);
+}
+
+.immersive-translate-cancel-btn:hover {
+  background-color: hsl(205, 20%, 32%);
+}
+
+.immersive-translate-action-btn {
+  background-color: transparent;
+  color: #ea4c89;
+  border: 1px solid #ea4c89;
+}
+
+.immersive-translate-btn svg {
+  margin-right: 5px;
+}
+
+.immersive-translate-link {
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: none;
+  text-decoration: none;
+  color: #007bff;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+}
+
+.immersive-translate-primary-link {
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: none;
+  text-decoration: none;
+  color: #ea4c89;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+}
+
+.immersive-translate-modal input[type="radio"] {
+  margin: 0 6px;
+  cursor: pointer;
+}
+
+.immersive-translate-modal label {
+  cursor: pointer;
+}
+
+.immersive-translate-close-action {
+  position: absolute;
+  top: 2px;
+  right: 0px;
+  cursor: pointer;
+}
+
+.imt-image-status {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 16px !important;
+}
+.imt-image-status img,
+.imt-image-status svg,
+.imt-img-loading {
+  width: 28px !important;
+  height: 28px !important;
+  margin: 0 0 8px 0 !important;
+  min-height: 28px !important;
+  min-width: 28px !important;
+  position: relative !important;
+}
+.imt-img-loading {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4CAMAAACfWMssAAAAtFBMVEUAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////oK74hAAAAPHRSTlMABBMIDyQXHwyBfFdDMSw+OjXCb+5RG51IvV/k0rOqlGRM6KKMhdvNyZBz9MaupmxpWyj437iYd/yJVNZeuUC7AAACt0lEQVRIx53T2XKiUBCA4QYOiyCbiAsuuGBcYtxiYtT3f6/pbqoYHVFO5r+iivpo6DpAWYpqeoFfr9f90DsYAuRSWkFnPO50OgR9PwiCUFcl2GEcx+N/YBh6pvKaefHlUgZd1zVe0NbYcQjGBfzrPE8Xz8aF+71D8gG6DHFPpc4a7xFiCDuhaWgKgGIJQ3d5IMGDrpS4S5KgpIm+en9f6PlAhKby4JwEIxlYJV9h5k5nee9GoxHJ2IDSNB0dwdad1NAxDJ/uXDHYmebdk4PdbkS58CIVHdYSUHTYYRWOJblWSyu2lmy3KNFVJNBhxcuGW4YBVCbYGRZwIooipHsNqjM4FbgOQqQqSKQQU9V8xmi1QlgHqQQ6DDBvRUVCDirs+EzGDGOQTCATgtYTnbCVLgsVgRE0T1QE0qHCFAht2z6dLvJQs3Lo2FQoDxWNUiBhaP4eRgwNkI+dAjVOA/kUrIDwf3CG8NfNOE0eiFotSuo+rBiq8tD9oY4Qzc6YJw99hl1wzpQvD7ef2M8QgnOGJfJw+EltQc+oX2yn907QB22WZcvlUpd143dqQu+8pCJZuGE4xCuPXJqqcs5sNpsI93Rmzym1k4Npk+oD1SH3/a3LOK/JpUBpWfqNySxWzCfNCUITuDG5dtuphrUJ1myeIE9bIsPiKrfqTai5WZxbhtNphYx6GEIHihyGFTI69lje/rxajdh0s0msZ0zYxyPLhYCb1CyHm9Qsd2H37Y3lugVwL9kNh8Ot8cha6fUNQ8nuXi5z9/ExsAO4zQrb/ev1yrCB7lGyQzgYDGuxq1toDN/JGvN+HyWNHKB7zEoK+PX11e12G431erGYzwmytAWU56fkMHY5JJnDRR2eZji3AwtIcrEV8Cojat/BdQ7XOwGV1e1hDjGGjXbdArm8uJZtCH5MbcctVX8A1WpqumJHwckAAAAASUVORK5CYII=");
+  background-size: 28px 28px;
+  animation: image-loading-rotate 1s linear infinite !important;
+}
+
+.imt-image-status span {
+  color: var(--bg-2, #fff) !important;
+  font-size: 14px !important;
+  line-height: 14px !important;
+  font-weight: 500 !important;
+  font-family: "PingFang SC", Arial, sans-serif !important;
+}
+
+@keyframes image-loading-rotate {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+</style></head>
+
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300 vsc-initialized" contenteditable="false" spellcheck="false">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700">
+        <nav class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-700 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-brain text-white text-lg"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-gray-900 dark:text-white">RAG 整合專案</h1>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">技術規劃與實施指南</p>
+                    </div>
+                </div>
+                <button id="theme-toggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200">
+                    <i class="fas fa-sun text-yellow-500 dark:hidden"></i>
+                    <i class="fas fa-moon text-blue-400 hidden dark:inline"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden gradient-bg py-20">
+        <div class="absolute inset-0 bg-black/20"></div>
+        <div class="relative max-w-7xl mx-auto px-6 text-center text-white">
+            <div class="animate-fade-in">
+                <h1 class="text-4xl lg:text-6xl font-bold mb-6">
+                    建置整合式向量化RAG與<br><span class="text-yellow-300">知識圖譜RAG專案</span>
+                </h1>
+                <p class="text-xl lg:text-2xl mb-8 text-blue-100">
+                    所需專業IT知識與可行性計畫
+                </p>
+                <div class="flex justify-center space-x-4 mb-12">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-lg px-4 py-2">
+                        <i class="fas fa-vector-square mr-2"></i>
+                        向量化檢索
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-lg px-4 py-2">
+                        <i class="fas fa-project-diagram mr-2"></i>
+                        知識圖譜
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-lg px-4 py-2">
+                        <i class="fas fa-robot mr-2"></i>
+                        生成式AI
+                    </div>
+                </div>
+            </div>
+            <!-- Architecture Diagram -->
+            <div class="mt-16">
+                <div id="architecture-diagram" class="bg-white/10 backdrop-blur-sm rounded-xl p-8 max-w-4xl mx-auto">
+                    <div class="mermaid-diagram" id="mermaid-arch">
+                        graph TB
+                            A[用戶查詢] --&gt; B{查詢分析}
+                            B --&gt; C[向量化RAG]
+                            B --&gt; D[知識圖譜RAG]
+                            C --&gt; E[向量檢索]
+                            C --&gt; F[語義匹配]
+                            D --&gt; G[圖譜查詢]
+                            D --&gt; H[關係推理]
+                            E --&gt; I[融合策略]
+                            F --&gt; I
+                            G --&gt; I
+                            H --&gt; I
+                            I --&gt; J[LLM生成]
+                            J --&gt; K[最終答案]
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Floating Elements -->
+        <div class="absolute top-20 left-10 w-20 h-20 bg-white/10 rounded-full animate-float"></div>
+        <div class="absolute top-40 right-20 w-16 h-16 bg-yellow-300/20 rounded-full animate-float" style="animation-delay: -2s"></div>
+        <div class="absolute bottom-20 left-1/4 w-12 h-12 bg-blue-300/20 rounded-full animate-float" style="animation-delay: -4s"></div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-6 py-16">
+        <!-- Overview -->
+        <section class="mb-20animate-slide-up">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl lg:text-4xl font-bold mb-6">專案概述</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                    整合向量化檢索增強生成與知識圖譜檢索增強生成的創新專案，結合兩種RAG方法的優勢：
+                    向量化RAG擅長處理非結構化數據的語義相似性檢索，而知識圖譜RAG則能提供結構化、關聯性的知識推理能力。
+                </p>
+            </div>
+            
+            <!-- Benefits Cards -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card-hover bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-gray-700" style="opacity: 0; transform: translateY(30px); transition: opacity 0.8s, transform 0.8s;">
+                    <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-search text-blue-600 dark:text-blue-400 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">語義檢索</h3>
+                    <p class="text-gray-600 dark:text-gray-300">透過向量化技術實現精確的語義理解與相似性匹配</p>
+                </div>
+                <div class="card-hover bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-gray-700" style="opacity: 0; transform: translateY(30px); transition: opacity 0.8s, transform 0.8s;">
+                    <div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-sitemap text-green-600 dark:text-green-400 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">知識推理</h3>
+                    <p class="text-gray-600 dark:text-gray-300">利用知識圖譜的結構化關係進行深層次的邏輯推理</p>
+                </div>
+                
+                <div class="card-hover bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-gray-700" style="opacity: 0; transform: translateY(30px); transition: opacity 0.8s, transform 0.8s;">
+                    <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-magic text-purple-600 dark:text-purple-400 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">智能生成</h3>
+                    <p class="text-gray-600 dark:text-gray-300">結合兩種檢索結果，生成更準確且豐富的答案</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Required Knowledge Section -->
+        <section id="knowledge" class="mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl lg:text-4xl font-bold mb-6">所需專業IT知識</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-300">
+                    建置此專案需要團隊具備五大核心技術領域的專業知識
+                </p>
+            </div>
+            
+            <div class="space-y-8">
+                <!-- NLP & ML -->
+                <div class="card-hover bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-gray-100 dark:border-gray-700" style="opacity: 0; transform: translateY(30px); transition: opacity 0.8s, transform 0.8s;">
+                    <div class="flex items-start space-x-6">
+                        <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-brain text-blue-600 dark:text-blue-400 text-2xl tech-icon"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold mb-4 text-blue-600 dark:text-blue-400">
+                                1. 自然語言處理 (NLP) 與機器學習 (ML)
+                            </h3>
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4 class="font-semibold mb-2 flex items-center">
+                                        <i class="fas fa-network-wired mr-2 text-gray-500"></i>
+                                        深度學習基礎
+                                    </h4><p class="text-gray-600 dark:text-gray-300 text-sm mb-3">
+                                        理解神經網路、CNN、RNN、Transformer 等結構
+                                    </p>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-2 flex items-center">
+                                        <i class="fas fa-vector-square mr-2 text-gray-500"></i>
+                詞嵌入與向量資料庫
+                                    </h4>
+                                    <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">
+                熟悉 Word2Vec、GloVe、FastText、BERT embeddings、Sentence-BERT，以及 Milvus、Pinecone、Weaviate 等向量庫
+                                    </p>
+                                </div><div>
+                                    <h4 class="font-semibold mb-2 flex items-center">
+                                        <i class="fas fa-language mr-2 text-gray-500"></i>
+                                        語言模型 (LLMs)
+                                    </h4>
+                                    <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">
+                瞭解 GPT 系列、BERT、RoBERTa 等大型模型的架構、訓練與微調
+                                    </p>
+                                </div><div>
+                                    <h4 class="font-semibold mb-2 flex items-center">
+                                        <i class="fas fa-text-width mr-2 text-gray-500"></i>
+                                        文本預處理
+                                    </h4><p class="text-gray-600 dark:text-gray-300 text-sm mb-3">
+                                        掌握分詞、詞性標註、NER、正規化、停用詞移除等技術
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Knowledge Graph -->
+                <div class="card-hover bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-gray-100 dark:border-gray-700" style="opacity: 0; transform: translateY(30px); transition: opacity 0.8s, transform 0.8s;">
+                    <div class="flex items-start space-x-6">
+                        <div class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-project-diagram text-green-600 dark:text-green-400 text-2xl tech-icon"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold mb-4 text-green-600 dark:text-green-400">
+                                2. 知識圖譜 (Knowledge Graph) 相關技術
+                            </h3>
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div><h4 class="font-semibold mb-2 flex items-center">
+                                        <i class="fas fa-database mr-2 text-gray-500"></i>
+                                圖資料庫
+                                    </h4>
+                                    <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">
+                                        精通 Neo4j、ArangoDB、Amazon Neptune 等，並能用 Cypher、Gremlin 查詢與優化
+                                    </p>
+                                </div>
+                                <div><h4 class="font-semibold mb-2 flex items-center">
+                                        <i class="fas fa-sitemap mr-2 text-gray-500"></i>
+                                        知識表示與本體論</h4>
+                                    <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">
+                                熟悉 RDF、OWL，能設計領域本體以表述實體與關係
+                                    </p>
+                                </div>
+                                <div><h4 class="font-semibold mb-2 flex items-center">
+                                        <i class="fas fa-extract mr-2 text-gray-500"></i>
+                                        知識抽取
+                                    </h4>
+                                    <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">
+                                        掌握規則式、統計與深度學習方法，自動抽取實體、關係與事件</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-2 flex items-center">
+                                        <i class="fas fa-share-alt mr-2 text-gray-500"></i>圖神經網路 (GNN)
+                                    </h4>
+                                    <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">
+                                        了解 GNN 在推理、推薦、鏈接預測等應用
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Engineering -->
+                <div class="card-hover bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-gray-100 dark:border-gray-700" style="opacity: 0; transform: translateY(30px); transition: opacity 0.8s, transform 0.8s;">
+                    <div class="flex items-start space-x-6">
+                        <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-cogs text-purple-600 dark:text-purple-400 text-2xl tech-icon"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold mb-4 text-purple-600 dark:text-purple-400">
+                                3. 數據工程與架構
+                            </h3>
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4 class="font-semibold mb-2 flex items-center">
+                                        <i class="fas fa-filter mr-2 text-gray-500"></i>
+                                        數據管道
+                                    </h4>
+                                    <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">
+                                        設計可靠的 ETL 流程，支援向量化與圖譜資料準備
+                                    </p>
+                                </div>
+                                <div><h4 class="font-semibold mb-2 flex items-center">
+                                        <i class="fas fa-server mr-2 text-gray-500"></i>
+                                        分散式系統
+                                    </h4>
+                                    <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">
+                                        熟悉 Hadoop、Spark、Kafka 等大規模運算與流處理框架
+                                    </p>
+                                </div>
+                                <div><h4 class="font-semibold mb-2 flex items-center">
+                                        <i class="fas fa-plug mr-2 text-gray-500"></i>
+                                        API設計與開發
+                                    </h4><p class="text-gray-600 dark:text-gray-300 text-sm mb-3">
+                                        能設計 RESTful 或 gRPC 服務，供 RAG 模組整合與外部調用
+                                    </p>
+                                </div>
+                                <div><h4 class="font-semibold mb-2 flex items-center">
+                                        <i class="fas fa-cloud mr-2 text-gray-500"></i>
+                                        雲端平台</h4>
+                                    <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">
+                                        熟悉 AWS、GCP、Azure AI/ML、資料庫與運算資源相關服務
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Software Engineering -->
+                <div class="card-hover bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-gray-100 dark:border-gray-700" style="opacity: 0; transform: translateY(30px); transition: opacity 0.8s, transform 0.8s;">
+                    <div class="flex items-start space-x-6">
+                        <div class="w-16 h-16 bg-orange-100 dark:bg-orange-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-code text-orange-600 dark:text-orange-400 text-2xl tech-icon"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold mb-4 text-orange-600 dark:text-orange-400">
+                                4. 軟體工程與開發
+                            </h3>
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div><h4 class="font-semibold mb-2 flex items-center">
+                                        <i class="fab fa-python mr-2 text-gray-500"></i>
+                                        程式語言
+                                    </h4>
+                                    <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">
+                                        精通 Python（PyTorch、TensorFlow、Transformers、spaCy、NetworkX 等），並可能使用 Java、Go
+                                    </p>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-2 flex items-center">
+                                        <i class="fab fa-docker mr-2 text-gray-500"></i>
+                                        容器化技術
+                                    </h4>
+                                    <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">
+                瞭解 Docker、Kubernetes，用於模型部署與擴展</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-2 flex items-center">
+                                        <i class="fas fa-vial mr-2 text-gray-500"></i>
+                                        測試與品質保證
+                                    </h4>
+                                    <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">
+                                        具備單元測試、整合測試、效能測試與壓力測試能力
+                                    </p>
+                                </div>
+                                <div><h4 class="font-semibold mb-2 flex items-center">
+                                        <i class="fas fa-infinity mr-2 text-gray-500"></i>
+                                        DevOps/MLOps
+                                    </h4><p class="text-gray-600 dark:text-gray-300 text-sm mb-3">
+                                        實踐 CI/CD，並管理機器學習模型的生命週期
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Domain Knowledge -->
+                <div class="card-hover bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-gray-100 dark:border-gray-700" style="opacity: 0; transform: translateY(30px); transition: opacity 0.8s, transform 0.8s;">
+                    <div class="flex items-start space-x-6">
+                        <div class="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-graduation-cap text-red-600 dark:text-red-400 text-2xl tech-icon"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold mb-4 text-red-600 dark:text-red-400">
+                                5. 領域知識
+                            </h3>
+                            <div>
+                                <h4 class="font-semibold mb-2 flex items-center">
+                                    <i class="fas fa-lightbulb mr-2 text-gray-500"></i>
+                                    業務理解
+                                </h4>
+                                <p class="text-gray-600 dark:text-gray-300 text-sm">
+                                    深入了解專案所屬領域，確保系統能提供準確且有價值的回答
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Implementation Plan Section -->
+        <section id="plan" class="mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl lg:text-4xl font-bold mb-6">可行性計畫</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-300">
+                    五階段迭代開發，從需求分析到持續維護的完整實施路徑
+                </p>
+            </div>
+
+            <!-- Phase Chart -->
+            <div class="mb-12">
+                <div id="phase-chart" class="h-96 bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg" _echarts_instance_="ec_1752203716840" style="user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); position: relative;" data-chart-option="{&quot;darkMode&quot;:&quot;auto&quot;,&quot;colorBy&quot;:&quot;series&quot;,&quot;color&quot;:[&quot;#5470c6&quot;,&quot;#91cc75&quot;,&quot;#fac858&quot;,&quot;#ee6666&quot;,&quot;#73c0de&quot;,&quot;#3ba272&quot;,&quot;#fc8452&quot;,&quot;#9a60b4&quot;,&quot;#ea7ccc&quot;],&quot;gradientColor&quot;:[&quot;#f6efa6&quot;,&quot;#d88273&quot;,&quot;#bf444c&quot;],&quot;aria&quot;:{&quot;decal&quot;:{&quot;decals&quot;:[{&quot;color&quot;:&quot;rgba(0, 0, 0, 0.2)&quot;,&quot;dashArrayX&quot;:[1,0],&quot;dashArrayY&quot;:[2,5],&quot;symbolSize&quot;:1,&quot;rotation&quot;:0.5235987755982988},{&quot;color&quot;:&quot;rgba(0, 0, 0, 0.2)&quot;,&quot;symbol&quot;:&quot;circle&quot;,&quot;dashArrayX&quot;:[[8,8],[0,8,8,0]],&quot;dashArrayY&quot;:[6,0],&quot;symbolSize&quot;:0.8},{&quot;color&quot;:&quot;rgba(0, 0, 0, 0.2)&quot;,&quot;dashArrayX&quot;:[1,0],&quot;dashArrayY&quot;:[4,3],&quot;rotation&quot;:-0.7853981633974483},{&quot;color&quot;:&quot;rgba(0, 0, 0, 0.2)&quot;,&quot;dashArrayX&quot;:[[6,6],[0,6,6,0]],&quot;dashArrayY&quot;:[6,0]},{&quot;color&quot;:&quot;rgba(0, 0, 0, 0.2)&quot;,&quot;dashArrayX&quot;:[[1,0],[1,6]],&quot;dashArrayY&quot;:[1,0,6,0],&quot;rotation&quot;:0.7853981633974483},{&quot;color&quot;:&quot;rgba(0, 0, 0, 0.2)&quot;,&quot;symbol&quot;:&quot;triangle&quot;,&quot;dashArrayX&quot;:[[9,9],[0,9,9,0]],&quot;dashArrayY&quot;:[7,2],&quot;symbolSize&quot;:0.75}]}},&quot;textStyle&quot;:{&quot;fontFamily&quot;:&quot;Microsoft YaHei&quot;,&quot;fontSize&quot;:12,&quot;fontStyle&quot;:&quot;normal&quot;,&quot;fontWeight&quot;:&quot;normal&quot;},&quot;stateAnimation&quot;:{&quot;duration&quot;:300,&quot;easing&quot;:&quot;cubicOut&quot;},&quot;animation&quot;:&quot;auto&quot;,&quot;animationDuration&quot;:1000,&quot;animationDurationUpdate&quot;:500,&quot;animationEasing&quot;:&quot;cubicInOut&quot;,&quot;animationEasingUpdate&quot;:&quot;cubicInOut&quot;,&quot;animationThreshold&quot;:2000,&quot;progressiveThreshold&quot;:3000,&quot;progressive&quot;:400,&quot;hoverLayerThreshold&quot;:3000,&quot;useUTC&quot;:false,&quot;title&quot;:[{&quot;text&quot;:&quot;專案實施階段時程&quot;,&quot;left&quot;:&quot;center&quot;,&quot;textStyle&quot;:{&quot;color&quot;:&quot;#f1f5f9&quot;,&quot;fontSize&quot;:18,&quot;fontWeight&quot;:&quot;bold&quot;},&quot;z&quot;:6,&quot;show&quot;:true,&quot;target&quot;:&quot;blank&quot;,&quot;subtext&quot;:&quot;&quot;,&quot;subtarget&quot;:&quot;blank&quot;,&quot;top&quot;:0,&quot;backgroundColor&quot;:&quot;rgba(0,0,0,0)&quot;,&quot;borderColor&quot;:&quot;#ccc&quot;,&quot;borderWidth&quot;:0,&quot;padding&quot;:5,&quot;itemGap&quot;:10,&quot;subtextStyle&quot;:{&quot;fontSize&quot;:12,&quot;color&quot;:&quot;#6E7079&quot;},&quot;right&quot;:null}],&quot;axisPointer&quot;:[{&quot;show&quot;:&quot;auto&quot;,&quot;z&quot;:50,&quot;type&quot;:&quot;line&quot;,&quot;snap&quot;:false,&quot;triggerTooltip&quot;:true,&quot;triggerEmphasis&quot;:true,&quot;value&quot;:null,&quot;status&quot;:null,&quot;link&quot;:[],&quot;animation&quot;:null,&quot;animationDurationUpdate&quot;:200,&quot;lineStyle&quot;:{&quot;color&quot;:&quot;#B9BEC9&quot;,&quot;width&quot;:1,&quot;type&quot;:&quot;dashed&quot;},&quot;shadowStyle&quot;:{&quot;color&quot;:&quot;rgba(210,219,238,0.2)&quot;},&quot;label&quot;:{&quot;show&quot;:true,&quot;formatter&quot;:null,&quot;precision&quot;:&quot;auto&quot;,&quot;margin&quot;:3,&quot;color&quot;:&quot;#fff&quot;,&quot;padding&quot;:[5,7,5,7],&quot;backgroundColor&quot;:&quot;auto&quot;,&quot;borderColor&quot;:null,&quot;borderWidth&quot;:0,&quot;borderRadius&quot;:3},&quot;handle&quot;:{&quot;show&quot;:false,&quot;icon&quot;:&quot;M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7v-1.2h6.6z M13.3,22H6.7v-1.2h6.6z M13.3,19.6H6.7v-1.2h6.6z&quot;,&quot;size&quot;:45,&quot;margin&quot;:50,&quot;color&quot;:&quot;#333&quot;,&quot;shadowBlur&quot;:3,&quot;shadowColor&quot;:&quot;#aaa&quot;,&quot;shadowOffsetX&quot;:0,&quot;shadowOffsetY&quot;:2,&quot;throttle&quot;:40}}],&quot;tooltip&quot;:[{&quot;trigger&quot;:&quot;axis&quot;,&quot;axisPointer&quot;:{&quot;type&quot;:&quot;shadow&quot;,&quot;axis&quot;:&quot;auto&quot;,&quot;animation&quot;:&quot;auto&quot;,&quot;animationDurationUpdate&quot;:200,&quot;animationEasingUpdate&quot;:&quot;exponentialOut&quot;,&quot;crossStyle&quot;:{&quot;color&quot;:&quot;#999&quot;,&quot;width&quot;:1,&quot;type&quot;:&quot;dashed&quot;,&quot;textStyle&quot;:{}}},&quot;z&quot;:60,&quot;show&quot;:true,&quot;showContent&quot;:true,&quot;triggerOn&quot;:&quot;mousemove|click&quot;,&quot;alwaysShowContent&quot;:false,&quot;displayMode&quot;:&quot;single&quot;,&quot;renderMode&quot;:&quot;auto&quot;,&quot;confine&quot;:null,&quot;showDelay&quot;:0,&quot;hideDelay&quot;:100,&quot;transitionDuration&quot;:0.4,&quot;enterable&quot;:false,&quot;backgroundColor&quot;:&quot;#fff&quot;,&quot;shadowBlur&quot;:10,&quot;shadowColor&quot;:&quot;rgba(0, 0, 0, .2)&quot;,&quot;shadowOffsetX&quot;:1,&quot;shadowOffsetY&quot;:2,&quot;borderRadius&quot;:4,&quot;borderWidth&quot;:1,&quot;padding&quot;:null,&quot;extraCssText&quot;:&quot;&quot;,&quot;textStyle&quot;:{&quot;color&quot;:&quot;#666&quot;,&quot;fontSize&quot;:14}}],&quot;yAxis&quot;:[{&quot;type&quot;:&quot;value&quot;,&quot;name&quot;:&quot;週數&quot;,&quot;axisLabel&quot;:{&quot;color&quot;:&quot;#64748b&quot;,&quot;formatter&quot;:&quot;{value}週&quot;,&quot;show&quot;:true,&quot;inside&quot;:false,&quot;rotate&quot;:0,&quot;showMinLabel&quot;:null,&quot;showMaxLabel&quot;:null,&quot;margin&quot;:8,&quot;fontSize&quot;:12},&quot;axisLine&quot;:{&quot;lineStyle&quot;:{&quot;color&quot;:&quot;#e2e8f0&quot;,&quot;width&quot;:1,&quot;type&quot;:&quot;solid&quot;},&quot;show&quot;:&quot;auto&quot;,&quot;onZero&quot;:true,&quot;onZeroAxisIndex&quot;:null,&quot;symbol&quot;:[&quot;none&quot;,&quot;none&quot;],&quot;symbolSize&quot;:[10,15]},&quot;splitLine&quot;:{&quot;lineStyle&quot;:{&quot;color&quot;:&quot;#f1f5f9&quot;,&quot;width&quot;:1,&quot;type&quot;:&quot;solid&quot;},&quot;show&quot;:true},&quot;boundaryGap&quot;:[0,0],&quot;axisTick&quot;:{&quot;show&quot;:&quot;auto&quot;,&quot;inside&quot;:false,&quot;length&quot;:5,&quot;lineStyle&quot;:{&quot;width&quot;:1}},&quot;splitNumber&quot;:5,&quot;minorTick&quot;:{&quot;show&quot;:false,&quot;splitNumber&quot;:5,&quot;length&quot;:3,&quot;lineStyle&quot;:{}},&quot;minorSplitLine&quot;:{&quot;show&quot;:false,&quot;lineStyle&quot;:{&quot;color&quot;:&quot;#F4F7FD&quot;,&quot;width&quot;:1}},&quot;show&quot;:true,&quot;z&quot;:0,&quot;inverse&quot;:false,&quot;nameLocation&quot;:&quot;end&quot;,&quot;nameRotate&quot;:null,&quot;nameTruncate&quot;:{&quot;maxWidth&quot;:null,&quot;ellipsis&quot;:&quot;...&quot;,&quot;placeholder&quot;:&quot;.&quot;},&quot;nameTextStyle&quot;:{},&quot;nameGap&quot;:15,&quot;silent&quot;:false,&quot;triggerEvent&quot;:false,&quot;tooltip&quot;:{&quot;show&quot;:false},&quot;axisPointer&quot;:{},&quot;splitArea&quot;:{&quot;show&quot;:false,&quot;areaStyle&quot;:{&quot;color&quot;:[&quot;rgba(250,250,250,0.2)&quot;,&quot;rgba(210,219,238,0.2)&quot;]}},&quot;offset&quot;:0}],&quot;xAxis&quot;:[{&quot;type&quot;:&quot;category&quot;,&quot;data&quot;:[&quot;需求分析\n技術選型&quot;,&quot;數據準備\n圖譜構建&quot;,&quot;RAG開發\n模型整合&quot;,&quot;部署測試\n系統優化&quot;,&quot;迭代維護\n持續改進&quot;],&quot;axisLabel&quot;:{&quot;color&quot;:&quot;#64748b&quot;,&quot;fontSize&quot;:12,&quot;interval&quot;:&quot;auto&quot;,&quot;show&quot;:true,&quot;inside&quot;:false,&quot;rotate&quot;:0,&quot;showMinLabel&quot;:null,&quot;showMaxLabel&quot;:null,&quot;margin&quot;:8},&quot;axisLine&quot;:{&quot;lineStyle&quot;:{&quot;color&quot;:&quot;#e2e8f0&quot;,&quot;width&quot;:1,&quot;type&quot;:&quot;solid&quot;},&quot;show&quot;:true,&quot;onZero&quot;:true,&quot;onZeroAxisIndex&quot;:null,&quot;symbol&quot;:[&quot;none&quot;,&quot;none&quot;],&quot;symbolSize&quot;:[10,15]},&quot;boundaryGap&quot;:true,&quot;deduplication&quot;:null,&quot;splitLine&quot;:{&quot;show&quot;:false,&quot;lineStyle&quot;:{&quot;color&quot;:[&quot;#E0E6F1&quot;],&quot;width&quot;:1,&quot;type&quot;:&quot;solid&quot;}},&quot;axisTick&quot;:{&quot;alignWithLabel&quot;:false,&quot;interval&quot;:&quot;auto&quot;,&quot;show&quot;:true,&quot;inside&quot;:false,&quot;length&quot;:5,&quot;lineStyle&quot;:{&quot;width&quot;:1}},&quot;show&quot;:true,&quot;z&quot;:0,&quot;inverse&quot;:false,&quot;name&quot;:&quot;&quot;,&quot;nameLocation&quot;:&quot;end&quot;,&quot;nameRotate&quot;:null,&quot;nameTruncate&quot;:{&quot;maxWidth&quot;:null,&quot;ellipsis&quot;:&quot;...&quot;,&quot;placeholder&quot;:&quot;.&quot;},&quot;nameTextStyle&quot;:{},&quot;nameGap&quot;:15,&quot;silent&quot;:false,&quot;triggerEvent&quot;:false,&quot;tooltip&quot;:{&quot;show&quot;:false},&quot;axisPointer&quot;:{&quot;status&quot;:&quot;hide&quot;,&quot;value&quot;:4},&quot;splitArea&quot;:{&quot;show&quot;:false,&quot;areaStyle&quot;:{&quot;color&quot;:[&quot;rgba(250,250,250,0.2)&quot;,&quot;rgba(210,219,238,0.2)&quot;]}},&quot;offset&quot;:0}],&quot;grid&quot;:[{&quot;left&quot;:&quot;3%&quot;,&quot;right&quot;:&quot;4%&quot;,&quot;bottom&quot;:&quot;3%&quot;,&quot;containLabel&quot;:true,&quot;show&quot;:false,&quot;z&quot;:0,&quot;top&quot;:60,&quot;backgroundColor&quot;:&quot;rgba(0,0,0,0)&quot;,&quot;borderWidth&quot;:1,&quot;borderColor&quot;:&quot;#ccc&quot;}],&quot;series&quot;:[{&quot;name&quot;:&quot;時程&quot;,&quot;type&quot;:&quot;bar&quot;,&quot;data&quot;:[{&quot;value&quot;:3,&quot;description&quot;:&quot;明確需求、選擇技術棧、組建團隊&quot;},{&quot;value&quot;:8,&quot;description&quot;:&quot;準備數據、構建知識圖譜、生成向量&quot;},{&quot;value&quot;:10,&quot;description&quot;:&quot;開發RAG模組、設計整合策略&quot;},{&quot;value&quot;:5,&quot;description&quot;:&quot;系統部署、測試、性能優化&quot;},{&quot;value&quot;:12,&quot;description&quot;:&quot;持續維護、迭代改進&quot;}],&quot;itemStyle&quot;:{&quot;borderRadius&quot;:[4,4,0,0]},&quot;emphasis&quot;:{&quot;itemStyle&quot;:{&quot;shadowBlur&quot;:10,&quot;shadowColor&quot;:&quot;rgba(0, 0, 0, 0.3)&quot;},&quot;label&quot;:{}},&quot;z&quot;:2,&quot;coordinateSystem&quot;:&quot;cartesian2d&quot;,&quot;legendHoverLink&quot;:true,&quot;barMinHeight&quot;:0,&quot;barMinAngle&quot;:0,&quot;large&quot;:false,&quot;largeThreshold&quot;:400,&quot;progressive&quot;:3000,&quot;progressiveChunkMode&quot;:&quot;mod&quot;,&quot;clip&quot;:true,&quot;roundCap&quot;:false,&quot;showBackground&quot;:false,&quot;backgroundStyle&quot;:{&quot;color&quot;:&quot;rgba(180, 180, 180, 0.2)&quot;,&quot;borderColor&quot;:null,&quot;borderWidth&quot;:0,&quot;borderType&quot;:&quot;solid&quot;,&quot;borderRadius&quot;:0,&quot;shadowBlur&quot;:0,&quot;shadowColor&quot;:null,&quot;shadowOffsetX&quot;:0,&quot;shadowOffsetY&quot;:0,&quot;opacity&quot;:1},&quot;select&quot;:{&quot;itemStyle&quot;:{&quot;borderColor&quot;:&quot;#212121&quot;}},&quot;realtimeSort&quot;:false,&quot;label&quot;:{}}],&quot;visualMap&quot;:[],&quot;legend&quot;:[],&quot;markArea&quot;:[],&quot;markLine&quot;:[],&quot;markPoint&quot;:[],&quot;brush&quot;:[],&quot;dataZoom&quot;:[]}"><div style="position: relative; width: 1184px; height: 336px; padding: 0px; margin: 0px; border-width: 0px;"><canvas data-zr-dom-id="zr_0" width="1480" height="420" style="position: absolute; left: 0px; top: 0px; width: 1184px; height: 336px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div class=""></div></div>
+            </div>
+            
+            <!-- Timeline -->
+            <div class="space-y-12">
+                <!-- Phase 1 -->
+                <div class="timeline-item" style="opacity: 0; transform: translateY(30px); transition: opacity 0.8s, transform 0.8s;">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-gray-100 dark:border-gray-700">
+                        <div class="flex items-center mb-6">
+                            <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mr-4">
+                                <span class="text-blue-600 dark:text-blue-400 font-bold text-lg">1</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-blue-600 dark:text-blue-400">階段一：需求分析與技術選型</h3>
+                                <p class="text-gray-500 dark:text-gray-400">約 2–4 週</p>
+                            </div>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4">
+                                <h4 class="font-semibold mb-3 flex items-center">
+                                    <i class="fas fa-bullseye mr-2 text-blue-500"></i>
+                                    需求定義
+                                </h4>
+                                <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-1"><li>• 明確目標用戶、使用場景與核心功能</li>
+                                    <li>• 設定回答準確度、召回率、延遲等KPI</li>
+                                    <li>• 識別可用資料來源</li>
+                                    <li>• 定義知識圖譜實體、關係與屬性</li>
+                                </ul>
+                            </div>
+                            <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4">
+                                <h4 class="font-semibold mb-3 flex items-center"><i class="fas fa-tools mr-2 text-green-500"></i>
+                                    技術棧評估
+                                </h4>
+                                <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                                    <li>• LLM：開源 vs 商業模型比較</li>
+                                    <li>• 向量資料庫：Milvus、Pinecone、Weaviate</li>
+                                    <li>• 圖資料庫：Neo4j、ArangoDB、Neptune</li>
+                                    <li>• NLP/KG 工具與框架選擇</li></ul>
+                            </div>
+                            <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4">
+                                <h4 class="font-semibold mb-3 flex items-center">
+                                    <i class="fas fa-users mr-2 text-purple-500"></i>
+                                    團隊組建
+                                </h4>
+                                <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                                    <li>• NLP 工程師</li>
+                                    <li>• 知識圖譜工程師</li><li>• 數據工程師</li>
+                                    <li>• 後端開發與專案經理</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 2 -->
+                <div class="timeline-item" style="opacity: 0; transform: translateY(30px); transition: opacity 0.8s, transform 0.8s;">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-gray-100 dark:border-gray-700">
+                        <div class="flex items-center mb-6">
+                            <div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center mr-4">
+                                <span class="text-green-600 dark:text-green-400 font-bold text-lg">2</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-green-600 dark:text-green-400">階段二：數據準備與知識圖譜構建</h3>
+                                <p class="text-gray-500 dark:text-gray-400">約 6–10 週</p>
+                            </div>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4">
+                                <h4 class="font-semibold mb-3 flex items-center">
+                                    <i class="fas fa-file-alt mr-2 text-blue-500"></i>
+                                    非結構化數據處理
+                                </h4>
+                                <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                                    <li>• 數據採集與原始文本獲取</li><li>• 文本預處理：分詞、去噪、格式統一</li>
+                                    <li>• 實體與關係抽取</li>
+                </ul>
+                            </div>
+                            <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4">
+                                <h4 class="font-semibold mb-3 flex items-center">
+                                    <i class="fas fa-project-diagram mr-2 text-green-500"></i>
+                                    知識圖譜建模
+                                </h4>
+                                <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                                    <li>• 本體論設計：定義實體、屬性與關係</li><li>• 知識圖譜實例化與載入</li>
+                                    <li>• 知識補全與驗證</li>
+                                </ul>
+                            </div>
+                            <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4">
+                                <h4 class="font-semibold mb-3 flex items-center"><i class="fas fa-vector-square mr-2 text-purple-500"></i>
+                                    向量化數據準備
+                                </h4>
+                                <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                                    <li>• 文本切分：適合LLM 處理的塊</li>
+                                    <li>• 向量嵌入生成</li>
+                                    <li>• 向量庫載入：存儲向量與元數據</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 3 -->
+                <div class="timeline-item" style="opacity: 0; transform: translateY(30px); transition: opacity 0.8s, transform 0.8s;">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-gray-100 dark:border-gray-700">
+                        <div class="flex items-center mb-6">
+                            <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center mr-4">
+                                <span class="text-purple-600 dark:text-purple-400 font-bold text-lg">3</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-purple-600 dark:text-purple-400">階段三：RAG 模型開發與整合</h3>
+                                <p class="text-gray-500 dark:text-gray-400">約 8–12 週</p>
+                            </div>
+                        </div><div class="grid md:grid-cols-3 gap-6">
+                            <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4">
+                                <h4 class="font-semibold mb-3 flex items-center">
+                                    <i class="fas fa-search mr-2 text-blue-500"></i>
+                                    向量化RAG 模組
+                                </h4>
+                                <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                                    <li>•檢索器：向量相似度檢索邏輯</li>
+                                    <li>• 生成器：組合檢索上下文與查詢</li>
+                                    <li>• 初步評估：基準測試性能</li>
+                                </ul>
+                            </div>
+                            <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4">
+                                <h4 class="font-semibold mb-3 flex items-center">
+                                    <i class="fas fa-sitemap mr-2 text-green-500"></i>
+                                    知識圖譜 RAG 模組
+                                </h4>
+                                <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                                    <li>• 查詢解析：映射為圖查詢意圖</li><li>• 圖譜檢索與推理</li>
+                                    <li>• 結果文本化：轉換為自然語言</li>
+                                </ul>
+                            </div>
+                            <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4">
+                                <h4 class="font-semibold mb-3 flex items-center">
+                                    <i class="fas fa-compress-arrows-alt mr-2 text-purple-500"></i>
+                                    整合策略設計
+                                </h4>
+                                <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                                    <li>• 並行檢索與融合</li>
+                                    <li>• 序列化檢索流程</li>
+                                    <li>• 意圖路由：動態選擇檢索方案</li>
+                <li>• 最終生成：融合結果輸入LLM</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 4 -->
+                <div class="timeline-item" style="opacity: 0; transform: translateY(30px); transition: opacity 0.8s, transform 0.8s;">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-gray-100 dark:border-gray-700">
+                        <div class="flex items-center mb-6">
+                            <div class="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-lg flex items-center justify-center mr-4">
+                                <span class="text-orange-600 dark:text-orange-400 font-bold text-lg">4</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-orange-600 dark:text-orange-400">階段四：部署、測試與優化</h3>
+                                <p class="text-gray-500 dark:text-gray-400">約 4–6 週</p>
+                            </div>
+                        </div><div class="grid md:grid-cols-4 gap-6">
+                            <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4">
+                                <h4 class="font-semibold mb-3 flex items-center">
+                                    <i class="fas fa-rocket mr-2 text-blue-500"></i>
+                                    模型部署
+                                </h4>
+                                <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-1"><li>• Docker &amp; Kubernetes 微服務化</li>
+                                    <li>• API網關與負載均衡</li>
+                </ul>
+                            </div>
+                            <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4">
+                                <h4 class="font-semibold mb-3 flex items-center">
+                                    <i class="fas fa-vial mr-2 text-green-500"></i>
+                                    系統測試
+                                </h4>
+                                <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                                    <li>• 功能測試</li>
+                                    <li>• 性能測試</li>
+                                    <li>• 壓力測試</li><li>• 安全測試</li>
+                                </ul>
+                            </div>
+                            <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4">
+                                <h4 class="font-semibold mb-3 flex items-center">
+                                    <i class="fas fa-chart-line mr-2 text-purple-500"></i>
+                                    性能監控
+                                </h4>
+                                <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                                    <li>• 監控儀表板</li>
+                                    <li>• 準確率、召回率追蹤</li>
+                                    <li>• 持續微調優化</li></ul>
+                            </div>
+                <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4">
+                                <h4 class="font-semibold mb-3 flex items-center"><i class="fas fa-desktop mr-2 text-orange-500"></i>
+                                    用戶介面
+                                </h4>
+                                <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                                    <li>• Web 前端開發</li>
+                                    <li>• 現有應用整合</li></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 5 -->
+                <div class="timeline-item" style="opacity: 0; transform: translateY(30px); transition: opacity 0.8s, transform 0.8s;">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg border border-gray-100 dark:border-gray-700">
+                        <div class="flex items-center mb-6">
+                            <div class="w-12 h-12 bg-red-100 dark:bg-red-900/30 rounded-lg flex items-center justify-center mr-4">
+                                <span class="text-red-600 dark:text-red-400 font-bold text-lg">5</span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-red-600 dark:text-red-400">階段五：迭代與維護</h3>
+                                <p class="text-gray-500 dark:text-gray-400">持續進行</p>
+                            </div>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-4 gap-6">
+                            <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4">
+                                <h4 class="font-semibold mb-3 flex items-center">
+                                    <i class="fas fa-sync-alt mr-2 text-blue-500"></i>
+                                    數據更新
+                                </h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">
+                                    定期更新非結構化數據和知識圖譜
+                                </p>
+                            </div>
+                            <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4">
+                                <h4 class="font-semibold mb-3 flex items-center">
+                                    <i class="fas fa-brain mr-2 text-green-500"></i>
+                                    模型優化
+                                </h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">
+                                    根據用戶反饋與新數據微調模型
+                                </p>
+                            </div>
+                            <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4">
+                                <h4 class="font-semibold mb-3 flex items-center">
+                                    <i class="fas fa-comments mr-2 text-purple-500"></i>
+                                    用戶反饋
+                                </h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">
+                                    收集用戶反饋，持續改進系統
+                                </p>
+                            </div>
+                            <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4">
+                                <h4 class="font-semibold mb-3 flex items-center">
+                                    <i class="fas fa-level-up-alt mr-2 text-red-500"></i>
+                                    技術升級
+                                </h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">
+                                    關注最新進展，適時升級技術棧
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feasibility Assessment -->
+        <section id="assessment" class="mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl lg:text-4xl font-bold mb-6">可行性評估考量點</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-300">
+                    實施專案前需仔細評估的關鍵要素
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card-hover bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-gray-700" style="opacity: 0; transform: translateY(30px); transition: opacity 0.8s, transform 0.8s;">
+                    <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-database text-blue-600 dark:text-blue-400 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">數據可用性與質量</h3>
+                    <p class="text-gray-600 dark:text-gray-300">是否有足夠高品質數據支持訓練與圖譜構建</p>
+                </div>
+                
+                <div class="card-hover bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-gray-700" style="opacity: 0; transform: translateY(30px); transition: opacity 0.8s, transform 0.8s;">
+                    <div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-microchip text-green-600 dark:text-green-400 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">計算資源</h3>
+                    <p class="text-gray-600 dark:text-gray-300">GPU 等運算資源是否足以支援大規模訓練與檢索</p>
+                </div><div class="card-hover bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-gray-700" style="opacity: 0; transform: translateY(30px); transition: opacity 0.8s, transform 0.8s;">
+                    <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-cog text-purple-600 dark:text-purple-400 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">技術成熟度</h3>
+                    <p class="text-gray-600 dark:text-gray-300">開源工具與模型是否夠穩定以投入生產</p>
+                </div>
+                
+                <div class="card-hover bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-gray-700" style="opacity: 0; transform: translateY(30px); transition: opacity 0.8s, transform 0.8s;">
+                    <div class="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-users text-orange-600 dark:text-orange-400 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">人才儲備</h3>
+                    <p class="text-gray-600 dark:text-gray-300">團隊是否具備所有所需專業，或需外部協作</p>
+                </div>
+                
+                <div class="card-hover bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-gray-700" style="opacity: 0; transform: translateY(30px); transition: opacity 0.8s, transform 0.8s;">
+                    <div class="w-12 h-12 bg-red-100 dark:bg-red-900/30 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-dollar-sign text-red-600 dark:text-red-400 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">預算與時間</h3>
+                    <p class="text-gray-600 dark:text-gray-300">專案複雜度對應的成本與開發週期</p>
+                </div>
+                
+                <div class="card-hover bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-gray-700" style="opacity: 0; transform: translateY(30px); transition: opacity 0.8s, transform 0.8s;">
+                    <div class="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fas fa-expand-arrows-alt text-indigo-600 dark:text-indigo-400 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">可擴展性</h3>
+                    <p class="text-gray-600 dark:text-gray-300">設計須考量未來資料與用戶增長</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conclusion -->
+        <section class="text-center mb-20">
+            <div class="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl p-12">
+                <h2 class="text-3xl lg:text-4xl font-bold mb-6">專案總結</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
+                    建置整合式向量化RAG與知識圖譜RAG專案雖具挑戰，但可大幅提升問答系統的準確性與知識深度。
+                    透過上述專業知識與可行性計畫，可為專案成功實施奠定堅實基礎。此類專案將為企業帶來更智能的資訊檢索和應用能力，在人工智慧時代中保持競爭優勢。
+                </p>
+                <div class="mt-8">
+                    <div class="inline-flex items-center space-x-2 bg-white dark:bg-gray-800 rounded-full px-6 py-3 shadow-lg">
+                        <i class="fas fa-star text-yellow-500"></i>
+                        <span class="font-semibold">創新技術整合 × 實務可行方案</span><i class="fas fa-star text-yellow-500"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="mb-6 md:mb-0">
+                    <h3 class="text-xl font-bold mb-2">作者資訊</h3>
+                    <p class="text-gray-300mb-2">
+                        <i class="fas fa-user mr-2"></i>
+                        作者：花繼利
+                    </p>
+                    <div class="flex items-center space-x-4">
+                        <a href="https://twitter.com/" class="text-blue-400 hover:text-blue-300transition-colors duration-200">
+                            <i class="fab fa-twitter mr-1"></i>
+                            Twitter/X
+                        </a>
+                    </div>
+                </div>
+                <div class="text-center md:text-right">
+                    <p class="text-gray-300">
+                        <i class="fas fa-copyright mr-2"></i>
+                        © 2025 版權所有
+                    </p><p class="text-sm text-gray-400mt-1">
+                        專業AI技術諮詢與解決方案
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        // Check for saved theme preference or default to 'light' mode
+        const currentTheme = localStorage.getItem('theme') || 
+                           (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+        if (currentTheme === 'dark') {
+            html.classList.add('dark');
+        }
+
+        themeToggle.addEventListener('click', function() {
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+        });
+
+        // Initialize Mermaid
+        mermaid.initialize({ 
+            theme: 'default',
+            startOnLoad: true,
+            themeVariables: {
+                primaryColor: '#0ea5e9',
+                primaryTextColor: '#1e293b',
+                primaryBorderColor: '#0369a1',
+                lineColor: '#64748b'
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate elements on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all cards and sections
+            document.querySelectorAll('.card-hover, .timeline-item').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                observer.observe(el);
+            });
+
+            // Phase Chart
+            initPhaseChart();
+        });
+
+        function initPhaseChart() {
+            const chartDom = document.getElementById('phase-chart');
+            if (!chartDom) return;
+            
+            const myChart = echarts.init(chartDom);
+            
+            const option = {
+                title: {
+                    text: '專案實施階段時程',
+                    left: 'center',
+                    textStyle: {
+                        color: getComputedStyle(document.documentElement).getPropertyValue('--tw-text-opacity') ? '#1e293b' : '#f1f5f9',
+                        fontSize: 18,
+                        fontWeight: 'bold'
+                    }
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    },
+                    formatter: function(params) {
+                        const data = params[0];
+                        return `<strong>${data.name}</strong><br/>預估時間：${data.value}週<br/>
+                                階段重點：${data.data.description}`;
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['需求分析\n技術選型', '數據準備\n圖譜構建', 'RAG開發\n模型整合', '部署測試\n系統優化', '迭代維護\n持續改進'],
+                    axisLabel: {
+                        color: '#64748b',
+                        fontSize: 12
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#e2e8f0'
+                        }
+                    }
+                },
+                yAxis: {
+                    type: 'value',
+                    name: '週數',
+                    axisLabel: {
+                        color: '#64748b',
+                        formatter: '{value}週'
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#e2e8f0'
+                        }
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: '#f1f5f9'
+                        }
+                    }
+                },
+                series: [{
+                    name: '時程',
+                    type: 'bar',
+                    data: [
+                        {value: 3, description: '明確需求、選擇技術棧、組建團隊'},
+                        {value: 8, description: '準備數據、構建知識圖譜、生成向量'},
+                        {value: 10, description: '開發RAG模組、設計整合策略'},
+                        {value: 5, description: '系統部署、測試、性能優化'},
+                        {value: 12, description: '持續維護、迭代改進'}
+                    ],
+                    itemStyle: {
+                        color: function(params) {
+                            const colors = ['#0ea5e9', '#10b981', '#8b5cf6', '#f59e0b', '#ef4444'];
+                            return colors[params.dataIndex];
+                        },
+                        borderRadius: [4, 4, 0, 0]
+                    },
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowColor: 'rgba(0, 0, 0, 0.3)'
+                        }
+                    }
+                }]
+            };
+
+            myChart.setOption(option);
+
+            // Responsive chart
+            window.addEventListener('resize', function() {
+                myChart.resize();
+            });
+
+            // Theme change handling
+            const themeObserver = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.attributeName === 'class') {
+                        const isDark = document.documentElement.classList.contains('dark');
+                        const newOption = {...option};
+                        newOption.title.textStyle.color = isDark ? '#f1f5f9' : '#1e293b';
+                        newOption.xAxis.axisLabel.color = isDark ? '#94a3b8' : '#64748b';
+                        newOption.yAxis.axisLabel.color = isDark ? '#94a3b8' : '#64748b';
+                        newOption.xAxis.axisLine.lineStyle.color = isDark ? '#374151' : '#e2e8f0';
+                        newOption.yAxis.axisLine.lineStyle.color = isDark ? '#374151' : '#e2e8f0';
+                        newOption.yAxis.splitLine.lineStyle.color = isDark ? '#374151' : '#f1f5f9';
+                        myChart.setOption(newOption);
+                    }
+                });
+            });
+            themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+        }
+
+        // Add smooth hover effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card-hover');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"95d5230d588a6b78","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.6.2","token":"411a3f34bb35430c8f79d9497eb73354"}' crossorigin="anonymous"></script>
+</body></html>

@@ -1,0 +1,1178 @@
+
+<!DOCTYPE html><html lang="zh-TW" data-google-analytics-opt-out=""><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>知識圖譜RAG整合完整指南</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/material-icons@1.13.14/iconfont/material-icons.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/preline@3.0.1/dist/preline.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            900: '#0c4a6e'
+                        },
+                        accent: {
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#059669'
+                        }
+                    },
+                    fontFamily: {
+                        'sans': ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .slide-in-left {
+            animation: slideInLeft 0.8s ease-out;
+        }
+        
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .hover-scale {
+            transition: transform 0.2s ease;
+        }
+        
+        .hover-scale:hover {
+            transform: scale(1.02);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .dark .glass-effect {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+<script src="https://felo.ai/js/webpageIframe.js"></script>
+ <style>
+* {
+  scrollbar-width: thin !important;
+  scrollbar-color: #bfc5ce transparent !important;
+}
+*::-webkit-scrollbar {
+  width: 6px !important;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #bfc5ce !important;
+  border-radius: 9999px !important;
+}
+*::-webkit-scrollbar-track {
+  background-color: transparent !important;
+  border-radius: 9999px !important;
+}
+</style><style data-id="immersive-translate-input-injected-css">.immersive-translate-input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 2147483647;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.immersive-translate-attach-loading::after {
+  content: " ";
+
+  --loading-color: #f78fb6;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: block;
+  margin: 12px auto;
+  position: relative;
+  color: white;
+  left: -100px;
+  box-sizing: border-box;
+  animation: immersiveTranslateShadowRolling 1.5s linear infinite;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-2000%, -50%);
+  z-index: 100;
+}
+
+.immersive-translate-loading-spinner {
+  vertical-align: middle !important;
+  width: 10px !important;
+  height: 10px !important;
+  display: inline-block !important;
+  margin: 0 4px !important;
+  border: 2px rgba(221, 244, 255, 0.6) solid !important;
+  border-top: 2px rgba(0, 0, 0, 0.375) solid !important;
+  border-left: 2px rgba(0, 0, 0, 0.375) solid !important;
+  border-radius: 50% !important;
+  padding: 0 !important;
+  -webkit-animation: immersive-translate-loading-animation 0.6s infinite linear !important;
+  animation: immersive-translate-loading-animation 0.6s infinite linear !important;
+}
+
+@-webkit-keyframes immersive-translate-loading-animation {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(359deg);
+  }
+}
+
+@keyframes immersive-translate-loading-animation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.immersive-translate-input-loading {
+  --loading-color: #f78fb6;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: block;
+  margin: 12px auto;
+  position: relative;
+  color: white;
+  left: -100px;
+  box-sizing: border-box;
+  animation: immersiveTranslateShadowRolling 1.5s linear infinite;
+}
+
+@keyframes immersiveTranslateShadowRolling {
+  0% {
+    box-shadow: 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0),
+      0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
+  }
+
+  12% {
+    box-shadow: 100px 0 var(--loading-color), 0px 0 rgba(255, 255, 255, 0),
+      0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
+  }
+
+  25% {
+    box-shadow: 110px 0 var(--loading-color), 100px 0 var(--loading-color),
+      0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
+  }
+
+  36% {
+    box-shadow: 120px 0 var(--loading-color), 110px 0 var(--loading-color),
+      100px 0 var(--loading-color), 0px 0 rgba(255, 255, 255, 0);
+  }
+
+  50% {
+    box-shadow: 130px 0 var(--loading-color), 120px 0 var(--loading-color),
+      110px 0 var(--loading-color), 100px 0 var(--loading-color);
+  }
+
+  62% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 130px 0 var(--loading-color),
+      120px 0 var(--loading-color), 110px 0 var(--loading-color);
+  }
+
+  75% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0),
+      130px 0 var(--loading-color), 120px 0 var(--loading-color);
+  }
+
+  87% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0),
+      200px 0 rgba(255, 255, 255, 0), 130px 0 var(--loading-color);
+  }
+
+  100% {
+    box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0),
+      200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0);
+  }
+}
+
+.immersive-translate-toast {
+  display: flex;
+  position: fixed;
+  z-index: 2147483647;
+  left: 0;
+  right: 0;
+  top: 1%;
+  width: fit-content;
+  padding: 12px 20px;
+  margin: auto;
+  overflow: auto;
+  background: #fef6f9;
+  box-shadow: 0px 4px 10px 0px rgba(0, 10, 30, 0.06);
+  font-size: 15px;
+  border-radius: 8px;
+  color: #333;
+}
+
+.immersive-translate-toast-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.immersive-translate-toast-hidden {
+  margin: 0 20px 0 72px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.immersive-translate-toast-close {
+  color: #666666;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .immersive-translate-toast {
+    top: 0;
+    padding: 12px 0px 0 10px;
+  }
+  .immersive-translate-toast-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  .immersive-translate-toast-hidden {
+    margin: 10px auto;
+  }
+}
+
+.immersive-translate-modal {
+  display: none;
+  position: fixed;
+  z-index: 2147483647;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+  font-size: 15px;
+}
+
+.immersive-translate-modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 40px 24px 24px;
+  border-radius: 12px;
+  width: 350px;
+  font-family: system-ui, -apple-system, "Segoe UI", "Roboto", "Ubuntu",
+    "Cantarell", "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
+  position: relative;
+}
+
+@media screen and (max-width: 768px) {
+  .immersive-translate-modal-content {
+    margin: 50% auto !important;
+  }
+}
+
+.immersive-translate-modal .immersive-translate-modal-content-in-input {
+  max-width: 500px;
+}
+.immersive-translate-modal-content-in-input .immersive-translate-modal-body {
+  text-align: left;
+  max-height: unset;
+}
+
+.immersive-translate-modal-title {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #333333;
+}
+
+.immersive-translate-modal-body {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+  color: #333333;
+  margin-top: 24px;
+}
+
+@media screen and (max-width: 768px) {
+  .immersive-translate-modal-body {
+    max-height: 250px;
+    overflow-y: auto;
+  }
+}
+
+.immersive-translate-close {
+  color: #666666;
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.immersive-translate-close:hover,
+.immersive-translate-close:focus {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.immersive-translate-modal-footer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+.immersive-translate-btn {
+  width: fit-content;
+  color: #fff;
+  background-color: #ea4c89;
+  border: none;
+  font-size: 14px;
+  margin: 0 8px;
+  padding: 9px 30px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.immersive-translate-btn:hover {
+  background-color: #f082ac;
+}
+.immersive-translate-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.immersive-translate-btn:disabled:hover {
+  background-color: #ea4c89;
+}
+
+.immersive-translate-cancel-btn {
+  /* gray color */
+  background-color: rgb(89, 107, 120);
+}
+
+.immersive-translate-cancel-btn:hover {
+  background-color: hsl(205, 20%, 32%);
+}
+
+.immersive-translate-action-btn {
+  background-color: transparent;
+  color: #ea4c89;
+  border: 1px solid #ea4c89;
+}
+
+.immersive-translate-btn svg {
+  margin-right: 5px;
+}
+
+.immersive-translate-link {
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: none;
+  text-decoration: none;
+  color: #007bff;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+}
+
+.immersive-translate-primary-link {
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: none;
+  text-decoration: none;
+  color: #ea4c89;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+}
+
+.immersive-translate-modal input[type="radio"] {
+  margin: 0 6px;
+  cursor: pointer;
+}
+
+.immersive-translate-modal label {
+  cursor: pointer;
+}
+
+.immersive-translate-close-action {
+  position: absolute;
+  top: 2px;
+  right: 0px;
+  cursor: pointer;
+}
+
+.imt-image-status {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 16px !important;
+}
+.imt-image-status img,
+.imt-image-status svg,
+.imt-img-loading {
+  width: 28px !important;
+  height: 28px !important;
+  margin: 0 0 8px 0 !important;
+  min-height: 28px !important;
+  min-width: 28px !important;
+  position: relative !important;
+}
+.imt-img-loading {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4CAMAAACfWMssAAAAtFBMVEUAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////oK74hAAAAPHRSTlMABBMIDyQXHwyBfFdDMSw+OjXCb+5RG51IvV/k0rOqlGRM6KKMhdvNyZBz9MaupmxpWyj437iYd/yJVNZeuUC7AAACt0lEQVRIx53T2XKiUBCA4QYOiyCbiAsuuGBcYtxiYtT3f6/pbqoYHVFO5r+iivpo6DpAWYpqeoFfr9f90DsYAuRSWkFnPO50OgR9PwiCUFcl2GEcx+N/YBh6pvKaefHlUgZd1zVe0NbYcQjGBfzrPE8Xz8aF+71D8gG6DHFPpc4a7xFiCDuhaWgKgGIJQ3d5IMGDrpS4S5KgpIm+en9f6PlAhKby4JwEIxlYJV9h5k5nee9GoxHJ2IDSNB0dwdad1NAxDJ/uXDHYmebdk4PdbkS58CIVHdYSUHTYYRWOJblWSyu2lmy3KNFVJNBhxcuGW4YBVCbYGRZwIooipHsNqjM4FbgOQqQqSKQQU9V8xmi1QlgHqQQ6DDBvRUVCDirs+EzGDGOQTCATgtYTnbCVLgsVgRE0T1QE0qHCFAht2z6dLvJQs3Lo2FQoDxWNUiBhaP4eRgwNkI+dAjVOA/kUrIDwf3CG8NfNOE0eiFotSuo+rBiq8tD9oY4Qzc6YJw99hl1wzpQvD7ef2M8QgnOGJfJw+EltQc+oX2yn907QB22WZcvlUpd143dqQu+8pCJZuGE4xCuPXJqqcs5sNpsI93Rmzym1k4Npk+oD1SH3/a3LOK/JpUBpWfqNySxWzCfNCUITuDG5dtuphrUJ1myeIE9bIsPiKrfqTai5WZxbhtNphYx6GEIHihyGFTI69lje/rxajdh0s0msZ0zYxyPLhYCb1CyHm9Qsd2H37Y3lugVwL9kNh8Ot8cha6fUNQ8nuXi5z9/ExsAO4zQrb/ev1yrCB7lGyQzgYDGuxq1toDN/JGvN+HyWNHKB7zEoK+PX11e12G431erGYzwmytAWU56fkMHY5JJnDRR2eZji3AwtIcrEV8Cojat/BdQ7XOwGV1e1hDjGGjXbdArm8uJZtCH5MbcctVX8A1WpqumJHwckAAAAASUVORK5CYII=");
+  background-size: 28px 28px;
+  animation: image-loading-rotate 1s linear infinite !important;
+}
+
+.imt-image-status span {
+  color: var(--bg-2, #fff) !important;
+  font-size: 14px !important;
+  line-height: 14px !important;
+  font-weight: 500 !important;
+  font-family: "PingFang SC", Arial, sans-serif !important;
+}
+
+@keyframes image-loading-rotate {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+</style></head>
+<body class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300 vsc-initialized" contenteditable="false" spellcheck="false">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-700">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="p-2 bg-primary-500 rounded-lg">
+                        <i class="fas fa-project-diagram text-white"></i>
+                    </div>
+                    <h1 class="text-xl font-semibold text-gray-900 dark:text-white">知識圖譜RAG整合指南</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <!-- Dark Mode Toggle -->
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-moon dark:hidden text-gray-600"></i>
+                        <i class="fas fa-sun hidden dark:block text-yellow-400"></i>
+                    </button><!-- Progress Indicator -->
+                    <div class="hidden md:flex items-center space-x-2">
+                        <span class="text-sm text-gray-600 dark:text-gray-400">進度</span>
+                        <div class="w-32 h-2 bg-gray-200 dark:bg-gray-700 rounded-full">
+                            <div class="h-2 bg-primary-500 rounded-full transition-all duration-300" style="width: 0%;" id="progress-bar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Hero Section -->
+        <section class="mb-16 text-center fade-in animate-fade-in">
+            <div class="gradient-bg rounded-3xl p-12 text-white">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">
+                    最快速整合知識圖譜RAG到現有向量化RAG系統的方法
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 opacity-90">
+                    採用混合式檢索與基於意圖的路由策略
+                </p>
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <div class="glass-effect px-6 py-3 rounded-full">
+                        <i class="fas fa-rocket mr-2"></i>
+                        快速整合
+                    </div>
+                    <div class="glass-effect px-6 py-3 rounded-full">
+                        <i class="fas fa-shield-alt mr-2"></i>
+                        最小化改動
+                    </div>
+                    <div class="glass-effect px-6 py-3 rounded-full">
+                        <i class="fas fa-chart-line mr-2"></i>
+                逐步導入
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Table of Contents -->
+        <section class="mb-16 animate-fade-in">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8border border-gray-100 dark:border-gray-700">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8 flex items-center">
+                    <i class="fas fa-list-ul text-primary-500 mr-3"></i>
+                    目錄
+                </h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-4"><a href="#strategy" class="block p-4 rounded-xl bg-gray-50 dark:bg-gray-700 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors hover-scale">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-primary-500 text-white rounded-lg flex items-center justify-center text-sm font-semibold">1</div>
+                                <span class="font-medium text-gray-900 dark:text-white">核心整合策略概述</span>
+                            </div></a>
+                        <a href="#phase1" class="block p-4 rounded-xl bg-gray-50 dark:bg-gray-700 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors hover-scale">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-primary-500 text-white rounded-lg flex items-center justify-center text-sm font-semibold">2</div>
+                                <span class="font-medium text-gray-900 dark:text-white">階段一：知識圖譜快速建立與填充</span>
+                            </div></a>
+                        <a href="#phase2" class="block p-4 rounded-xl bg-gray-50 dark:bg-gray-700 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors hover-scale">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-primary-500 text-white rounded-lg flex items-center justify-center text-sm font-semibold">3</div>
+                                <span class="font-medium text-gray-900 dark:text-white">階段二：查詢模組開發與API 封裝</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="space-y-4">
+                        <a href="#phase3" class="block p-4 rounded-xl bg-gray-50 dark:bg-gray-700 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors hover-scale">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-primary-500 text-white rounded-lg flex items-center justify-center text-sm font-semibold">4</div>
+                                <span class="font-medium text-gray-900 dark:text-white">階段三：整合至向量化 RAG 工作流</span>
+                            </div>
+                        </a>
+                        <a href="#advantages" class="block p-4 rounded-xl bg-gray-50 dark:bg-gray-700 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors hover-scale">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-primary-500 text-white rounded-lg flex items-center justify-center text-sm font-semibold">5</div>
+                                <span class="font-medium text-gray-900 dark:text-white">優勢與考量</span>
+                            </div>
+                        </a>
+                        <a href="#summary" class="block p-4 rounded-xl bg-gray-50 dark:bg-gray-700 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors hover-scale">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-primary-500 text-white rounded-lg flex items-center justify-center text-sm font-semibold">6</div>
+                                <span class="font-medium text-gray-900 dark:text-white">總結與未來展望</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Strategy Section -->
+        <section id="strategy" class="mb-16 fade-in animate-fade-in">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 border border-gray-100 dark:border-gray-700">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8 flex items-center">
+                    <i class="fas fa-cogs text-primary-500 mr-3"></i>
+                    核心整合策略
+                </h2>
+                
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">分階段、模組化導入</h3>
+                        <ul class="space-y-3 text-gray-700 dark:text-gray-300">
+                            <li class="flex items-start space-x-3">
+                                <i class="fas fa-check-circle text-accent-500 mt-1"></i>
+                                <span>混合檢索 + 意圖路由</span>
+                            </li>
+                            <li class="flex items-start space-x-3">
+                                <i class="fas fa-check-circle text-accent-500 mt-1"></i>
+                                <span>在檢索前判定查詢類型</span>
+                            </li>
+                            <li class="flex items-start space-x-3">
+                                <i class="fas fa-check-circle text-accent-500 mt-1"></i>
+                                <span>動態呼叫知識圖譜或向量檢索</span>
+                            </li>
+                            <li class="flex items-start space-x-3">
+                                <i class="fas fa-check-circle text-accent-500 mt-1"></i>
+                                <span>最小化對現有系統的侵入性</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <!-- Mermaid Flowchart -->
+                        <div class="mermaid bg-gray-50 dark:bg-gray-700 rounded-xl p-4" data-processed="true"><svg aria-roledescription="flowchart-v2" role="graphics-document document" viewBox="-7.999996185302734 -8 380.1499938964844 514" style="max-width: 380.1499938964844px;" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="100%" id="mermaid-1752202448763"><style>#mermaid-1752202448763{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#333;}#mermaid-1752202448763 .error-icon{fill:#552222;}#mermaid-1752202448763 .error-text{fill:#552222;stroke:#552222;}#mermaid-1752202448763 .edge-thickness-normal{stroke-width:2px;}#mermaid-1752202448763 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-1752202448763 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-1752202448763 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-1752202448763 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-1752202448763 .marker{fill:#6b7280;stroke:#6b7280;}#mermaid-1752202448763 .marker.cross{stroke:#6b7280;}#mermaid-1752202448763 svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#mermaid-1752202448763 .label{font-family:"trebuchet ms",verdana,arial,sans-serif;color:#333;}#mermaid-1752202448763 .cluster-label text{fill:#333;}#mermaid-1752202448763 .cluster-label span,#mermaid-1752202448763 p{color:#333;}#mermaid-1752202448763 .label text,#mermaid-1752202448763 span,#mermaid-1752202448763 p{fill:#333;color:#333;}#mermaid-1752202448763 .node rect,#mermaid-1752202448763 .node circle,#mermaid-1752202448763 .node ellipse,#mermaid-1752202448763 .node polygon,#mermaid-1752202448763 .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#mermaid-1752202448763 .flowchart-label text{text-anchor:middle;}#mermaid-1752202448763 .node .label{text-align:center;}#mermaid-1752202448763 .node.clickable{cursor:pointer;}#mermaid-1752202448763 .arrowheadPath{fill:#333333;}#mermaid-1752202448763 .edgePath .path{stroke:#6b7280;stroke-width:2.0px;}#mermaid-1752202448763 .flowchart-link{stroke:#6b7280;fill:none;}#mermaid-1752202448763 .edgeLabel{background-color:#e8e8e8;text-align:center;}#mermaid-1752202448763 .edgeLabel rect{opacity:0.5;background-color:#e8e8e8;fill:#e8e8e8;}#mermaid-1752202448763 .labelBkg{background-color:rgba(232, 232, 232, 0.5);}#mermaid-1752202448763 .cluster rect{fill:#ffffde;stroke:#aaaa33;stroke-width:1px;}#mermaid-1752202448763 .cluster text{fill:#333;}#mermaid-1752202448763 .cluster span,#mermaid-1752202448763 p{color:#333;}#mermaid-1752202448763 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:12px;background:#e5e7eb;border:1px solid #aaaa33;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-1752202448763 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#333;}#mermaid-1752202448763 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style><g><marker orient="auto" markerHeight="12" markerWidth="12" markerUnits="userSpaceOnUse" refY="5" refX="6" viewBox="0 0 10 10" class="marker flowchart" id="mermaid-1752202448763_flowchart-pointEnd"><path style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 0 0 L 10 5 L 0 10 z"></path></marker><marker orient="auto" markerHeight="12" markerWidth="12" markerUnits="userSpaceOnUse" refY="5" refX="4.5" viewBox="0 0 10 10" class="marker flowchart" id="mermaid-1752202448763_flowchart-pointStart"><path style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 0 5 L 10 10 L 10 0 z"></path></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5" refX="11" viewBox="0 0 10 10" class="marker flowchart" id="mermaid-1752202448763_flowchart-circleEnd"><circle style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" r="5" cy="5" cx="5"></circle></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5" refX="-1" viewBox="0 0 10 10" class="marker flowchart" id="mermaid-1752202448763_flowchart-circleStart"><circle style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" r="5" cy="5" cx="5"></circle></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5.2" refX="12" viewBox="0 0 11 11" class="marker cross flowchart" id="mermaid-1752202448763_flowchart-crossEnd"><path style="stroke-width: 2; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 1,1 l 9,9 M 10,1 l -9,9"></path></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5.2" refX="-1" viewBox="0 0 11 11" class="marker cross flowchart" id="mermaid-1752202448763_flowchart-crossStart"><path style="stroke-width: 2; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 1,1 l 9,9 M 10,1 l -9,9"></path></marker><g class="root"><g class="clusters"></g><g class="edgePaths"><path marker-end="url(#mermaid-1752202448763_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-A LE-B" id="L-A-B-0" d="M196.862,39L196.862,43.167C196.862,47.333,196.862,55.667,196.929,63.2C196.995,70.734,197.127,77.467,197.193,80.834L197.259,84.201"></path><path marker-end="url(#mermaid-1752202448763_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-B LE-C" id="L-B-C-0" d="M162.103,172.241L144.134,184.201C126.165,196.161,90.226,220.08,72.257,237.323C54.287,254.567,54.287,265.133,54.287,270.417L54.287,275.7"></path><path marker-end="url(#mermaid-1752202448763_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-B LE-D" id="L-B-D-0" d="M197.362,207.5L197.279,213.583C197.196,219.667,197.029,231.833,196.946,243.2C196.862,254.567,196.862,265.133,196.862,270.417L196.862,275.7"></path><path marker-end="url(#mermaid-1752202448763_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-B LE-E" id="L-B-E-0" d="M231.053,173.81L246.652,185.508C262.252,197.206,293.451,220.603,309.05,237.585C324.65,254.567,324.65,265.133,324.65,270.417L324.65,275.7"></path><path marker-end="url(#mermaid-1752202448763_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-C LE-F" id="L-C-F-0" d="M54.287,320L54.287,324.167C54.287,328.333,54.287,336.667,70.993,346.047C87.699,355.428,121.11,365.857,137.816,371.071L154.522,376.285"></path><path marker-end="url(#mermaid-1752202448763_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-D LE-F" id="L-D-F-0" d="M196.862,320L196.862,324.167C196.862,328.333,196.862,336.667,196.862,344.117C196.862,351.567,196.862,358.133,196.862,361.417L196.862,364.7"></path><path marker-end="url(#mermaid-1752202448763_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-E LE-F" id="L-E-F-0" d="M324.65,320L324.65,324.167C324.65,328.333,324.65,336.667,310.4,345.796C296.15,354.925,267.649,364.85,253.399,369.812L239.149,374.774"></path><path marker-end="url(#mermaid-1752202448763_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-F LE-G" id="L-F-G-0" d="M196.862,409L196.862,413.167C196.862,417.333,196.862,425.667,196.862,433.117C196.862,440.567,196.862,447.133,196.862,450.417L196.862,453.7"></path></g><g class="edgeLabels"><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g transform="translate(54.287498474121094, 244)" class="edgeLabel"><g transform="translate(-40, -12)" class="label"><foreignObject height="24" width="80"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel">結構化查詢</span></div></foreignObject></g></g><g transform="translate(196.86249542236328, 244)" class="edgeLabel"><g transform="translate(-32, -12)" class="label"><foreignObject height="24" width="64"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel">語義查詢</span></div></foreignObject></g></g><g transform="translate(324.6499938964844, 244)" class="edgeLabel"><g transform="translate(-32, -12)" class="label"><foreignObject height="24" width="64"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel">混合查詢</span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g transform="translate(196.86249542236328, 19.5)" id="flowchart-A-0" class="node default default flowchart-label"><rect height="39" width="79" y="-19.5" x="-39.5" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-32, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="64"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">用戶查詢</span></div></foreignObject></g></g><g transform="translate(196.86249542236328, 148)" id="flowchart-B-1" class="node default flowchart-label"><polygon style="" transform="translate(-59,59)" class="label-container" points="59,0 118,-59 59,-118 0,-59"></polygon><g transform="translate(-32, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="64"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">意圖識別</span></div></foreignObject></g></g><g transform="translate(54.287498474121094, 300.5)" id="flowchart-C-3" class="node default flowchart-label"><rect height="39" width="108.57500457763672" y="-19.5" x="-54.28750228881836" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-46.78750228881836, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="93.57500457763672"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">知識圖譜RAG</span></div></foreignObject></g></g><g transform="translate(196.86249542236328, 300.5)" id="flowchart-D-5" class="node default flowchart-label"><rect height="39" width="76.57500076293945" y="-19.5" x="-38.28750038146973" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-30.787500381469727, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="61.57500076293945"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">向量RAG</span></div></foreignObject></g></g><g transform="translate(324.6499938964844, 300.5)" id="flowchart-E-7" class="node default default flowchart-label"><rect height="39" width="79" y="-19.5" x="-39.5" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-32, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="64"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">雙路檢索</span></div></foreignObject></g></g><g transform="translate(196.86249542236328, 389.5)" id="flowchart-F-9" class="node default flowchart-label"><rect height="39" width="74.5625" y="-19.5" x="-37.28125" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-29.78125, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="59.5625"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">LLM生成</span></div></foreignObject></g></g><g transform="translate(196.86249542236328, 478.5)" id="flowchart-G-15" class="node default flowchart-label"><rect height="39" width="79" y="-19.5" x="-39.5" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-32, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="64"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">最終答案</span></div></foreignObject></g></g></g></g></g></svg></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phase 1 Section -->
+        <section id="phase1" class="mb-16 slide-in-left animate-fade-in">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 border border-gray-100 dark:border-gray-700">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8 flex items-center">
+                    <div class="w-10 h-10 bg-primary-500 text-white rounded-lg flex items-center justify-center text-lg font-bold mr-3">1</div>
+                    階段一：知識圖譜快速建立與填充
+                    <span class="ml-auto text-sm bg-accent-500 text-white px-3 py-1 rounded-full">1-2 週</span>
+                </h2>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 p-6 rounded-xl hover-scale">
+                        <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fas fa-bullseye text-white text-xl"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 dark:text-white mb-2">聚焦核心領域知識</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">優先實體（Entities）與關係（Relationships）</p>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 p-6 rounded-xl hover-scale">
+                        <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fas fa-database text-white text-xl"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 dark:text-white mb-2">利用現有結構化數據</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">產品目錄、CRM、組織圖→節點與邊</p>
+                    </div>    <div class="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 p-6 rounded-xl hover-scale">
+                        <div class="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fas fa-robot text-white text-xl"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 dark:text-white mb-2">自動化知識抽取</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">規則式抽取 + NER/RE 模型</p>
+                    </div><div class="bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20 p-6 rounded-xl hover-scale">
+                        <div class="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fas fa-tools text-white text-xl"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 dark:text-white mb-2">選擇易上手工具</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">例如 Neo4j + Cypher</p>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/10 dark:to-purple-900/10 p-6 rounded-xl">
+                    <h4 class="font-semibold text-gray-900 dark:text-white mb-3flex items-center">
+                        <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+                        實務範例
+                    </h4>
+                    <p class="text-gray-700 dark:text-gray-300">
+                        假設您的RAG服務是關於產品資訊，您可以優先建立產品、品牌、功能、兼容性等實體，以及「屬於」、「擁有」、「兼容」等關係。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phase 2 Section -->
+        <section id="phase2" class="mb-16 fade-in animate-fade-in">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 border border-gray-100 dark:border-gray-700">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8 flex items-center">
+                    <div class="w-10 h-10 bg-primary-500 text-white rounded-lg flex items-center justify-center text-lg font-bold mr-3">2</div>
+                    階段二：知識圖譜查詢模組開發與 API 封裝
+                    <span class="ml-auto text-sm bg-accent-500 text-white px-3 py-1 rounded-full">1-2 週</span>
+                </h2>
+                
+                <div class="mb-8">
+                    <!-- Timeline Chart -->
+                    <div id="phase2Chart" style="width: 100%; height: 400px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); position: relative;" _echarts_instance_="ec_1752202828437" data-chart-option="{&quot;darkMode&quot;:&quot;auto&quot;,&quot;colorBy&quot;:&quot;series&quot;,&quot;color&quot;:[&quot;#5470c6&quot;,&quot;#91cc75&quot;,&quot;#fac858&quot;,&quot;#ee6666&quot;,&quot;#73c0de&quot;,&quot;#3ba272&quot;,&quot;#fc8452&quot;,&quot;#9a60b4&quot;,&quot;#ea7ccc&quot;],&quot;gradientColor&quot;:[&quot;#f6efa6&quot;,&quot;#d88273&quot;,&quot;#bf444c&quot;],&quot;aria&quot;:{&quot;decal&quot;:{&quot;decals&quot;:[{&quot;color&quot;:&quot;rgba(0, 0, 0, 0.2)&quot;,&quot;dashArrayX&quot;:[1,0],&quot;dashArrayY&quot;:[2,5],&quot;symbolSize&quot;:1,&quot;rotation&quot;:0.5235987755982988},{&quot;color&quot;:&quot;rgba(0, 0, 0, 0.2)&quot;,&quot;symbol&quot;:&quot;circle&quot;,&quot;dashArrayX&quot;:[[8,8],[0,8,8,0]],&quot;dashArrayY&quot;:[6,0],&quot;symbolSize&quot;:0.8},{&quot;color&quot;:&quot;rgba(0, 0, 0, 0.2)&quot;,&quot;dashArrayX&quot;:[1,0],&quot;dashArrayY&quot;:[4,3],&quot;rotation&quot;:-0.7853981633974483},{&quot;color&quot;:&quot;rgba(0, 0, 0, 0.2)&quot;,&quot;dashArrayX&quot;:[[6,6],[0,6,6,0]],&quot;dashArrayY&quot;:[6,0]},{&quot;color&quot;:&quot;rgba(0, 0, 0, 0.2)&quot;,&quot;dashArrayX&quot;:[[1,0],[1,6]],&quot;dashArrayY&quot;:[1,0,6,0],&quot;rotation&quot;:0.7853981633974483},{&quot;color&quot;:&quot;rgba(0, 0, 0, 0.2)&quot;,&quot;symbol&quot;:&quot;triangle&quot;,&quot;dashArrayX&quot;:[[9,9],[0,9,9,0]],&quot;dashArrayY&quot;:[7,2],&quot;symbolSize&quot;:0.75}]}},&quot;textStyle&quot;:{&quot;fontFamily&quot;:&quot;Microsoft YaHei&quot;,&quot;fontSize&quot;:12,&quot;fontStyle&quot;:&quot;normal&quot;,&quot;fontWeight&quot;:&quot;normal&quot;},&quot;stateAnimation&quot;:{&quot;duration&quot;:300,&quot;easing&quot;:&quot;cubicOut&quot;},&quot;animation&quot;:&quot;auto&quot;,&quot;animationDuration&quot;:1000,&quot;animationDurationUpdate&quot;:500,&quot;animationEasing&quot;:&quot;cubicInOut&quot;,&quot;animationEasingUpdate&quot;:&quot;cubicInOut&quot;,&quot;animationThreshold&quot;:2000,&quot;progressiveThreshold&quot;:3000,&quot;progressive&quot;:400,&quot;hoverLayerThreshold&quot;:3000,&quot;useUTC&quot;:false,&quot;title&quot;:[{&quot;text&quot;:&quot;階段二模組開發流程&quot;,&quot;left&quot;:&quot;center&quot;,&quot;textStyle&quot;:{&quot;fontSize&quot;:18,&quot;color&quot;:&quot;#374151&quot;,&quot;fontWeight&quot;:&quot;bold&quot;},&quot;z&quot;:6,&quot;show&quot;:true,&quot;target&quot;:&quot;blank&quot;,&quot;subtext&quot;:&quot;&quot;,&quot;subtarget&quot;:&quot;blank&quot;,&quot;top&quot;:0,&quot;backgroundColor&quot;:&quot;rgba(0,0,0,0)&quot;,&quot;borderColor&quot;:&quot;#ccc&quot;,&quot;borderWidth&quot;:0,&quot;padding&quot;:5,&quot;itemGap&quot;:10,&quot;subtextStyle&quot;:{&quot;fontSize&quot;:12,&quot;color&quot;:&quot;#6E7079&quot;},&quot;right&quot;:null}],&quot;axisPointer&quot;:[{&quot;show&quot;:&quot;auto&quot;,&quot;z&quot;:50,&quot;type&quot;:&quot;line&quot;,&quot;snap&quot;:false,&quot;triggerTooltip&quot;:true,&quot;triggerEmphasis&quot;:true,&quot;value&quot;:null,&quot;status&quot;:null,&quot;link&quot;:[],&quot;animation&quot;:null,&quot;animationDurationUpdate&quot;:200,&quot;lineStyle&quot;:{&quot;color&quot;:&quot;#B9BEC9&quot;,&quot;width&quot;:1,&quot;type&quot;:&quot;dashed&quot;},&quot;shadowStyle&quot;:{&quot;color&quot;:&quot;rgba(210,219,238,0.2)&quot;},&quot;label&quot;:{&quot;show&quot;:true,&quot;formatter&quot;:null,&quot;precision&quot;:&quot;auto&quot;,&quot;margin&quot;:3,&quot;color&quot;:&quot;#fff&quot;,&quot;padding&quot;:[5,7,5,7],&quot;backgroundColor&quot;:&quot;auto&quot;,&quot;borderColor&quot;:null,&quot;borderWidth&quot;:0,&quot;borderRadius&quot;:3},&quot;handle&quot;:{&quot;show&quot;:false,&quot;icon&quot;:&quot;M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7v-1.2h6.6z M13.3,22H6.7v-1.2h6.6z M13.3,19.6H6.7v-1.2h6.6z&quot;,&quot;size&quot;:45,&quot;margin&quot;:50,&quot;color&quot;:&quot;#333&quot;,&quot;shadowBlur&quot;:3,&quot;shadowColor&quot;:&quot;#aaa&quot;,&quot;shadowOffsetX&quot;:0,&quot;shadowOffsetY&quot;:2,&quot;throttle&quot;:40}}],&quot;tooltip&quot;:[{&quot;trigger&quot;:&quot;axis&quot;,&quot;z&quot;:60,&quot;show&quot;:true,&quot;showContent&quot;:true,&quot;triggerOn&quot;:&quot;mousemove|click&quot;,&quot;alwaysShowContent&quot;:false,&quot;displayMode&quot;:&quot;single&quot;,&quot;renderMode&quot;:&quot;auto&quot;,&quot;confine&quot;:null,&quot;showDelay&quot;:0,&quot;hideDelay&quot;:100,&quot;transitionDuration&quot;:0.4,&quot;enterable&quot;:false,&quot;backgroundColor&quot;:&quot;#fff&quot;,&quot;shadowBlur&quot;:10,&quot;shadowColor&quot;:&quot;rgba(0, 0, 0, .2)&quot;,&quot;shadowOffsetX&quot;:1,&quot;shadowOffsetY&quot;:2,&quot;borderRadius&quot;:4,&quot;borderWidth&quot;:1,&quot;padding&quot;:null,&quot;extraCssText&quot;:&quot;&quot;,&quot;axisPointer&quot;:{&quot;type&quot;:&quot;line&quot;,&quot;axis&quot;:&quot;auto&quot;,&quot;animation&quot;:&quot;auto&quot;,&quot;animationDurationUpdate&quot;:200,&quot;animationEasingUpdate&quot;:&quot;exponentialOut&quot;,&quot;crossStyle&quot;:{&quot;color&quot;:&quot;#999&quot;,&quot;width&quot;:1,&quot;type&quot;:&quot;dashed&quot;,&quot;textStyle&quot;:{}}},&quot;textStyle&quot;:{&quot;color&quot;:&quot;#666&quot;,&quot;fontSize&quot;:14}}],&quot;yAxis&quot;:[{&quot;type&quot;:&quot;value&quot;,&quot;name&quot;:&quot;完成度(%)&quot;,&quot;max&quot;:100,&quot;boundaryGap&quot;:[0,0],&quot;axisLine&quot;:{&quot;show&quot;:&quot;auto&quot;,&quot;onZero&quot;:true,&quot;onZeroAxisIndex&quot;:null,&quot;lineStyle&quot;:{&quot;color&quot;:&quot;#d1d5db&quot;,&quot;width&quot;:1,&quot;type&quot;:&quot;solid&quot;},&quot;symbol&quot;:[&quot;none&quot;,&quot;none&quot;],&quot;symbolSize&quot;:[10,15]},&quot;axisTick&quot;:{&quot;show&quot;:&quot;auto&quot;,&quot;inside&quot;:false,&quot;length&quot;:5,&quot;lineStyle&quot;:{&quot;width&quot;:1}},&quot;splitNumber&quot;:5,&quot;minorTick&quot;:{&quot;show&quot;:false,&quot;splitNumber&quot;:5,&quot;length&quot;:3,&quot;lineStyle&quot;:{}},&quot;minorSplitLine&quot;:{&quot;show&quot;:false,&quot;lineStyle&quot;:{&quot;color&quot;:&quot;#F4F7FD&quot;,&quot;width&quot;:1}},&quot;show&quot;:true,&quot;z&quot;:0,&quot;inverse&quot;:false,&quot;nameLocation&quot;:&quot;end&quot;,&quot;nameRotate&quot;:null,&quot;nameTruncate&quot;:{&quot;maxWidth&quot;:null,&quot;ellipsis&quot;:&quot;...&quot;,&quot;placeholder&quot;:&quot;.&quot;},&quot;nameTextStyle&quot;:{},&quot;nameGap&quot;:15,&quot;silent&quot;:false,&quot;triggerEvent&quot;:false,&quot;tooltip&quot;:{&quot;show&quot;:false},&quot;axisPointer&quot;:{},&quot;axisLabel&quot;:{&quot;show&quot;:true,&quot;inside&quot;:false,&quot;rotate&quot;:0,&quot;showMinLabel&quot;:null,&quot;showMaxLabel&quot;:null,&quot;margin&quot;:8,&quot;fontSize&quot;:12,&quot;color&quot;:&quot;#374151&quot;},&quot;splitLine&quot;:{&quot;show&quot;:true,&quot;lineStyle&quot;:{&quot;color&quot;:&quot;#e5e7eb&quot;,&quot;width&quot;:1,&quot;type&quot;:&quot;solid&quot;}},&quot;splitArea&quot;:{&quot;show&quot;:false,&quot;areaStyle&quot;:{&quot;color&quot;:[&quot;rgba(250,250,250,0.2)&quot;,&quot;rgba(210,219,238,0.2)&quot;]}},&quot;offset&quot;:0}],&quot;xAxis&quot;:[{&quot;type&quot;:&quot;category&quot;,&quot;data&quot;:[&quot;查詢解析&quot;,&quot;圖查詢生成&quot;,&quot;資料庫查詢&quot;,&quot;結果轉換&quot;,&quot;API封裝&quot;],&quot;axisLabel&quot;:{&quot;rotate&quot;:45,&quot;interval&quot;:&quot;auto&quot;,&quot;show&quot;:true,&quot;inside&quot;:false,&quot;showMinLabel&quot;:null,&quot;showMaxLabel&quot;:null,&quot;margin&quot;:8,&quot;fontSize&quot;:12,&quot;color&quot;:&quot;#374151&quot;},&quot;boundaryGap&quot;:true,&quot;deduplication&quot;:null,&quot;splitLine&quot;:{&quot;show&quot;:false,&quot;lineStyle&quot;:{&quot;color&quot;:[&quot;#E0E6F1&quot;],&quot;width&quot;:1,&quot;type&quot;:&quot;solid&quot;}},&quot;axisTick&quot;:{&quot;alignWithLabel&quot;:false,&quot;interval&quot;:&quot;auto&quot;,&quot;show&quot;:true,&quot;inside&quot;:false,&quot;length&quot;:5,&quot;lineStyle&quot;:{&quot;width&quot;:1}},&quot;show&quot;:true,&quot;z&quot;:0,&quot;inverse&quot;:false,&quot;name&quot;:&quot;&quot;,&quot;nameLocation&quot;:&quot;end&quot;,&quot;nameRotate&quot;:null,&quot;nameTruncate&quot;:{&quot;maxWidth&quot;:null,&quot;ellipsis&quot;:&quot;...&quot;,&quot;placeholder&quot;:&quot;.&quot;},&quot;nameTextStyle&quot;:{},&quot;nameGap&quot;:15,&quot;silent&quot;:false,&quot;triggerEvent&quot;:false,&quot;tooltip&quot;:{&quot;show&quot;:false},&quot;axisPointer&quot;:{&quot;status&quot;:&quot;hide&quot;,&quot;value&quot;:4},&quot;axisLine&quot;:{&quot;show&quot;:true,&quot;onZero&quot;:true,&quot;onZeroAxisIndex&quot;:null,&quot;lineStyle&quot;:{&quot;color&quot;:&quot;#d1d5db&quot;,&quot;width&quot;:1,&quot;type&quot;:&quot;solid&quot;},&quot;symbol&quot;:[&quot;none&quot;,&quot;none&quot;],&quot;symbolSize&quot;:[10,15]},&quot;splitArea&quot;:{&quot;show&quot;:false,&quot;areaStyle&quot;:{&quot;color&quot;:[&quot;rgba(250,250,250,0.2)&quot;,&quot;rgba(210,219,238,0.2)&quot;]}},&quot;offset&quot;:0}],&quot;grid&quot;:[{&quot;left&quot;:&quot;3%&quot;,&quot;right&quot;:&quot;4%&quot;,&quot;bottom&quot;:&quot;15%&quot;,&quot;containLabel&quot;:true,&quot;show&quot;:false,&quot;z&quot;:0,&quot;top&quot;:60,&quot;backgroundColor&quot;:&quot;rgba(0,0,0,0)&quot;,&quot;borderWidth&quot;:1,&quot;borderColor&quot;:&quot;#ccc&quot;}],&quot;series&quot;:[{&quot;data&quot;:[100,85,70,55,40],&quot;type&quot;:&quot;bar&quot;,&quot;itemStyle&quot;:{&quot;color&quot;:{&quot;colorStops&quot;:[{&quot;offset&quot;:0,&quot;color&quot;:&quot;#0ea5e9&quot;},{&quot;offset&quot;:1,&quot;color&quot;:&quot;#0369a1&quot;}],&quot;x&quot;:0,&quot;y&quot;:0,&quot;x2&quot;:0,&quot;y2&quot;:1,&quot;type&quot;:&quot;linear&quot;,&quot;global&quot;:false}},&quot;label&quot;:{&quot;show&quot;:true,&quot;position&quot;:&quot;top&quot;,&quot;formatter&quot;:&quot;{c}%&quot;},&quot;z&quot;:2,&quot;coordinateSystem&quot;:&quot;cartesian2d&quot;,&quot;legendHoverLink&quot;:true,&quot;barMinHeight&quot;:0,&quot;barMinAngle&quot;:0,&quot;large&quot;:false,&quot;largeThreshold&quot;:400,&quot;progressive&quot;:3000,&quot;progressiveChunkMode&quot;:&quot;mod&quot;,&quot;clip&quot;:true,&quot;roundCap&quot;:false,&quot;showBackground&quot;:false,&quot;backgroundStyle&quot;:{&quot;color&quot;:&quot;rgba(180, 180, 180, 0.2)&quot;,&quot;borderColor&quot;:null,&quot;borderWidth&quot;:0,&quot;borderType&quot;:&quot;solid&quot;,&quot;borderRadius&quot;:0,&quot;shadowBlur&quot;:0,&quot;shadowColor&quot;:null,&quot;shadowOffsetX&quot;:0,&quot;shadowOffsetY&quot;:0,&quot;opacity&quot;:1},&quot;select&quot;:{&quot;itemStyle&quot;:{&quot;borderColor&quot;:&quot;#212121&quot;}},&quot;realtimeSort&quot;:false,&quot;emphasis&quot;:{&quot;label&quot;:{&quot;show&quot;:true}}}],&quot;visualMap&quot;:[],&quot;legend&quot;:[],&quot;markArea&quot;:[],&quot;markLine&quot;:[],&quot;markPoint&quot;:[],&quot;brush&quot;:[],&quot;dataZoom&quot;:[]}"><div style="position: relative; width: 1150px; height: 400px; padding: 0px; margin: 0px; border-width: 0px;"><canvas data-zr-dom-id="zr_0" width="1437" height="500" style="position: absolute; left: 0px; top: 0px; width: 1150px; height: 400px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div class=""></div></div></div>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">模組功能</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-xl">
+                                <div class="w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-search text-sm"></i>
+                                </div>
+                                <div><h4 class="font-medium text-gray-900 dark:text-white">查詢解析</h4><p class="text-sm text-gray-600 dark:text-gray-400">關鍵字匹配、簡易 NER 或手動規則</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-xl">
+                                <div class="w-8 h-8 bg-green-500 text-white rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-code text-sm"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-900 dark:text-white">圖查詢生成</h4><p class="text-sm text-gray-600 dark:text-gray-400">將意圖轉為 Cypher 查詢</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-xl">
+                                <div class="w-8 h-8 bg-purple-500 text-white rounded-lg flex items-center justify-center flex-shrink-0"><i class="fas fa-database text-sm"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-900 dark:text-white">圖資料庫查詢</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">執行並檢索結構化知識</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">輸出與封裝</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-xl">
+                                <div class="w-8 h-8 bg-orange-500 text-white rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-exchange-alt text-sm"></i>
+                                </div>
+                                <div><h4 class="font-medium text-gray-900 dark:text-white">結果轉換</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">自然語言片段或 JSON 格式</p>
+                                </div>
+                            </div>            <div class="flex items-start space-x-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-xl">
+                                <div class="w-8 h-8 bg-red-500 text-white rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-cloud text-sm"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-900 dark:text-white">API 封裝</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">RESTful 服務，供主系統呼叫</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phase 3 Section -->
+        <section id="phase3" class="mb-16 slide-in-left animate-fade-in">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 border border-gray-100 dark:border-gray-700">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8 flex items-center">
+                    <div class="w-10 h-10 bg-primary-500 text-white rounded-lg flex items-center justify-center text-lg font-bold mr-3">3</div>
+                    階段三：整合至向量化 RAG 工作流
+                    <span class="ml-auto text-sm bg-accent-500 text-white px-3 py-1 rounded-full">1週</span>
+                </h2>
+                
+                <div class="mb-8">
+                    <!-- Integration Flow Diagram -->
+                    <div class="mermaid bg-gray-50 dark:bg-gray-700 rounded-xl p-6" data-processed="true"><svg aria-roledescription="flowchart-v2" role="graphics-document document" viewBox="-8 -8 461.0250244140625 589" style="max-width: 461.0250244140625px;" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" width="100%" id="mermaid-1752202449187"><style>#mermaid-1752202449187{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;fill:#333;}#mermaid-1752202449187 .error-icon{fill:#552222;}#mermaid-1752202449187 .error-text{fill:#552222;stroke:#552222;}#mermaid-1752202449187 .edge-thickness-normal{stroke-width:2px;}#mermaid-1752202449187 .edge-thickness-thick{stroke-width:3.5px;}#mermaid-1752202449187 .edge-pattern-solid{stroke-dasharray:0;}#mermaid-1752202449187 .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-1752202449187 .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-1752202449187 .marker{fill:#6b7280;stroke:#6b7280;}#mermaid-1752202449187 .marker.cross{stroke:#6b7280;}#mermaid-1752202449187 svg{font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:16px;}#mermaid-1752202449187 .label{font-family:"trebuchet ms",verdana,arial,sans-serif;color:#333;}#mermaid-1752202449187 .cluster-label text{fill:#333;}#mermaid-1752202449187 .cluster-label span,#mermaid-1752202449187 p{color:#333;}#mermaid-1752202449187 .label text,#mermaid-1752202449187 span,#mermaid-1752202449187 p{fill:#333;color:#333;}#mermaid-1752202449187 .node rect,#mermaid-1752202449187 .node circle,#mermaid-1752202449187 .node ellipse,#mermaid-1752202449187 .node polygon,#mermaid-1752202449187 .node path{fill:#ECECFF;stroke:#9370DB;stroke-width:1px;}#mermaid-1752202449187 .flowchart-label text{text-anchor:middle;}#mermaid-1752202449187 .node .label{text-align:center;}#mermaid-1752202449187 .node.clickable{cursor:pointer;}#mermaid-1752202449187 .arrowheadPath{fill:#333333;}#mermaid-1752202449187 .edgePath .path{stroke:#6b7280;stroke-width:2.0px;}#mermaid-1752202449187 .flowchart-link{stroke:#6b7280;fill:none;}#mermaid-1752202449187 .edgeLabel{background-color:#e8e8e8;text-align:center;}#mermaid-1752202449187 .edgeLabel rect{opacity:0.5;background-color:#e8e8e8;fill:#e8e8e8;}#mermaid-1752202449187 .labelBkg{background-color:rgba(232, 232, 232, 0.5);}#mermaid-1752202449187 .cluster rect{fill:#ffffde;stroke:#aaaa33;stroke-width:1px;}#mermaid-1752202449187 .cluster text{fill:#333;}#mermaid-1752202449187 .cluster span,#mermaid-1752202449187 p{color:#333;}#mermaid-1752202449187 div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:"trebuchet ms",verdana,arial,sans-serif;font-size:12px;background:#e5e7eb;border:1px solid #aaaa33;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-1752202449187 .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#333;}#mermaid-1752202449187 :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}</style><g><marker orient="auto" markerHeight="12" markerWidth="12" markerUnits="userSpaceOnUse" refY="5" refX="6" viewBox="0 0 10 10" class="marker flowchart" id="mermaid-1752202449187_flowchart-pointEnd"><path style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 0 0 L 10 5 L 0 10 z"></path></marker><marker orient="auto" markerHeight="12" markerWidth="12" markerUnits="userSpaceOnUse" refY="5" refX="4.5" viewBox="0 0 10 10" class="marker flowchart" id="mermaid-1752202449187_flowchart-pointStart"><path style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 0 5 L 10 10 L 10 0 z"></path></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5" refX="11" viewBox="0 0 10 10" class="marker flowchart" id="mermaid-1752202449187_flowchart-circleEnd"><circle style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" r="5" cy="5" cx="5"></circle></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5" refX="-1" viewBox="0 0 10 10" class="marker flowchart" id="mermaid-1752202449187_flowchart-circleStart"><circle style="stroke-width: 1; stroke-dasharray: 1, 0;" class="arrowMarkerPath" r="5" cy="5" cx="5"></circle></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5.2" refX="12" viewBox="0 0 11 11" class="marker cross flowchart" id="mermaid-1752202449187_flowchart-crossEnd"><path style="stroke-width: 2; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 1,1 l 9,9 M 10,1 l -9,9"></path></marker><marker orient="auto" markerHeight="11" markerWidth="11" markerUnits="userSpaceOnUse" refY="5.2" refX="-1" viewBox="0 0 11 11" class="marker cross flowchart" id="mermaid-1752202449187_flowchart-crossStart"><path style="stroke-width: 2; stroke-dasharray: 1, 0;" class="arrowMarkerPath" d="M 1,1 l 9,9 M 10,1 l -9,9"></path></marker><g class="root"><g class="clusters"></g><g class="edgePaths"><path marker-end="url(#mermaid-1752202449187_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-A LE-B" id="L-A-B-0" d="M236.325,39L236.325,43.167C236.325,47.333,236.325,55.667,236.325,63.117C236.325,70.567,236.325,77.133,236.325,80.417L236.325,83.7"></path><path marker-end="url(#mermaid-1752202449187_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-B LE-C" id="L-B-C-0" d="M162,128L146.119,132.167C130.238,136.333,98.475,144.667,82.594,152.117C66.713,159.567,66.713,166.133,66.713,169.417L66.713,172.7"></path><path marker-end="url(#mermaid-1752202449187_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-B LE-D" id="L-B-D-0" d="M236.325,128L236.325,132.167C236.325,136.333,236.325,144.667,236.325,152.117C236.325,159.567,236.325,166.133,236.325,169.417L236.325,172.7"></path><path marker-end="url(#mermaid-1752202449187_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-B LE-E" id="L-B-E-0" d="M304.597,128L319.185,132.167C333.773,136.333,362.949,144.667,377.537,152.117C392.125,159.567,392.125,166.133,392.125,169.417L392.125,172.7"></path><path marker-end="url(#mermaid-1752202449187_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-C LE-F" id="L-C-F-0" d="M66.713,217L66.713,221.167C66.713,225.333,66.713,233.667,66.713,241.117C66.713,248.567,66.713,255.133,66.713,258.417L66.713,261.7"></path><path marker-end="url(#mermaid-1752202449187_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-D LE-G" id="L-D-G-0" d="M236.325,217L236.325,221.167C236.325,225.333,236.325,233.667,236.325,241.117C236.325,248.567,236.325,255.133,236.325,258.417L236.325,261.7"></path><path marker-end="url(#mermaid-1752202449187_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-E LE-H" id="L-E-H-0" d="M392.125,217L392.125,221.167C392.125,225.333,392.125,233.667,392.125,241.117C392.125,248.567,392.125,255.133,392.125,258.417L392.125,261.7"></path><path marker-end="url(#mermaid-1752202449187_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-F LE-I" id="L-F-I-0" d="M66.713,306L66.713,310.167C66.713,314.333,66.713,322.667,82.612,331.005C98.512,339.343,130.312,347.686,146.211,351.858L162.111,356.029"></path><path marker-end="url(#mermaid-1752202449187_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-G LE-I" id="L-G-I-0" d="M236.325,306L236.325,310.167C236.325,314.333,236.325,322.667,236.325,330.117C236.325,337.567,236.325,344.133,236.325,347.417L236.325,350.7"></path><path marker-end="url(#mermaid-1752202449187_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-H LE-I" id="L-H-I-0" d="M392.125,306L392.125,310.167C392.125,314.333,392.125,322.667,378.386,330.757C364.648,338.848,337.17,346.696,323.432,350.62L309.693,354.544"></path><path marker-end="url(#mermaid-1752202449187_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-I LE-J" id="L-I-J-0" d="M236.325,395L236.325,399.167C236.325,403.333,236.325,411.667,236.325,419.117C236.325,426.567,236.325,433.133,236.325,436.417L236.325,439.7"></path><path marker-end="url(#mermaid-1752202449187_flowchart-pointEnd)" style="fill:none;" class="edge-thickness-normal edge-pattern-solid flowchart-link LS-J LE-K" id="L-J-K-0" d="M236.325,484L236.325,488.167C236.325,492.333,236.325,500.667,236.325,508.117C236.325,515.567,236.325,522.133,236.325,525.417L236.325,528.7"></path></g><g class="edgeLabels"><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g><g class="edgeLabel"><g transform="translate(0, 0)" class="label"><foreignObject height="0" width="0"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="edgeLabel"></span></div></foreignObject></g></g></g><g class="nodes"><g transform="translate(236.32500457763672, 19.5)" id="flowchart-A-16" class="node default default flowchart-label"><rect height="39" width="105.80000305175781" y="-19.5" x="-52.900001525878906" ry="0" rx="0" style="fill:#e1f5fe;" class="basic label-container"></rect><g transform="translate(-45.400001525878906, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="90.80000305175781"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">🔍 用戶查詢</span></div></foreignObject></g></g><g transform="translate(236.32500457763672, 108.5)" id="flowchart-B-17" class="node default default flowchart-label"><rect height="39" width="169.8000030517578" y="-19.5" x="-84.9000015258789" ry="0" rx="0" style="fill:#f3e5f5;" class="basic label-container"></rect><g transform="translate(-77.4000015258789, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="154.8000030517578"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">🧠 意圖識別與路由層</span></div></foreignObject></g></g><g transform="translate(66.7125015258789, 197.5)" id="flowchart-C-19" class="node default default flowchart-label"><rect height="39" width="121.80000305175781" y="-19.5" x="-60.900001525878906" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-53.400001525878906, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="106.80000305175781"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">📊 結構化查詢</span></div></foreignObject></g></g><g transform="translate(236.32500457763672, 197.5)" id="flowchart-D-21" class="node default default flowchart-label"><rect height="39" width="105.80000305175781" y="-19.5" x="-52.900001525878906" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-45.400001525878906, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="90.80000305175781"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">💭 語義查詢</span></div></foreignObject></g></g><g transform="translate(392.12500762939453, 197.5)" id="flowchart-E-23" class="node default default flowchart-label"><rect height="39" width="105.80000305175781" y="-19.5" x="-52.900001525878906" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-45.400001525878906, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="90.80000305175781"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">🔄 混合查詢</span></div></foreignObject></g></g><g transform="translate(66.7125015258789, 286.5)" id="flowchart-F-25" class="node default default flowchart-label"><rect height="39" width="133.4250030517578" y="-19.5" x="-66.7125015258789" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-59.212501525878906, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="118.42500305175781"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">📈 知識圖譜 API</span></div></foreignObject></g></g><g transform="translate(236.32500457763672, 286.5)" id="flowchart-G-27" class="node default default flowchart-label"><rect height="39" width="105.80000305175781" y="-19.5" x="-52.900001525878906" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-45.400001525878906, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="90.80000305175781"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">🔍 向量檢索</span></div></foreignObject></g></g><g transform="translate(392.12500762939453, 286.5)" id="flowchart-H-29" class="node default default flowchart-label"><rect height="39" width="105.80000305175781" y="-19.5" x="-52.900001525878906" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-45.400001525878906, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="90.80000305175781"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">🔄 雙路檢索</span></div></foreignObject></g></g><g transform="translate(236.32500457763672, 375.5)" id="flowchart-I-31" class="node default default flowchart-label"><rect height="39" width="138.1750030517578" y="-19.5" x="-69.0875015258789" ry="0" rx="0" style="fill:#e8f5e8;" class="basic label-container"></rect><g transform="translate(-61.587501525878906, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="123.17500305175781"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">🤖 LLM 生成階段</span></div></foreignObject></g></g><g transform="translate(236.32500457763672, 464.5)" id="flowchart-J-37" class="node default default flowchart-label"><rect height="39" width="153.8000030517578" y="-19.5" x="-76.9000015258789" ry="0" rx="0" style="" class="basic label-container"></rect><g transform="translate(-69.4000015258789, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="138.8000030517578"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">✨ 統一上下文處理</span></div></foreignObject></g></g><g transform="translate(236.32500457763672, 553.5)" id="flowchart-K-39" class="node default default flowchart-label"><rect height="39" width="105.80000305175781" y="-19.5" x="-52.900001525878906" ry="0" rx="0" style="fill:#fff3e0;" class="basic label-container"></rect><g transform="translate(-45.400001525878906, -12)" style="" class="label"><rect></rect><foreignObject height="24" width="90.80000305175781"><div style="display: inline-block; white-space: nowrap;" xmlns="http://www.w3.org/1999/xhtml"><span class="nodeLabel">📝 最終答案</span></div></foreignObject></g></g></g></g></g></svg></div>
+                </div>
+                
+                <div class="grid lg:grid-cols-3 gap-6">
+                    <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 dark:from-indigo-900/20 dark:to-indigo-800/20 p-6 rounded-xl">
+                        <h3 class="font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
+                            <i class="fas fa-brain text-indigo-500 mr-2"></i>
+                            意圖識別與路由
+                        </h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">判斷查詢類型</p>
+                        <ul class="text-xs text-gray-600 dark:text-gray-400 space-y-1">
+                            <li>• 知識圖譜查詢</li>
+                            <li>• 向量化查詢</li>
+                            <li>• 混合查詢</li>
+                        </ul>
+                    </div><div class="bg-gradient-to-br from-cyan-50 to-cyan-100 dark:from-cyan-900/20 dark:to-cyan-800/20 p-6 rounded-xl">
+                        <h3 class="font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
+                            <i class="fas fa-route text-cyan-500 mr-2"></i>
+                            動態路由
+                        </h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">智能分配檢索路徑</p>
+                        <ul class="text-xs text-gray-600 dark:text-gray-400 space-y-1">
+                            <li>• 單純結構化→圖譜 API</li>
+                            <li>• 語義查詢→向量檢索</li>
+                            <li>• 混合→雙路融合</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-emerald-50 to-emerald-100 dark:from-emerald-900/20 dark:to-emerald-800/20 p-6 rounded-xl">
+                        <h3 class="font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
+                            <i class="fas fa-magic text-emerald-500 mr-2"></i>
+                            LLM 生成階段
+                        </h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">統一上下文處理</p>
+                        <ul class="text-xs text-gray-600 dark:text-gray-400 space-y-1">
+                            <li>• 向量＋圖譜融合</li>
+                            <li>• 錨點式資訊結合</li>
+                            <li>• 一致性答案生成</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Advantages Section -->
+        <section id="advantages" class="mb-16 fade-in animate-fade-in">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 border border-gray-100 dark:border-gray-700">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8 flex items-center">
+                    <i class="fas fa-balance-scale text-primary-500 mr-3"></i>
+                    優勢與考量
+                </h2>
+                
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <!-- Advantages -->
+                    <div>
+                        <h3 class="text-xl font-semibold text-emerald-600 dark:text-emerald-400 mb-6 flex items-center">
+                            <i class="fas fa-thumbs-up mr-2"></i>
+                            優勢
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-4p-4 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl">
+                                <div class="w-8 h-8 bg-emerald-500 text-white rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-shield-alt text-sm"></i>
+                                </div>
+                                <div><h4 class="font-medium text-gray-900 dark:text-white">最小化系統改動</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">保護現有投資，降低風險</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4 p-4 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl">
+                                <div class="w-8 h-8 bg-emerald-500 text-white rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-rocket text-sm"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-900 dark:text-white">快速驗證價值</h4><p class="text-sm text-gray-600 dark:text-gray-400">迅速測試知識圖譜效果</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4 p-4 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl">
+                                <div class="w-8 h-8 bg-emerald-500 text-white rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-expand-arrows-alt text-sm"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-900 dark:text-white">逐步擴展</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">可持續優化與擴展</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>    <!-- Considerations -->
+                    <div>
+                        <h3 class="text-xl font-semibold text-amber-600 dark:text-amber-400 mb-6 flex items-center">
+                            <i class="fas fa-exclamation-triangle mr-2"></i>
+                            注意事項
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-4 p-4 bg-amber-50 dark:bg-amber-900/20 rounded-xl">
+                                <div class="w-8 h-8 bg-amber-500 text-white rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-chart-pie text-sm"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-900 dark:text-white">覆蓋範圍限制</h4><p class="text-sm text-gray-600 dark:text-gray-400">初期圖譜範圍有限，需持續補充</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4 p-4 bg-amber-50 dark:bg-amber-900/20 rounded-xl">
+                                <div class="w-8 h-8 bg-amber-500 text-white rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-crosshairs text-sm"></i>
+                                </div>
+                                <div><h4 class="font-medium text-gray-900 dark:text-white">精準度要求</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">意圖識別層準確性關鍵</p>
+                                </div>
+                            </div>
+                <div class="flex items-start space-x-4 p-4 bg-amber-50 dark:bg-amber-900/20 rounded-xl">
+                                <div class="w-8 h-8 bg-amber-500 text-white rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-puzzle-piece text-sm"></i>
+                                </div>
+                                <div><h4 class="font-medium text-gray-900 dark:text-white">資訊融合挑戰</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">確保答案一致性與無矛盾</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Summary Section -->
+        <section id="summary" class="mb-16 fade-in animate-fade-in">
+            <div class="bg-gradient-to-r from-primary-500 to-purple-600 rounded-2xl shadow-lg p-8 text-white">
+                <h2 class="text-3xl font-bold mb-8 flex items-center">
+                    <i class="fas fa-flag-checkered mr-3"></i>
+                    總結與未來展望
+                </h2>
+                
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">核心策略回顧</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center space-x-3">
+                                <i class="fas fa-check-circle text-accent-400"></i>
+                                <span>分離模組、動態路由策略</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <i class="fas fa-check-circle text-accent-400"></i>
+                                <span>快速實施、低侵入性整合</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <i class="fas fa-check-circle text-accent-400"></i>
+                                <span>3-5週完成基礎整合</span>
+                            </li></ul>
+                    </div><div>
+                        <h3 class="text-xl font-semibold mb-4">未來發展方向</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center space-x-3">
+                                <i class="fas fa-arrow-right text-accent-400"></i>
+                                <span class="">進階混合檢索算法</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <i class="fas fa-arrow-right text-accent-400"></i>
+                                <span class="">知識圖譜向量化整合</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <i class="fas fa-arrow-right text-accent-400"></i>
+                                <span class="">持續優化路由與融合</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <div class="text-2xl font-bold mb-2">感謝聆聽！</div>
+                    <div class="text-lg opacity-90">開始您的知識圖譜RAG整合之旅</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">作者資訊</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-2">
+                        <i class="fas fa-user mr-2"></i>
+                        花繼利
+                    </p>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        <i class="fas fa-envelope mr-2"></i>
+                        專業技術顧問與分享者
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">社群媒體</h3>
+                    <div class="flex space-x-4" data-element-id="8aed7d50-e09b-41e8-aa63-4c410ce0eaea"><a href="#" class="text-gray-400 hover:text-blue-500 transition-colors">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-blue-600 transition-colors">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                            <i class="fab fa-github text-xl"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">版權資訊</h3>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        © 2025 花繼利 版權所有
+                    </p><p class="text-sm text-gray-500 dark:text-gray-500 mt-2">
+                        本內容僅供學習與研究使用
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        
+        // Check for saved theme preference or default to 'light'
+        const currentTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        if (currentTheme === 'dark') {
+            html.classList.add('dark');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            const newTheme = html.classList.contains('dark') ? 'dark' : 'light';
+            localStorage.setItem('theme', newTheme);
+        });
+
+        // Progress Bar
+        const updateProgressBar = () => {
+            const sections = document.querySelectorAll('section[id]');
+            const scrollTop = window.pageYOffset;
+            const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / documentHeight) * 100;
+            document.getElementById('progress-bar').style.width = `${Math.min(scrollPercent, 100)}%`;
+        };
+
+        window.addEventListener('scroll', updateProgressBar);
+
+        // Initialize Mermaid
+        mermaid.initialize({
+            theme: 'default',
+            themeVariables: {
+                primaryColor: '#0ea5e9',
+                primaryTextColor: '#374151',
+                primaryBorderColor: '#0284c7',
+                lineColor: '#6b7280',
+                secondaryColor: '#f3f4f6',
+                tertiaryColor: '#e5e7eb'
+            }
+        });
+
+        // ECharts for Phase 2
+        const phase2ChartEl = document.getElementById('phase2Chart');
+        const phase2Chart = echarts.init(phase2ChartEl);
+        
+        const phase2Option = {
+            title: {
+                text: '階段二模組開發流程',
+                left: 'center',
+                textStyle: {
+                    fontSize: 18,
+                    color: '#374151'
+                }
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            xAxis: {
+                type: 'category',
+                data: ['查詢解析', '圖查詢生成', '資料庫查詢', '結果轉換', 'API封裝'],
+                axisLabel: {
+                    rotate: 45
+                }
+            },
+            yAxis: {
+                type: 'value',
+                name: '完成度(%)',
+                max: 100
+            },
+            series: [{
+                data: [100, 85, 70, 55, 40],
+                type: 'bar',
+                itemStyle: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                        {offset: 0, color: '#0ea5e9'},
+                        {offset: 1, color: '#0369a1'}
+                    ])
+                },
+                label: {
+                    show: true,
+                    position: 'top',
+                    formatter: '{c}%'
+                }
+            }],
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '15%',
+                containLabel: true
+            }
+        };
+        
+        phase2Chart.setOption(phase2Option);
+
+        // Responsive chart
+        window.addEventListener('resize', () => {
+            phase2Chart.resize();
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Handle dark mode for charts
+        const updateChartsTheme = () => {
+            const isDark = html.classList.contains('dark');
+            
+            // Update Phase 2 chart
+            const newOption = {
+                ...phase2Option,
+                title: {
+                    ...phase2Option.title,
+                    textStyle: {
+                        ...phase2Option.title.textStyle,
+                        color: isDark ? '#f9fafb' : '#374151'
+                    }
+                },
+                xAxis: {
+                    ...phase2Option.xAxis,
+                    axisLabel: {
+                        ...phase2Option.xAxis.axisLabel,
+                        color: isDark ? '#d1d5db' : '#374151'
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: isDark ? '#4b5563' : '#d1d5db'
+                        }
+                    }
+                },
+                yAxis: {
+                    ...phase2Option.yAxis,
+                    axisLabel: {
+                        color: isDark ? '#d1d5db' : '#374151'
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: isDark ? '#4b5563' : '#d1d5db'
+                        }
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: isDark ? '#374151' : '#e5e7eb'
+                        }
+                    }
+                }
+            };
+            
+            phase2Chart.setOption(newOption);
+        };
+
+        // Update charts theme when theme changes
+        themeToggle.addEventListener('click', () => {
+            setTimeout(updateChartsTheme, 100);
+        });
+
+        // Initial chart theme setup
+        updateChartsTheme();
+    </script>
+
+
+<div class="mermaidTooltip" style="opacity: 0;"></div>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"95d50e36cda7d5cc","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.6.2","token":"411a3f34bb35430c8f79d9497eb73354"}' crossorigin="anonymous"></script>
+</body></html>
