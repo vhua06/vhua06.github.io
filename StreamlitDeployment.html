@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streamlit 應用程式地端部署指南</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 0 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            color: #0056b3;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #0056b3;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+        h3 {
+            color: #007bff;
+            margin-top: 25px;
+        }
+        pre {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+        code {
+            background-color: #e9ecef;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba[0,0,0,0.08];
+        }
+        .section-separator {
+            border-top: 1px solid #ddd;
+            margin: 40px 0;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        ol {
+            list-style-type: decimal;
+            margin-left: 20px;
+        }
+        .note {
+            background-color: #e6f7ff;
+            border-left: 4px solid #3399ff;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .mermaid {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            overflow-x: auto; /* Ensure diagrams are scrollable if too wide */
+        }
+    </style>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@latest/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Streamlit 應用程式地端部署指南</h1>
+        <p>Streamlit 是一個強大的 Python 函式庫，能讓您快速建立互動式的資料應用程式。要在地端部署 Streamlit 應用程式，主要有以下幾種方式，您可以根據您的需求和技術棧選擇最適合的方法。</p>
+
+        <div class="mermaid">
+            <h2>部署流程或架構圖</h2>
+            <pre class="mermaid">
+graph TD
+    A["Streamlit 應用程式"] --> B{"選擇部署方式"};
+
+    B --> C1["直接執行 Python 腳本"];
+    C1 --> D1["啟動: `streamlit run app.py`"];
+    D1 --> E1["應用程式運行於8501埠"];
+
+    B --> C2["使用 Process Manager"];
+    C2 --> F1["安裝 PM2/Supervisor"];
+    F1 --> G1["啟動: `pm2 start streamlit -- run app.py`"];
+    G1 --> H1["背景運行, 自動重啟"];
+
+    B --> C3["使用 Docker 容器化"];
+    C3 --> I1["建立 Dockerfile &amp; requirements.txt"];
+    I1 --> J1["建構 Docker 映像: `docker build -t app_image .`"];
+    J1 --> K1["執行 Docker 容器: `docker run -p 8501:8501 app_image`"];
+    K1 --> L1["容器化應用程式運行"];
+
+    B --> C4["Nginx 反向代理 (可選)"];
+    C4 --> M1["安裝 Nginx"];
+    M1 --> N1["配置 Nginx 轉發到 8501"];
+    N1 --> O1["提供 HTTPS/自訂網域"];
+
+    L1 --&gt; O1;
+    H1 --&gt; O1;
+    E1 --&gt; O1;
+
+    subgraph "應用程式存取"
+        O1 --&gt; P["使用者透過瀏覽器存取"];
+    end
+            </pre>
+        </div>
+
+        ---
+        <h2>1. 直接執行 Python 腳本</h2>
+        <p>這是最簡單也是最直接的部署方式。只要您的目標機器上安裝了 Python 和 Streamlit，就可以直接執行您的應用程式。</p>
+
+        <h3>步驟：</h3>
+        <ol>
+            <li><strong>安裝 Python 和 Streamlit：</strong>
+                <pre><code class="language-bash"># 確認 Python 已安裝，如果沒有，請從 Python 官網下載並安裝
+python --version
+
+# 安裝 Streamlit
+pip install streamlit</code></pre>
+            </li>
+            <li><strong>準備您的 Streamlit 應用程式：</strong>
+                <p>假設您的 Streamlit 應用程式檔名為 <code>your_app.py</code>。</p>
+            </li>
+            <li><strong>執行應用程式：</strong>
+                <p>開啟終端機或命令提示字元，導航到您的應用程式檔案所在的目錄，然後執行以下命令：</p>
+                <pre><code class="language-bash">streamlit run your_app.py</code></pre>
+                <p>執行後，Streamlit 會在預設的連接埠 <code>8501</code> 啟動一個本地伺服器，並自動在您的瀏覽器中打開應用程式。</p>
+            </li>
+        </ol>
+
+        <h3>優點：</h3>
+        <ul>
+            <li><strong>簡單快速：</strong> 設定和啟動最為簡單。</li>
+            <li><strong>即時開發：</strong> 適合在開發和測試階段使用。</li>
+        </ul>
+
+        <h3>缺點：</h3>
+        <ul>
+            <li><strong>手動啟動：</strong> 每次機器重啟或應用程式關閉後都需要手動啟動。</li>
+            <li><strong>無背景執行：</strong> 終端機關閉後應用程式也會停止。</li>
+            <li><strong>不適合生產環境：</strong> 缺乏監控、自動重啟等生產級功能。</li>
+        </ul>
+
+        <div class="section-separator"></div>
+
+        <h2>2. 使用 Process Manager (如 PM2, Supervisor)</h2>
+        <p>對於需要應用程式在背景持續執行且具備基本監控功能的場景，使用程序管理器是更好的選擇。這裡以 PM2 為例說明，PM2 是一個為 Node.js 設計的生產級程序管理器，但也可用於管理 Python 腳本。</p>
+
+        <h3>步驟：</h3>
+        <ol>
+            <li><strong>安裝 Node.js 和 npm：</strong>
+                <p>PM2 需要 Node.js 環境。請從 Node.js 官網下載並安裝。</p>
+            </li>
+            <li><strong>安裝 PM2：</strong>
+                <pre><code class="language-bash">npm install pm2 -g</code></pre>
+            </li>
+            <li><strong>啟動 Streamlit 應用程式：</strong>
+                <p>導航到您的應用程式目錄，然後使用 PM2 啟動 Streamlit 應用程式：</p>
+                <pre><code class="language-bash">pm2 start streamlit --name "your_streamlit_app" -- run your_app.py</code></pre>
+                <ul>
+                    <li><code>--name "your_streamlit_app"</code>：為您的應用程式指定一個名稱，方便管理。</li>
+                    <li><code>-- run your_app.py</code>：這部分會作為 <code>streamlit</code> 命令的參數傳入。</li>
+                </ul>
+            </li>
+            <li><strong>常用 PM2 命令：</strong>
+                <ul>
+                    <li>查看所有應用程式狀態：<code>pm2 list</code></li>
+                    <li>查看特定應用程式日誌：<code>pm2 logs your_streamlit_app</code></li>
+                    <li>停止應用程式：<code>pm2 stop your_streamlit_app</code></li>
+                    <li>重啟應用程式：<code>pm2 restart your_streamlit_app</code></li>
+                    <li>刪除應用程式：<code>pm2 delete your_streamlit_app</code></li>
+                    <li>設定開機自動啟動：<code>pm2 startup</code> (跟著提示操作，通常需要執行給出的命令)</li>
+                </ul>
+            </li>
+        </ol>
+
+        <h3>優點：</h3>
+        <ul>
+            <li><strong>背景執行：</strong> 應用程式在背景運行，終端機關閉也不受影響。</li>
+            <li><strong>自動重啟：</strong> 應用程式崩潰時會自動重啟。</li>
+            <li><strong>日誌管理：</strong> 方便查看應用程式的輸出日誌。</li>
+            <li><strong>開機啟動：</strong> 可以配置為系統啟動時自動運行。</li>
+        </ul>
+
+        <h3>缺點：</h3>
+        <ul>
+            <li><strong>依賴 Node.js：</strong> 需要額外安裝 Node.js 環境。</li>
+            <li><strong>PM2 本身學習曲線：</strong> 對於不熟悉 PM2 的用戶需要一些學習時間。</li>
+        </ul>
+
+        <div class="section-separator"></div>
+
+        <h2>3. 使用 Docker 容器化部署</h2>
+        <p>Docker 是一種將應用程式及其所有依賴項打包到一個獨立、可移植容器中的技術。這是目前最推薦的部署方式，尤其適用於生產環境。</p>
+
+        <h3>步驟：</h3>
+        <ol>
+            <li><strong>安裝 Docker：</strong>
+                <p>根據您的作業系統，從 Docker 官網下載並安裝 Docker Engine。</p>
+            </li>
+            <li><strong>建立 <code>Dockerfile</code>：</strong>
+                <p>在您的 Streamlit 應用程式根目錄下建立一個名為 <code>Dockerfile</code> 的檔案（沒有副檔名）。</p>
+                <pre><code class="language-dockerfile"># 使用官方 Python 基礎映像
+FROM python:3.9-slim-buster
+
+# 設定工作目錄
+WORKDIR /app
+
+# 將 requirements.txt 複製到工作目錄
+COPY requirements.txt ./
+
+# 安裝所有 Python 依賴
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 將應用程式程式碼複製到工作目錄
+COPY . .
+
+# 設定環境變數，讓 Streamlit 應用程式監聽所有網路介面
+ENV PORT 8501
+EXPOSE 8501
+
+# 執行 Streamlit 應用程式
+CMD ["streamlit", "run", "your_app.py", "--server.port", "8501", "--server.address", "0.0.0.0"]</code></pre>
+                <p class="note">請將 <code>your_app.py</code> 替換為您的實際應用程式檔名。確保您的 <code>requirements.txt</code> 檔案包含了 Streamlit 和所有應用程式所需的 Python 函式庫。</p>
+            </li>
+            <li><strong>建立 <code>requirements.txt</code>：</strong>
+                <pre><code class="language-text">streamlit
+# 其他您的應用程式所需的函式庫，例如：
+pandas
+numpy
+matplotlib</code></pre>
+            </li>
+            <li><strong>建構 Docker 映像：</strong>
+                <p>在 <code>Dockerfile</code> 所在的目錄下開啟終端機，執行以下命令：</p>
+                <pre><code class="language-bash">docker build -t your_streamlit_app_image .</code></pre>
+                <ul>
+                    <li><code>-t your_streamlit_app_image</code>：為您的映像指定一個名稱和標籤。</li>
+                </ul>
+            </li>
+            <li><strong>執行 Docker 容器：</strong>
+                <p>建構成功後，執行以下命令啟動容器：</p>
+                <pre><code class="language-bash">docker run -p 8501:8501 --name your_streamlit_container your_streamlit_app_image</code></pre>
+                <ul>
+                    <li><code>-p 8501:8501</code>：將主機的 8501 連接埠映射到容器的 8501 連接埠。</li>
+                    <li><code>--name your_streamlit_container</code>：為您的容器指定一個名稱。</li>
+                </ul>
+            </li>
+        </ol>
+
+        <h3>優點：</h3>
+        <ul>
+            <li><strong>環境一致性：</strong> 應用程式在任何 Docker 環境中都能以相同方式運行，避免「在我的機器上可以跑」的問題。</li>
+            <li><strong>隔離性：</strong> 應用程式及其依賴項與主機系統完全隔離。</li>
+            <li><strong>可移植性：</strong> 打包好的映像可以輕鬆地在不同機器之間移動和部署。</li>
+            <li><strong>版本控制：</strong> 可以對映像進行版本控制。</li>
+            <li><strong>擴展性：</strong> 方便與 Docker Swarm 或 Kubernetes 等容器編排工具整合。</li>
+        </ul>
+
+        <h3>缺點：</h3>
+        <ul>
+            <li><strong>學習曲線：</strong> 對於不熟悉 Docker 的用戶需要一定的學習時間。</li>
+            <li><strong>資源消耗：</strong> 容器化會引入一些額外的資源開銷（相對較小）。</li>
+        </ul>
+
+        <div class="section-separator"></div>
+
+        <h2>4. 使用 Nginx 作為反向代理 (可選，通常與 Docker 結合)</h2>
+        <p>當您需要為 Streamlit 應用程式提供 HTTPS、自訂網域名稱或在同一伺服器上運行多個應用程式時，Nginx 作為反向代理是非常有用的。</p>
+
+        <h3>概念：</h3>
+        <p>Nginx 會接收外部請求，然後將請求轉發到 Streamlit 應用程式運行的內部連接埠（例如 8501）。</p>
+
+        <h3>步驟 (簡要，假設 Streamlit 已在 8501 運行)：</h3>
+        <ol>
+            <li><strong>安裝 Nginx：</strong>
+                <pre><code class="language-bash"># Debian/Ubuntu
+sudo apt update
+sudo apt install nginx
+
+# CentOS/RHEL
+sudo yum install nginx</code></pre>
+            </li>
+            <li><strong>配置 Nginx：</strong>
+                <p>建立或修改 Nginx 的站點配置檔（通常在 <code>/etc/nginx/sites-available/</code> 下，然後連結到 <code>/etc/nginx/sites-enabled/</code>）。</p>
+                <pre><code class="language-nginx">server {
+    listen 80;
+    server_name your_domain.com your_server_ip; # 替換為您的網域或伺服器 IP
+
+    location / {
+        proxy_pass http://127.0.0.1:8501; # Streamlit 應用程式運行的位址和連接埠
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+        proxy_read_timeout 300s; # 增加超時時間以避免WebSocket斷線
+    }
+}</code></pre>
+            </li>
+            <li><strong>啟用配置並重載 Nginx：</strong>
+                <pre><code class="language-bash">sudo ln -s /etc/nginx/sites-available/your_streamlit_app /etc/nginx/sites-enabled/
+sudo nginx -t # 測試配置語法
+sudo systemctl restart nginx # 重啟 Nginx</code></pre>
+            </li>
+        </ol>
+
+        <h3>優點：</h3>
+        <ul>
+            <li><strong>提供 HTTPS：</strong> 可以使用 Let's Encrypt 輕鬆配置 SSL 憑證。</li>
+            <li><strong>自訂網域：</strong> 將應用程式綁定到自訂網域。</li>
+            <li><strong>負載平衡：</strong> 如果有多個 Streamlit 實例，可以進行負載平衡。</li>
+            <li><strong>靜態檔案服務：</strong> Nginx 可以高效地服務靜態檔案。</li>
+        </ul>
+
+        <h3>缺點：</h3>
+        <ul>
+            <li><strong>複雜性增加：</strong> 引入額外的 Nginx 設定和維護。</li>
+        </ul>
+
+        <div class="section-separator"></div>
+
+        <h2>總結與建議：</h2>
+        <ul>
+            <li><strong>快速測試/開發：</strong> 直接使用 <code>streamlit run your_app.py</code>。</li>
+            <li><strong>基礎生產部署：</strong> 考慮使用 <strong>PM2</strong> 進行背景執行和自動重啟。</li>
+            <li><strong>推薦的生產部署：</strong> 強烈建議使用 <strong>Docker</strong> 進行容器化部署，以獲得環境一致性、隔離性、和可移植性。</li>
+            <li><strong>進階需求 (HTTPS/網域)：</strong> 在 Docker 部署的基礎上，結合 <strong>Nginx</strong> 作為反向代理。</li>
+        </ul>
+        <p>選擇最適合您需求的部署方式，並確保您的伺服器防火牆已開啟 Streamlit 應用程式所使用的連接埠 (預設為 <code>8501</code>)。</p>
+    </div>
+</body>
+</html>
