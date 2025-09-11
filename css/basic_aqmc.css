@@ -2536,6 +2536,9 @@ div .cloud-bk {
     img.leftMenu, .up img {
         display: none;
     }
+    .btn_print  {
+        display: none;
+    }
 
     dd.leftMenu {
         display: none;
@@ -2595,9 +2598,6 @@ div .cloud-bk {
         display: block;
     }
     .mFootLink {
-        display: none;
-    }
-    .btn_print  {
         display: none;
     }
     img.optionalstuff {
