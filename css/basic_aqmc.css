@@ -2597,7 +2597,9 @@ div .cloud-bk {
     .mFootLink {
         display: none;
     }
-
+    .btn_print  {
+        display: none;
+    }
     img.optionalstuff {
         display: none;
     }
