@@ -3,6 +3,8 @@ var aqmcKeywords = [
     "CMAQ",
     "ISCST3",
     "WRF",
+    "Gaussian Dispersion Model",
+    "Eulerian Grid Models",
     "法規及相關公告",
     "空氣品質模式模擬規範相關文件",
     "環境影響評估技術規範相關文件",
