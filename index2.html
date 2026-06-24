@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>公司與化學品於模型之潛在風險排名Demo</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="https://chemicloud.moenv.gov.tw/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel='stylesheet' href='css/d3v4-selectable-zoomable-force-directed-graph.css'>
+    <!-- <link rel="shortcut icon" type="image/png" href="./favicon.png" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+    <div id="loadingPanel" class="loading hidden"><span>Loading...</span></div>
+    <main style="padding-top: 10px;">
+        <iframe id="app" src="/chem/" class="chem-frame" title="化學品運作分析" frameborder="0" width="90%" height="1500">
+            看不到頁面時才會顯示這行文字
+        </iframe>
+    </main>
+    <script src="js/jquery-3.4.1.min.js" type="text/javascript"></script>
+    <script src="js/materialize.min.js" type="text/javascript"></script>
+    <script src="js/lodash.js"></script>
+    <script src="js/nameSearchMap.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/rank_score.js"></script>
+</body>
+
+</html>
