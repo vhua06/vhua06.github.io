@@ -156,7 +156,7 @@ footer{
     font-weight: bold;
     text-decoration: none !important;
     padding:0;
-    white-space: nowrap;
+    white-space: nowrap !important;
 }
 .footerItem>a:hover,
 .footerItem>a:focus {
@@ -172,10 +172,12 @@ footer{
 }
 .footerItem>ul>li>a{
     text-decoration: none !important;
+    white-space: nowrap !important;
 }
 .footerItem>ul>li>a:hover,
 .footerItem>ul>li>a:focus {
     text-decoration: none !important;
+    white-space: nowrap !important;
 }
 .footerItem ul a,footer a{
     color:#000;

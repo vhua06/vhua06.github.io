@@ -16,28 +16,28 @@
  },{
   "id": "3",
   "url": "https://aqmc.moenv.gov.tw/airquality_1.html",
-  "title": "模式介紹 - 高斯類擴散模式 簡要描述 | 空氣品質模式支援中心",
-  "text": "空氣品質模式支援中心-模式介紹｜高斯類擴散模式｜ISCST3（Industrial Source Complex Short-Term Dispersion Model）是美國環保署公告 替代模式 Alternative Model 一階線性 惰性空氣污染物 模擬 ISC穩定 高斯煙流 Steady–State Gussian Plume Model 連續排放 污染源 沉降等作用 到達穩定 穩定狀態時 煙流 Plume 內部污染物濃度 分佈狀況 中間主軸方向 風向 水平面 垂直面 高斯分佈 Gaussian distribution  常態分佈 normal distribution 符合亂流 隨機性 均勻 homogeneous 大氣紊流場 污染源 下風處 濃度分佈 高斯函數分佈 限制 穩定 steady 均一 uniform 風速 風向 假設 具代表性 風速 風向輸入值 高斯模式 風向 風速 輸入值 逐時資料作 模擬 模擬 污染物種 惰性物種 污染物物種 一氧化碳 二氧化硫 懸浮微粒等污染物 擴散 ISCST3模式 污染形式 濃度 沈降量 型態 點源（Point source）：煙囪高度較高且排放率較大者 如工廠煙囪等固定污染源所排放 污染物 線源（Line source）：由移動污染源（如：汽 機車等） 固定路線(道路)所排放 污染源 面源（Area source）：排放率小且均勻分佈 某一面積範圍內 污染源 如學校 住宅區 商業區等地點因人 活動所釋出 污染源 體源（Volume source） 工業區 煙囪高度 排放率 風孔 排氣設備 ISCST3模式 污染型態 點 線 面 線源 體源 模擬方式  ISCST3模式 鄉村 都市類型 模擬功能 污染源 氣象 活動強度 複合工業污染源 空氣品質 ISCST3模式 複雜地形 大氣狀況  ISCST3模式 範疇可歸納： 煙囪設計 污染防制 燃燒性 排放源 監測網 監測點 評估 空氣污染 控制技術 輔助控制系統 規劃設計 環境污染評估 空氣污染防制區 劃分 空氣污染減量方案 研擬"
+  "title": "認識空氣品質模式 - 高斯類擴散模式 簡要描述 | 空氣品質模式支援中心",
+  "text": "空氣品質模式支援中心-認識空氣品質模式｜高斯類擴散模式｜ISCST3（Industrial Source Complex Short-Term Dispersion Model）是美國環保署公告 替代模式 Alternative Model 一階線性 惰性空氣污染物 模擬 ISC穩定 高斯煙流 Steady–State Gussian Plume Model 連續排放 污染源 沉降等作用 到達穩定 穩定狀態時 煙流 Plume 內部污染物濃度 分佈狀況 中間主軸方向 風向 水平面 垂直面 高斯分佈 Gaussian distribution  常態分佈 normal distribution 符合亂流 隨機性 均勻 homogeneous 大氣紊流場 污染源 下風處 濃度分佈 高斯函數分佈 限制 穩定 steady 均一 uniform 風速 風向 假設 具代表性 風速 風向輸入值 高斯模式 風向 風速 輸入值 逐時資料作 模擬 模擬 污染物種 惰性物種 污染物物種 一氧化碳 二氧化硫 懸浮微粒等污染物 擴散 ISCST3模式 污染形式 濃度 沈降量 型態 點源（Point source）：煙囪高度較高且排放率較大者 如工廠煙囪等固定污染源所排放 污染物 線源（Line source）：由移動污染源（如：汽 機車等） 固定路線(道路)所排放 污染源 面源（Area source）：排放率小且均勻分佈 某一面積範圍內 污染源 如學校 住宅區 商業區等地點因人 活動所釋出 污染源 體源（Volume source） 工業區 煙囪高度 排放率 風孔 排氣設備 ISCST3模式 污染型態 點 線 面 線源 體源 模擬方式  ISCST3模式 鄉村 都市類型 模擬功能 污染源 氣象 活動強度 複合工業污染源 空氣品質 ISCST3模式 複雜地形 大氣狀況  ISCST3模式 範疇可歸納： 煙囪設計 污染防制 燃燒性 排放源 監測網 監測點 評估 空氣污染 控制技術 輔助控制系統 規劃設計 環境污染評估 空氣污染防制區 劃分 空氣污染減量方案 研擬"
  },{
   "id": "4",
   "url": "https://aqmc.moenv.gov.tw/airquality_2.html",
-  "title": "模式介紹 - 軌跡類模式（非化學反應） 簡要描述 | 空氣品質模式支援中心",
-  "text": "空氣品質模式支援中心-模式介紹｜軌跡類模式｜擴散模式 排放源 受體 污染影響 逆軌跡模式 (back trajectory) 去反向 氣團 來源 地表風場變化情況 軌跡推估示意 張能復老師 研究計畫 位置 風場 推算軌跡線 座標 時間 軌跡模式 地點 時間 座標位置 附近 風場 逐時 風場計算 一分鐘 數分鐘 該氣團 行進路線 氣團 路線 軌跡線 時間推算 來源 逆軌跡；如果軌跡線是往未來 時間推算 亦即推算該氣團 走向 前軌跡 不同時間 座標 軌跡線 推估 軌跡模式 HYSPLIT 模式 NOAA 單位 開發"
+  "title": "認識空氣品質模式 - 軌跡類模式（非化學反應） 簡要描述 | 空氣品質模式支援中心",
+  "text": "空氣品質模式支援中心-認識空氣品質模式｜軌跡類模式｜擴散模式 排放源 受體 污染影響 逆軌跡模式 (back trajectory) 去反向 氣團 來源 地表風場變化情況 軌跡推估示意 張能復老師 研究計畫 位置 風場 推算軌跡線 座標 時間 軌跡模式 地點 時間 座標位置 附近 風場 逐時 風場計算 一分鐘 數分鐘 該氣團 行進路線 氣團 路線 軌跡線 時間推算 來源 逆軌跡；如果軌跡線是往未來 時間推算 亦即推算該氣團 走向 前軌跡 不同時間 座標 軌跡線 推估 軌跡模式 HYSPLIT 模式 NOAA 單位 開發"
  },{
   "id": "5",
   "url": "https://aqmc.moenv.gov.tw/airquality_3.html",
-  "title": "模式介紹 - 網格類模式 簡要描述| 空氣品質模式支援中心",
-  "text": "空氣品質模式支援中心-模式介紹｜網格類模式｜空氣品質模式 概念 污染物 傳輸 排放量 氣象 地形 化學反應 過程 數學方程式 統御方程式(governing equation) 網格模式 大氣網格 劃分 水平網格 垂直網格 物理 化學 統御方程式 數值解 污染物濃度 空間上 分布 網格模式 參考座標系統 尤拉(Eulerian)座標系統 尤拉網格模式 座標 網格模式常用 數值解法 有限差分法(finite difference method) 有限元素法(finite element method) 污染物 大氣中 物理 化學過程(包括傳輸 化學反應 乾沈降 雲 濕沈降 氣膠等程序)  污染物排放量 氣象 地形 網格模式 最少假設 功能最強大 空氣品質模式 電腦資源 探討區域 都市尺度空氣污染問題(regional and urban scale air quality) 空氣污染管制策略 品質改善 有效性 量化評估 各類排放源 空氣品質影響 量化評估 細懸浮微粒(PM2.5) 臭氧(O3) 污染成因  污染物 長距離 跨國跨區域傳輸 評析探討 空氣污染 總量管制 允許排放量 涵容能力 推估 境內跨空品區空氣污染 量化評析 大型污染源 空氣品質影響 量化評估 其他應用 空氣品質 監測站址選擇 空氣品質 監測站址 評估 空氣品質 預報系統 空氣品質 即時預警系統 排放推估資料評估 空氣品質網格模式 CMAQ (Community Multiscale Air Quality) CAMx (Comprehensive Air Quality Model with Extensions)"
+  "title": "認識空氣品質模式 - 網格類模式 簡要描述| 空氣品質模式支援中心",
+  "text": "空氣品質模式支援中心-認識空氣品質模式｜網格類模式｜空氣品質模式 概念 污染物 傳輸 排放量 氣象 地形 化學反應 過程 數學方程式 統御方程式(governing equation) 網格模式 大氣網格 劃分 水平網格 垂直網格 物理 化學 統御方程式 數值解 污染物濃度 空間上 分布 網格模式 參考座標系統 尤拉(Eulerian)座標系統 尤拉網格模式 座標 網格模式常用 數值解法 有限差分法(finite difference method) 有限元素法(finite element method) 污染物 大氣中 物理 化學過程(包括傳輸 化學反應 乾沈降 雲 濕沈降 氣膠等程序)  污染物排放量 氣象 地形 網格模式 最少假設 功能最強大 空氣品質模式 電腦資源 探討區域 都市尺度空氣污染問題(regional and urban scale air quality) 空氣污染管制策略 品質改善 有效性 量化評估 各類排放源 空氣品質影響 量化評估 細懸浮微粒(PM2.5) 臭氧(O3) 污染成因  污染物 長距離 跨國跨區域傳輸 評析探討 空氣污染 總量管制 允許排放量 涵容能力 推估 境內跨空品區空氣污染 量化評析 大型污染源 空氣品質影響 量化評估 其他應用 空氣品質 監測站址選擇 空氣品質 監測站址 評估 空氣品質 預報系統 空氣品質 即時預警系統 排放推估資料評估 空氣品質網格模式 CMAQ (Community Multiscale Air Quality) CAMx (Comprehensive Air Quality Model with Extensions)"
  },{
   "id": "6",
   "url": "https://aqmc.moenv.gov.tw/weathermode_1.html",
-  "title": "模式介紹 - MM5 | 空氣品質模式支援中心",
-  "text": "空氣品質模式支援中心-模式介紹｜MM5｜Fifth-Generation Penn State/NCAR Mesoscale Model(MM5)簡介 MM5 (Mesosclae Model System version V, MM5)網格氣象 美國 大氣研究中心 區域網格模式 Anthes and Warner (1978) 原始方程 中尺度 運動特性 數值模式 三維空間 靜力/非靜力 中尺度模式 模式架構流程 地勢坐標(σ座標模式) 巢狀網格系統(multiple-nest capability)模擬 四維資料 (FDDA, Four Dimensional Data Assimilations) 邊界層 參數 積雲 物理參數 測試 地圖投影 極正射投影 蘭伯特正形投影 麥卡托投影 緯度 運用 不同尺度間 交互作用 解析 複雜 中尺度系統 MM5 模擬 彌補 觀測資料上時 空解析度 不足 區域 預報有相當好 能力 MM5 網格設計 水平面上是採用 Arakawa B 交錯網格方式 網格設計 質量場 速度場交錯分佈 定差法 計算 時間 誤差 垂直速度 水平面 垂直 水準速度場 錯開 垂直方向採追隨地勢坐標sigma(σ) 不一致 網隔間距 非線性 變數 權重 MM5模式 流程示意圖 MM5 模式 流程示意圖 Arakawa B 交錯網格方式 圖2 Arakawa B 交錯網格方式"
+  "title": "認識空氣品質模式 - MM5 | 空氣品質模式支援中心",
+  "text": "空氣品質模式支援中心-認識空氣品質模式｜MM5｜Fifth-Generation Penn State/NCAR Mesoscale Model(MM5)簡介 MM5 (Mesosclae Model System version V, MM5)網格氣象 美國 大氣研究中心 區域網格模式 Anthes and Warner (1978) 原始方程 中尺度 運動特性 數值模式 三維空間 靜力/非靜力 中尺度模式 模式架構流程 地勢坐標(σ座標模式) 巢狀網格系統(multiple-nest capability)模擬 四維資料 (FDDA, Four Dimensional Data Assimilations) 邊界層 參數 積雲 物理參數 測試 地圖投影 極正射投影 蘭伯特正形投影 麥卡托投影 緯度 運用 不同尺度間 交互作用 解析 複雜 中尺度系統 MM5 模擬 彌補 觀測資料上時 空解析度 不足 區域 預報有相當好 能力 MM5 網格設計 水平面上是採用 Arakawa B 交錯網格方式 網格設計 質量場 速度場交錯分佈 定差法 計算 時間 誤差 垂直速度 水平面 垂直 水準速度場 錯開 垂直方向採追隨地勢坐標sigma(σ) 不一致 網隔間距 非線性 變數 權重 MM5模式 流程示意圖 MM5 模式 流程示意圖 Arakawa B 交錯網格方式 圖2 Arakawa B 交錯網格方式"
  },{
   "id": "7",
   "url": "https://aqmc.moenv.gov.tw/weathermode_2.html",
-  "title": "模式介紹 - WRF | 空氣品質模式支援中心",
-  "text": "空氣品質模式支援中心-模式介紹｜WRF｜Weather Research and Forecasting Model (WRF) 天氣研究 預報模式(WRF) 中尺度數值 天氣 預報系統 大氣研究 天氣預報 數據 同化系統 有利 平行運算 延展性 軟體架構 跨尺度 氣象應用 WRF模式 數據資料 大氣模擬 WRF模式 動力核心 ARW (Advanced Research WRF) NMM (Non-hydrostatic Mesoscale Model) WRF架構 ARW NCAR MMM( Mesoscale and Microscale Meteorology Division) 靜力穩定模式 參數化研究 資料同化研究 即時數值天氣預報 颱風模擬 區域氣候研究 偶合模式應用 教學 WRF-ARW 物理過程 微物理 積雲參數化 行星邊界層 地表過程 輻射 NMM NOAA (National Oceanic and Atmospheric Administration) NCEP 非靜力穩定 即時預報 可應用 即時數值 參數化研究 偶合模式應用 教學 WRF模式 標準化語言 數值計算 資料同化技術 多重移動網格  物理過程 中尺度 降水過程 WRF 網格設計 水平面 Arakawa C 交錯網格方式  速度場放交錯 質量場 熱力 化學 左右上下二分 一 網格 交錯分佈 網格架構 垂直方向 eta(η ) 座標相當 MM5模式sigma(σ) 地勢坐標 網隔間距"
+  "title": "認識空氣品質模式 - WRF | 空氣品質模式支援中心",
+  "text": "空氣品質模式支援中心-認識空氣品質模式｜WRF｜Weather Research and Forecasting Model (WRF) 天氣研究 預報模式(WRF) 中尺度數值 天氣 預報系統 大氣研究 天氣預報 數據 同化系統 有利 平行運算 延展性 軟體架構 跨尺度 氣象應用 WRF模式 數據資料 大氣模擬 WRF模式 動力核心 ARW (Advanced Research WRF) NMM (Non-hydrostatic Mesoscale Model) WRF架構 ARW NCAR MMM( Mesoscale and Microscale Meteorology Division) 靜力穩定模式 參數化研究 資料同化研究 即時數值天氣預報 颱風模擬 區域氣候研究 偶合模式應用 教學 WRF-ARW 物理過程 微物理 積雲參數化 行星邊界層 地表過程 輻射 NMM NOAA (National Oceanic and Atmospheric Administration) NCEP 非靜力穩定 即時預報 可應用 即時數值 參數化研究 偶合模式應用 教學 WRF模式 標準化語言 數值計算 資料同化技術 多重移動網格  物理過程 中尺度 降水過程 WRF 網格設計 水平面 Arakawa C 交錯網格方式  速度場放交錯 質量場 熱力 化學 左右上下二分 一 網格 交錯分佈 網格架構 垂直方向 eta(η ) 座標相當 MM5模式sigma(σ) 地勢坐標 網隔間距"
  },{
   "id": "8",
   "url": "https://aqmc.moenv.gov.tw/regulations_1.html",
@@ -92,7 +92,7 @@
   "id": "18",
   "url": "https://aqmc.moenv.gov.tw/links.html",
   "title": "相關連結 | 空氣品質模式支援中心",
-  "text": "空氣品質模式支援中心-相關連結｜環境部 http://www.epa.gov.tw/ 中央氣象局 https://www.cwb.gov.tw/ 環境部環境部環境資料開放平臺 https://data.moenv.gov.tw 空氣品質監測網即時指標 https://airtw.moenv.gov.tw/CHT/default.aspx 美國環保署 https://www.epa.gov/ US EPA Office of Air and Radiation https://www.epa.gov/oar/ US EPA Office of Air Quality Planning and Standards https://www3.epa.gov/airquality/ US EPA Technology Transfer Network https://www.epa.gov/air-emissions-monitoring-knowledge-base/technical-air-pollution-resources Support Center for Regulatory Atmospheric https://www.epa.gov/scram "
+  "text": "空氣品質模式支援中心-相關連結｜環境部 https://www.moenv.gov.tw/ 中央氣象局 https://www.cwb.gov.tw/ 環境部環境部環境資料開放平臺 https://data.moenv.gov.tw 空氣品質監測網即時指標 https://airtw.moenv.gov.tw/CHT/default.aspx 美國環保署 https://www.epa.gov/ US EPA Office of Air and Radiation https://www.epa.gov/oar/ US EPA Office of Air Quality Planning and Standards https://www3.epa.gov/airquality/ US EPA Technology Transfer Network https://www.epa.gov/air-emissions-monitoring-knowledge-base/technical-air-pollution-resources Support Center for Regulatory Atmospheric https://www.epa.gov/scram "
  },{
   "id": "19",
   "url": "https://aqmc.moenv.gov.tw/ENG/index.html",

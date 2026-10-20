@@ -1,7 +1,7 @@
 /* Articulate.js (1.1.0). (C) 2017 Adam Coti. MIT @license: en.wikipedia.org/wiki/MIT_License
 
    See Github page at: https://github.com/acoti/articulate.js
-   See Web site at: http://articulate.purefreedom.com
+   See Web site at: https://articulate.purefreedom.com
 
 */
 

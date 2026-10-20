@@ -1,0 +1,1109 @@
+@charset "utf-8";
+/* ==========================================================
+   認識模式模擬的科普資訊 (popularscience_*.html) 專用樣式
+   所有規則以 .psim 開頭，避免影響網站其他頁面
+   版面以「內容區寬度」切換（container query），
+   不支援的舊瀏覽器會自動顯示為單欄（手機版）排版。
+   ========================================================== */
+
+.psim {
+    --psim-navy: #1d3a6b;        /* 圖卡標題深藍 */
+    --psim-blue: #3f78c2;        /* 副標藍 */
+    --psim-teal: #01606b;        /* 網站深青綠 */
+    --psim-teal-light: #92CED8;  /* 網站主色淺青綠 */
+    --psim-maroon: rgb(126, 9, 73); /* 網站標題酒紅 */
+    --psim-text: #222;
+    --psim-sub: #4a5563;
+    container-type: inline-size;
+    container-name: psim;
+    clear: both; /* 避開右上角浮動的「社群分享」按鈕，維持全寬 */
+    color: var(--psim-text);
+    line-height: 1.8;
+}
+
+.psim *,
+.psim *::before,
+.psim *::after {
+    box-sizing: border-box;
+}
+
+/* 抵消 .htmlEditor 預設樣式 */
+.htmlEditor .psim ol,
+.htmlEditor .psim ul {
+    padding-left: 0;
+    margin: 0;
+}
+
+.htmlEditor .psim ol > li,
+.htmlEditor .psim ul > li {
+    list-style: none;
+}
+
+.htmlEditor .psim img {
+    max-width: 100%;
+    width: auto;
+    height: auto;
+}
+
+.psim p {
+    margin: 0 0 .9em;
+}
+
+/* ---------- 主視覺圖卡（對應簡報右側圖片） ---------- */
+.psim-hero {
+    position: relative;
+    overflow: hidden;
+    border-radius: 14px;
+    padding: 22px 18px 18px;
+    margin-bottom: 28px;
+    background:
+        radial-gradient(120% 60% at 85% 10%, rgba(255, 255, 255, .75), rgba(255, 255, 255, 0) 60%),
+        linear-gradient(180deg, #e3ecef 0%, #dbe7ec 45%, #c2dce6 78%, #a9cfdd 100%);
+    border: 1px solid #c9dce4;
+}
+
+.psim-hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+    align-items: center;
+}
+
+.psim .psim-title {
+    margin: 0;
+    padding: 0;
+    font-size: 1.75rem;
+    line-height: 1.25;
+    font-weight: 900;
+    letter-spacing: .06em;
+    color: var(--psim-navy);
+}
+
+.psim-hero {
+    /* 圖卡內統一使用無襯線粗黑字體，貼近原圖 */
+    font-family: "Microsoft JhengHei", "微軟正黑體", "PingFang TC", "Noto Sans TC", "Heiti TC", sans-serif;
+}
+
+/* 副標：白字＋藍色柔光外框（同原圖） */
+.psim .psim-tag {
+    display: inline-block;
+    margin: 8px 0 16px;
+    padding: 0;
+    background: none;
+    color: #fff;
+    font-weight: 900;
+    font-size: 1.3rem;
+    letter-spacing: .08em;
+    line-height: 1.5;
+    text-shadow:
+        0 0 1px #3d73c9,
+        0 0 2px #3d73c9,
+        1px 1px 2px #4a82d4,
+        -1px -1px 2px #4a82d4,
+        1px -1px 2px #4a82d4,
+        -1px 1px 2px #4a82d4,
+        0 0 6px rgba(74, 130, 212, .9),
+        0 0 12px rgba(120, 165, 230, .8);
+}
+
+.psim-hero-text p {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #1f2a37;
+    letter-spacing: .03em;
+}
+
+.psim-map {
+    margin: 0 auto;
+    max-width: 280px;
+    text-align: center;
+}
+
+.psim-map img {
+    display: block;
+    margin: 0 auto;
+}
+
+.psim-map figcaption {
+    margin-top: 4px;
+    font-size: .85rem;
+    line-height: 1.6;
+    color: var(--psim-sub);
+}
+
+
+/* ---------- 四個步驟（圖片下方流程） ---------- */
+.psim-steps {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin-top: 18px !important;
+    padding: 6px !important;
+    border-radius: 18px;
+    background: rgba(241, 252, 255, .95);
+    border: 2px solid #4f6c9e;
+    box-shadow: 0 4px 14px rgba(29, 58, 107, .12);
+}
+
+.psim-steps > li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 12px 8px 10px;
+    position: relative;
+}
+
+/* 分隔線 */
+.psim-steps > li:nth-child(odd)::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 14%;
+    height: 72%;
+    border-right: 1px solid #c3cfdd;
+}
+
+.psim-steps > li:nth-child(-n+2) {
+    border-bottom: 1px solid #c3cfdd;
+}
+
+.psim-step-head {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 2.6em;
+    font-weight: 900;
+    color: #132652;
+    font-size: 1.2rem;
+    line-height: 1.3;
+    letter-spacing: .04em;
+}
+
+.psim-num {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.55em;
+    height: 1.55em;
+    border-radius: 50%;
+    background: #33498a;
+    color: #fff;
+    font-family: Arial, "Microsoft JhengHei", sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.psim-step-icon {
+    display: block;
+    width: 64px;
+    height: 48px;
+    margin: 8px auto 8px;
+    color: #3f5c6e;
+}
+
+.psim-step-desc {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.55;
+    letter-spacing: .03em;
+    color: #1c2b55;
+}
+
+
+/* ==========================================================
+   版面切換：依內容區寬度
+   ========================================================== */
+
+/* 內容區 ≥ 520px（平板、桌機）：主視覺左文右圖 */
+@container psim (min-width: 520px) {
+    .psim-hero {
+        padding: 28px 26px 22px;
+    }
+
+    .psim-hero-grid {
+        grid-template-columns: 1.25fr 1fr;
+        gap: 18px;
+    }
+
+    .psim-map {
+        max-width: 300px;
+    }
+
+    .psim .psim-title {
+        font-size: 2.1rem;
+    }
+
+}
+
+/* 內容區 ≥ 680px（桌機）：四步驟排成一列 */
+@container psim (min-width: 680px) {
+    .psim .psim-title {
+        font-size: 2.4rem;
+    }
+
+    .psim-steps {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .psim-steps > li:nth-child(-n+2) {
+        border-bottom: 0;
+    }
+
+    .psim-steps > li:nth-child(odd)::after {
+        display: none;
+    }
+
+    .psim-steps > li:not(:last-child)::after {
+        content: "";
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 14%;
+        height: 72%;
+        border-right: 1px solid #c3cfdd;
+    }
+}
+
+/* 手機（內容區 < 520px）：縮小留白與步驟字級 */
+@container psim (max-width: 519px) {
+    .psim-hero {
+        padding: 18px 14px 14px;
+    }
+
+    .psim-steps > li {
+        padding: 10px 4px 8px;
+    }
+
+    .psim-step-head {
+        font-size: 1.05rem;
+    }
+
+    .psim-step-desc {
+        font-size: .9rem;
+    }
+
+    .psim .psim-tag {
+        font-size: 1.12rem;
+    }
+
+}
+
+/* 很窄的手機（內容區 < 360px）：步驟改單欄 */
+@container psim (max-width: 299px) {
+    .psim .psim-title {
+        font-size: 1.5rem;
+    }
+
+    .psim-steps {
+        grid-template-columns: 1fr;
+    }
+
+    .psim-steps > li {
+        border-bottom: 1px solid #c3cfdd;
+    }
+
+    .psim-steps > li:last-child {
+        border-bottom: 0;
+    }
+
+    .psim-steps > li::after {
+        display: none !important;
+    }
+}
+
+/* 列印 */
+@media print {
+    .psim-hero {
+        background: #eef4f6 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+}
+
+/* ==========================================================
+   簡報第 2 頁文字內容：保留原稿樣式
+   標題：黑色粗體＋空心方框；內文：縮排、黑色；應用：• 條列
+   ========================================================== */
+.psim-text {
+    margin: 0 0 28px;
+    color: #000;
+    font-size: 1.05rem;
+    line-height: 1.75; /* 原稿行距 1.2 倍，中文網頁略放寬以利閱讀 */
+}
+
+.psim .psim-text-h {
+    position: relative;
+    margin: 0 0 4px;
+    padding: 0 0 0 1.6em;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #000;
+    line-height: 1.75;
+}
+
+/* 原稿 Wingdings 空心方框符號 */
+.psim .psim-text-h::before {
+    content: "";
+    position: absolute;
+    left: .1em;
+    top: 50%;
+    width: .78em;
+    height: .78em;
+    margin-top: -.42em;
+    border: 2px solid #000;
+    background: #fff;
+}
+
+.psim .psim-text-p {
+    margin: 0 0 14px;
+    padding-left: 2.2em;
+    color: #000;
+}
+
+.htmlEditor .psim ul.psim-text-list {
+    margin: 0 0 8px;
+    padding-left: 2.2em;
+}
+
+.htmlEditor .psim ul.psim-text-list > li {
+    position: relative;
+    list-style: none;
+    padding-left: 1em;
+    color: #000;
+}
+
+.htmlEditor .psim ul.psim-text-list > li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: Arial, sans-serif;
+    font-weight: 700;
+}
+
+/* 回上一頁：藍色粗體底線（同原稿超連結） */
+.psim .psim-back {
+    margin: 4px 0 0;
+    text-align: center;
+}
+
+.htmlEditor .psim .psim-back a {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: #0563c1;
+    text-decoration: underline;
+}
+
+.htmlEditor .psim .psim-back a:hover,
+.htmlEditor .psim .psim-back a:focus {
+    color: rgb(126, 9, 73);
+}
+
+@container psim (max-width: 519px) {
+    .psim .psim-text-p,
+    .htmlEditor .psim ul.psim-text-list {
+        padding-left: 1.6em;
+    }
+}
+
+@media print {
+    .psim-back {
+        display: none;
+    }
+}
+
+/* ==========================================================
+   popularscience_2.html：AERMOD 空氣擴散模式介紹（簡報第 3 頁）
+   所有規則以 .paer 開頭；依內容區寬度切換版面
+   ========================================================== */
+.paer {
+    container-type: inline-size;
+    container-name: paer;
+    clear: both;
+    color: #1a1a1a;
+    font-family: "Microsoft JhengHei", "微軟正黑體", "PingFang TC", "Noto Sans TC", "Heiti TC", sans-serif;
+    line-height: 1.6;
+}
+
+.paer *,
+.paer *::before,
+.paer *::after {
+    box-sizing: border-box;
+}
+
+.htmlEditor .paer ol,
+.htmlEditor .paer ul {
+    margin: 0;
+    padding-left: 0;
+}
+
+.htmlEditor .paer ol > li,
+.htmlEditor .paer ul > li {
+    list-style: none;
+}
+
+.htmlEditor .paer img {
+    display: block;
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+}
+
+.paer p {
+    margin: 0;
+}
+
+/* 整張圖卡 */
+.paer-board {
+    overflow: hidden;
+    border-radius: 14px;
+    border: 1px solid #c9dce4;
+    background: linear-gradient(180deg, #eaf5f9 0%, #f3f9ee 55%, #f5fae8 100%);
+    margin-bottom: 24px;
+}
+
+/* ---------- 標題橫幅 ---------- */
+.paer-banner {
+    position: relative;
+    text-align: center;
+    padding: 18px 12px 0;
+    background:
+        radial-gradient(90% 120% at 0% 0%, rgba(255, 255, 255, .85) 0, rgba(255, 255, 255, 0) 28%),
+        linear-gradient(180deg, #1ba9f5 0%, #4fbff9 38%, #8fd5fc 70%, #bde7fe 100%);
+}
+
+/* 主標：深藍粗黑字＋白色外框 */
+.paer .paer-title {
+    margin: 0;
+    padding: 0;
+    font-size: 1.45rem;
+    font-weight: 900;
+    line-height: 1.3;
+    letter-spacing: .02em;
+    color: #0b1d5a;
+    text-shadow:
+        2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff,
+        1.5px 1.5px 0 #fff, -1.5px -1.5px 0 #fff, 1.5px -1.5px 0 #fff, -1.5px 1.5px 0 #fff,
+        0 3px 8px rgba(0, 40, 110, .45);
+}
+
+.paer-bar {
+    margin: 0 .1em;
+    font-weight: 400;
+}
+
+.paer-nowrap {
+    white-space: nowrap;
+}
+
+/* 副標：深藍粗體＋白色柔光，左右綠葉 */
+.paer .paer-sub {
+    margin: 10px auto 0;
+    max-width: 40em;
+    font-size: .98rem;
+    font-weight: 800;
+    letter-spacing: .06em;
+    color: #0d2350;
+    text-shadow: 0 0 4px #fff, 0 0 8px #fff, 0 0 12px rgba(255, 255, 255, .9);
+}
+
+.paer-leaf {
+    margin: 0 .35em;
+    color: #4f9b1f;
+    font-size: 1.15em;
+    text-shadow: none;
+}
+
+.paer-leaf-l {
+    transform: scaleX(-1);
+}
+
+.paer-banner-img {
+    margin-top: -6px;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 22%);
+    mask-image: linear-gradient(180deg, transparent 0, #000 22%);
+}
+
+.htmlEditor .paer .paer-banner-img {
+    width: calc(100% + 24px);
+    max-width: none;
+    margin-left: -12px;
+}
+
+/* ---------- 三欄 ---------- */
+.paer-cols {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 14px 12px;
+}
+
+.paer-col {
+    --c1: #0b3f78;
+    --c2: #1d5a96;
+    --ring: #1d4f8f;
+    background: #fff;
+    border: 2px solid var(--ring);
+    border-radius: 12px;
+    padding: 0 12px 12px;
+    box-shadow: 0 3px 10px rgba(20, 60, 90, .12);
+}
+
+.paer-c2 {
+    --c1: #0a615c;
+    --c2: #13897b;
+    --ring: #0f6f69;
+}
+
+.paer-c3 {
+    --c1: #2f6f05;
+    --c2: #4f9213;
+    --ring: #3b7f0e;
+}
+
+/* 欄標題：漸層膠囊＋左側圓形圖示 */
+.paer .paer-col-h {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    margin: 12px -4px 12px;
+    padding: 6px 12px 6px 56px;
+    border-radius: 999px 10px 10px 999px;
+    background: linear-gradient(90deg, var(--c1), var(--c2));
+    color: #fff;
+    font-size: 1.08rem;
+    font-weight: 800;
+    letter-spacing: .02em;
+    line-height: 1.3;
+}
+
+.paer-col-ic {
+    position: absolute;
+    left: -2px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid var(--c1);
+    color: var(--c1);
+    font-size: 22px;
+}
+
+/* 圓形圖示 */
+.paer-ic {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 21px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .18);
+}
+
+.paer-ic-green {
+    background: radial-gradient(circle at 35% 30%, #5fae1e, #2f7a05);
+}
+
+.paer-ic-blue {
+    background: radial-gradient(circle at 35% 30%, #3a86ff, #0450d6);
+}
+
+.paer-ic-teal {
+    background: radial-gradient(circle at 35% 30%, #0a9a90, #006560);
+}
+
+/* 一、時間軸 */
+.paer-timeline {
+    position: relative;
+    padding-left: 22px !important;
+}
+
+.paer-timeline::before {
+    content: "";
+    position: absolute;
+    left: 7px;
+    top: 14px;
+    bottom: 22px;
+    width: 3px;
+    border-radius: 2px;
+    background: linear-gradient(180deg, #2d6a1e, #1d4f8f 50%, #2d6a1e);
+}
+
+.paer-timeline > li {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 0;
+    font-size: .95rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    border-bottom: 2px dotted #4b6fc9;
+}
+
+.paer-timeline > li:last-child {
+    border-bottom: 0;
+}
+
+/* 時間軸節點 */
+.paer-timeline > li::before {
+    content: "";
+    position: absolute;
+    left: -21px;
+    top: 15px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid #2d6a1e;
+}
+
+.paer-timeline > li:nth-child(2)::before {
+    border-color: #1d4f8f;
+}
+
+.paer-year {
+    display: block;
+    font-size: 1.22rem;
+    font-weight: 900;
+    color: #1c3f7a;
+    line-height: 1.35;
+}
+
+.paer-global {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #0a56b8, #053f98);
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(5, 63, 152, .3);
+}
+
+.paer-global .fa {
+    flex: none;
+    font-size: 40px;
+    line-height: 1;
+}
+
+.paer-global p {
+    font-size: .86rem;
+    line-height: 1.5;
+}
+
+.paer-global strong {
+    display: block;
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+/* 二、條列 */
+.paer-list > li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 0;
+    border-bottom: 2px dotted #4b6fc9;
+    font-size: .95rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    line-height: 1.55;
+}
+
+.paer-list > li:last-child {
+    border-bottom: 0;
+}
+
+/* 三、適用情境 */
+.paer-cases {
+    display: grid;
+    gap: 10px;
+}
+
+.paer-cases > li {
+    display: grid;
+    grid-template-columns: 52% 1fr;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 2px solid #c9d8b6;
+    background: #f9f8e3;
+}
+
+.paer-case-img {
+    position: relative;
+    height: 100%;
+}
+
+.htmlEditor .paer .paer-case-img img {
+    height: 100%;
+    object-fit: cover;
+    object-position: left top; /* 固定左上角，讓數字圓圈對齊 */
+}
+
+/* 覆蓋原圖數字，改為網頁文字 */
+.paer-badge {
+    position: absolute;
+    left: .5%;
+    top: 2.5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 23%;
+    max-width: 44px;
+    min-width: 26px;
+    height: auto;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #2f6f05;
+    border: 2px solid #fff;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
+}
+
+.paer-cases p {
+    padding: 8px 10px;
+    font-size: .92rem;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: .02em;
+    color: #1a1a1a;
+}
+
+/* ---------- 重點特色 ---------- */
+.paer-feature {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 4px 12px 0;
+    min-height: 120px;
+    padding: 10px 14px 10px 10px;
+    border: 2px solid #3b8a2a;
+    border-bottom: 0;
+    border-radius: 14px 14px 0 0;
+    background: linear-gradient(90deg, #fffef0 0%, #fbfbe6 55%, #eaf4ec 100%);
+    overflow: hidden;
+}
+
+/* 右側山景：左緣漸淡，與底色自然銜接 */
+.paer-feature::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 46%;
+    max-width: 300px;
+    background: url(../images/popularscience_2_feature_bg.jpg) right bottom / cover no-repeat;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 55%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 55%);
+    pointer-events: none;
+}
+
+.paer-peak {
+    position: relative;
+    flex: none;
+    width: 104px;
+    z-index: 1;
+}
+
+.htmlEditor .paer .paer-peak img {
+    width: 92px;
+    height: 92px;
+    margin: 0 auto;
+    border-radius: 50%;
+    border: 4px solid #8cc63f;
+    object-fit: cover;
+    object-position: center top;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
+}
+
+.paer-ribbon {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    padding: 2px 0;
+    text-align: center;
+    color: #fff;
+    font-weight: 800;
+    font-size: .95rem;
+    letter-spacing: .12em;
+    background: linear-gradient(180deg, #1b6a86, #0d4a66);
+    clip-path: polygon(0 0, 100% 0, 94% 50%, 100% 100%, 0 100%, 6% 50%);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .25);
+}
+
+.paer .paer-feature-text {
+    position: relative;
+    z-index: 1;
+    font-size: 1.2rem;
+    font-weight: 900;
+    letter-spacing: .06em;
+    line-height: 1.35;
+    color: #0b1d4f;
+    text-shadow: 0 0 6px #fffef0, 0 0 10px #fffef0;
+}
+
+/* 底部圖示列（裝飾） */
+.paer-iconbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 0 12px 14px;
+    padding: 12px 8px;
+    border-radius: 0 0 14px 14px;
+    background: linear-gradient(180deg, #0f7a8f, #0b5b72);
+}
+
+.paer-bi {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #fff;
+    color: #0b5b72;
+    font-size: 19px;
+}
+
+.paer-bi + .paer-bi:not(:nth-child(2)) {
+    position: relative;
+}
+
+.paer-bi + .paer-bi:not(:nth-child(2))::before {
+    content: "";
+    position: absolute;
+    left: -50%;
+    height: 70%;
+    border-left: 2px solid rgba(255, 255, 255, .7);
+}
+
+.paer-bi-main {
+    width: 46px;
+    height: 46px;
+    background: radial-gradient(circle at 35% 30%, #94d052, #5ea425);
+    color: #fff;
+    font-size: 22px;
+}
+
+/* ==========================================================
+   版面切換
+   ========================================================== */
+
+/* 平板（內容區 ≥ 520px）：前兩欄並排，第三欄橫跨 */
+@container paer (min-width: 520px) {
+    .paer .paer-title {
+        font-size: 1.75rem;
+    }
+
+    .paer .paer-sub {
+        font-size: 1.05rem;
+    }
+
+    .paer-cols {
+        grid-template-columns: 1fr 1fr;
+        padding: 16px 14px;
+    }
+
+    .paer-c3 {
+        grid-column: 1 / -1;
+    }
+
+    .paer-cases {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .paer-cases > li {
+        grid-template-columns: 1fr;
+        align-items: stretch;
+    }
+
+    .paer-case-img {
+        height: auto;
+        aspect-ratio: 194 / 111;
+    }
+
+    .paer-feature {
+        margin: 4px 14px 0;
+        min-height: 130px;
+    }
+
+    .paer-iconbar {
+        margin: 0 14px 16px;
+    }
+
+    .paer .paer-feature-text {
+        font-size: 1.5rem;
+    }
+
+    .htmlEditor .paer .paer-peak img {
+        width: 104px;
+        height: 104px;
+    }
+
+    .paer-peak {
+        width: 118px;
+    }
+}
+
+/* 桌機（內容區 ≥ 700px）：三欄並排，同原圖 */
+@container paer (min-width: 700px) {
+    .paer .paer-title {
+        font-size: 2rem;
+    }
+
+    .paer-cols {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 12px;
+    }
+
+    .paer-c3 {
+        grid-column: auto;
+    }
+
+    .paer-col {
+        padding: 0 10px 10px;
+    }
+
+    .paer .paer-col-h {
+        font-size: .95rem;
+        padding: 6px 8px 6px 50px;
+        letter-spacing: 0;
+    }
+
+    .paer-col-ic {
+        width: 46px;
+        height: 46px;
+        font-size: 20px;
+    }
+
+    .paer-timeline > li,
+    .paer-list > li {
+        font-size: .9rem;
+    }
+
+    .paer-ic {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+
+    .paer-year {
+        font-size: 1.1rem;
+    }
+
+    .paer-cases {
+        grid-template-columns: 1fr;
+    }
+
+    .paer-cases > li {
+        grid-template-columns: 52% 1fr;
+        align-items: center;
+    }
+
+    .paer-case-img {
+        height: 100%;
+        aspect-ratio: auto;
+    }
+
+    .paer-cases p {
+        padding: 6px 8px;
+        font-size: .85rem;
+    }
+
+    .paer .paer-feature-text {
+        font-size: 1.85rem;
+    }
+
+    .paer-bi {
+        width: 46px;
+        height: 46px;
+        font-size: 22px;
+    }
+
+    .paer-bi-main {
+        width: 54px;
+        height: 54px;
+        font-size: 26px;
+    }
+}
+
+/* 小手機（內容區 < 380px） */
+@container paer (max-width: 379px) {
+    .paer .paer-title {
+        font-size: 1.25rem;
+    }
+
+    .paer .paer-sub {
+        font-size: .9rem;
+    }
+
+    .paer-feature {
+        flex-direction: column;
+        text-align: center;
+        background: linear-gradient(180deg, #fffef0, #eef7e6);
+    }
+
+    .paer-feature::after {
+        display: none;
+    }
+
+    .paer .paer-feature-text {
+        font-size: 1.1rem;
+    }
+
+    .paer-bi {
+        width: 34px;
+        height: 34px;
+        font-size: 16px;
+    }
+
+    .paer-bi-main {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media print {
+    .paer-board {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .paer-col {
+        break-inside: avoid;
+    }
+}
+
+/* ---------- popularscience_3.html：CMAQ 版差異 ---------- */
+.paer-feature-cmaq::after {
+    background-image: url(../images/popularscience_3_feature_bg.jpg);
+}
+
+/* 化學式下標（如 PM2.5） */
+.paer sub {
+    font-size: .68em;
+    line-height: 0;
+    vertical-align: -.25em;
+}
