@@ -820,7 +820,7 @@
 		})();
 
 		$(window).ready(function () {
-			$('.subMenu').find('.secCtrl').eq(2).addClass('action');
+			$('.subMenu').find('.secCtrl').eq(3).addClass('action');
 			$('.subMenu').find('.secCtrl').eq(0).removeClass('action');
 			$('.subMenu').find('.secCtrl').eq(1).removeClass('action');
 			$('.subMenu').find('.secCtrl').eq(2).removeClass('action');
@@ -829,7 +829,7 @@
 			$('.subMenu').find('.secCtrl').eq(6).removeClass('action');
 			$('.subMenu').find('.secCtrl').eq(7).removeClass('action');
 			$('.subMenu').find('.secCtrl').eq(8).removeClass('action');
-			$('.action .secMenu a:nth-child(7)').css("color", "white");
+			$('.action .secMenu a:nth-child(2)').css("color", "white");
 
 			const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
 			if (window.location.hash && isChrome) {
