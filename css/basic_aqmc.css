@@ -506,6 +506,28 @@ dd>a:active {
     text-decoration: none;
 }
 
+/* 2026-10-21 左側子選單：長名稱自動換行（不截斷），換行後與第一行文字對齊 */
+.subMenu>dl>dd.secCtrl .secMenu a {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    line-height: 1.45;
+    padding-left: calc(.6em + 7px);
+    text-indent: calc(-.6em - 7px);
+}
+
+.subMenu>dl>dd.secCtrl .secMenu a>i.fa {
+    display: inline-block;
+    width: .6em;
+    margin-right: 7px;
+    text-indent: 0;
+}
+
+/* 長名稱只在 <wbr> 指定處斷行，避免把詞語拆開 */
+.subMenu .menuTxt {
+    word-break: keep-all;
+}
+
 .mobilePlusMenu {
     display: none;
 }
